@@ -200,4 +200,11 @@ router.get('/robots.txt', (req, res) => {
   res.send(`User-agent: *\nAllow: /\nSitemap: ${SITE_URL()}/sitemap.xml\n`);
 });
 
+// Legacy permalinks from the previous host had no /blog/ prefix — redirect them.
+router.get('/:legacySlug', async (req, res, next) => {
+  const post = await Blog.findOne({ slug: req.params.legacySlug, published: true });
+  if (!post) return next();
+  res.redirect(301, `/blog/${post.slug}`);
+});
+
 module.exports = router;
