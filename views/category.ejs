@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head', { meta }) %>
+</head>
+<body>
+
+<%- include('partials/nav') %>
+
+<section class="hero" style="padding:60px 0;">
+  <div class="container">
+    <div class="eyebrow"><%= page.eyebrow %></div>
+    <h1 style="font-size:2.2rem;"><%= page.title %></h1>
+    <p class="tagline"><%= page.intro %></p>
+  </div>
+</section>
+
+<section style="border-top:none;padding-top:0;">
+  <div class="container">
+    <% if (works.length === 0) { %>
+      <p style="text-align:center;color:var(--muted);">More coming soon.</p>
+    <% } else { %>
+      <div class="grid grid-3">
+        <% works.forEach(function(work) { %>
+          <div class="card">
+            <% if (work.platform) { %><span class="tag"><%= work.platform %></span><% } %>
+            <h3><%= work.title %></h3>
+            <p><%= work.description %></p>
+            <% if (work.url) { %>
+              <a class="link" href="<%= work.url %>" target="_blank" rel="noopener">Visit →</a>
+            <% } %>
+            <%- include('partials/share', { work, siteUrl }) %>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+
+<script src="/public/js/site.js"></script>
+</body>
+</html>

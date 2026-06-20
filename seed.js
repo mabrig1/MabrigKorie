@@ -2,6 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Work = require('./models/Work');
+const SocialLink = require('./models/SocialLink');
 
 const works = [
   {
@@ -185,9 +186,33 @@ const works = [
   },
   {
     category: 'music',
+    title: 'The Remnant Cry (Arise)',
+    description: 'Gospel album of prophetic worship and revival.',
+    url: 'https://open.spotify.com/search/Mabrig%20Korie',
+    platform: 'Spotify',
+    tags: ['Album'],
+  },
+  {
+    category: 'music',
+    title: 'Miracle Worker',
+    description: 'Gospel album celebrating God\'s miracle-working power.',
+    url: 'https://open.spotify.com/search/Mabrig%20Korie',
+    platform: 'Spotify',
+    tags: ['Album'],
+  },
+  {
+    category: 'music',
+    title: 'Rise, People of God',
+    description: 'Gospel album of awakening and revival worship.',
+    url: 'https://open.spotify.com/search/Mabrig%20Korie',
+    platform: 'Spotify',
+    tags: ['Album'],
+  },
+  {
+    category: 'music',
     title: 'Mabrig Korie on Spotify',
-    description: 'Albums including Where is the Love?, Miracle Worker, The Remnant Cry (Arise).',
-    url: 'https://open.spotify.com/artist/',
+    description: 'Full discography including Where is the Love?, Miracle Worker, The Remnant Cry (Arise), Justice Before Unity.',
+    url: 'https://open.spotify.com/search/Mabrig%20Korie',
     platform: 'Spotify',
     tags: ['Discography'],
   },
@@ -227,19 +252,44 @@ const works = [
     description: 'Cinematic AI video generation, sound design, viral short-form scriptwriting for faith-based and motivational content.',
     tags: ['AI Multimedia'],
   },
+  {
+    category: 'service',
+    title: 'AI Solutions',
+    description: 'AI prompt engineering, chatbot and automation workflows, AI-assisted content and research pipelines for businesses and ministries.',
+    tags: ['AI Solutions'],
+  },
+  {
+    category: 'service',
+    title: 'Content Strategy',
+    description: 'Editorial calendars, brand voice development, and cross-platform content systems that turn a single idea into a full content pipeline.',
+    tags: ['Content Strategy'],
+  },
+];
+
+const socialLinks = [
+  { platform: 'TikTok', url: 'https://www.tiktok.com/@mabrigkorie', icon: '📱', order: 1 },
+  { platform: 'SoundCloud', url: 'https://soundcloud.com/mabrigkorie', icon: '☁️', order: 2 },
+  { platform: 'Audiomack', url: 'https://audiomack.com/mabrig', icon: '🎙️', order: 3 },
+  { platform: 'Apple Music', url: 'https://music.apple.com/album/justice-before-unity', icon: '🎧', order: 4 },
+  { platform: 'Spotify', url: 'https://open.spotify.com/search/Mabrig%20Korie', icon: '🎶', order: 5 },
+  { platform: 'Goodreads', url: 'https://www.goodreads.com/author/list/18160841.Mabrig_Korie', icon: '📚', order: 6 },
+  { platform: 'Gumroad Store', url: 'https://mabrig.gumroad.com', icon: '🛒', order: 7 },
+  { platform: 'Official Store', url: 'https://store.mabrigkorie.org/', icon: '🏬', order: 8 },
 ];
 
 async function run() {
   await mongoose.connect(process.env.MONGODB_URI);
   await Work.deleteMany({});
+  await SocialLink.deleteMany({});
 
   for (let i = 0; i < works.length; i++) {
     const w = works[i];
     const slug = slugify(w.title, { lower: true, strict: true });
     await Work.create({ ...w, slug, order: i });
   }
+  await SocialLink.insertMany(socialLinks);
 
-  console.log(`Seeded ${works.length} works.`);
+  console.log(`Seeded ${works.length} works and ${socialLinks.length} social links.`);
   await mongoose.disconnect();
 }
 

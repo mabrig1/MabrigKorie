@@ -1,0 +1,7 @@
+<% if (socialLinks && socialLinks.length) { %>
+<div class="hero-roles" style="margin-top:30px;">
+  <% socialLinks.forEach(function(link) { %>
+    <a class="role-pill" href="<%= link.url %>" target="_blank" rel="noopener"><%= link.icon || '' %> <%= link.platform %></a>
+  <% }); %>
+</div>
+<% } %>

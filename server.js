@@ -7,6 +7,7 @@ const path = require('path');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const worksRoutes = require('./routes/works');
+const socialLinksRoutes = require('./routes/socialLinks');
 const publicRoutes = require('./routes/public');
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/admin/login', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api/works', worksRoutes);
+app.use('/api/social-links', socialLinksRoutes);
 app.use('/', publicRoutes);
 
 const PORT = process.env.PORT || 3000;

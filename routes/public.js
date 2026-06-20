@@ -1,12 +1,71 @@
 const express = require('express');
 const Work = require('../models/Work');
+const SocialLink = require('../models/SocialLink');
 const router = express.Router();
 
 const SITE_NAME = 'Mabrig Korie';
 const SITE_URL = () => process.env.SITE_URL || 'https://mabrigkorie.org';
 
+const BIO_POINTS = [
+  'Founder of Mabrig Technologies',
+  'Founder of Mabrig Research Institute',
+  'Author of 40+ books',
+  'Gospel Music Artist',
+  'Creator of Destiny Skills Bridge',
+  'Academic Researcher',
+  'Full-Stack Developer',
+];
+
+const CATEGORY_PAGES = {
+  projects: {
+    category: 'app',
+    eyebrow: 'Apps & Platforms Built',
+    title: 'Web Applications & Research Platforms',
+    intro: 'Live, deployed products designed and built end-to-end — backend, frontend, and content.',
+  },
+  research: {
+    category: 'research',
+    eyebrow: 'Academic & Scientific Writing',
+    title: 'Mabrig Journal of Interdisciplinary Research',
+    intro: 'Selected published work spanning AI Ethics, Security Studies, Political Economy, Theology, Public Health, and Pharmacology.',
+  },
+  books: {
+    category: 'book',
+    eyebrow: 'Authorship',
+    title: 'Books & Publications',
+    intro: '40+ published books on prayer, spiritual warfare, identity, and personal development.',
+  },
+  music: {
+    category: 'music',
+    eyebrow: 'Music & Ministry',
+    title: 'Gospel Discography',
+    intro: 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.',
+  },
+  services: {
+    category: 'service',
+    eyebrow: 'Hire Me',
+    title: 'Core Service Offerings',
+    intro: 'End-to-end capability across development, AI solutions, research, publishing, and content strategy.',
+  },
+};
+
+async function getStats() {
+  const [apps, research, books, music, services] = await Promise.all([
+    Work.countDocuments({ category: 'app' }),
+    Work.countDocuments({ category: 'research' }),
+    Work.countDocuments({ category: 'book' }),
+    Work.countDocuments({ category: 'music' }),
+    Work.countDocuments({ category: 'service' }),
+  ]);
+  return { apps, research, books, music, services };
+}
+
 router.get('/', async (req, res) => {
-  const works = await Work.find().sort({ order: 1, createdAt: -1 });
+  const [works, socialLinks, stats] = await Promise.all([
+    Work.find().sort({ order: 1, createdAt: -1 }),
+    SocialLink.find().sort({ order: 1 }),
+    getStats(),
+  ]);
   const byCategory = {
     app: works.filter((w) => w.category === 'app'),
     research: works.filter((w) => w.category === 'research'),
@@ -19,12 +78,51 @@ router.get('/', async (req, res) => {
     siteName: SITE_NAME,
     siteUrl: SITE_URL(),
     meta: {
-      title: 'Mabrig Korie — Developer, Author, Researcher & Gospel Artist',
+      title: 'Mabrig Korie — Author, Researcher, Gospel Musician & Full-Stack Developer',
       description:
-        'Official portfolio of Mabrig Korie: full-stack developer, published author, academic researcher, and gospel musician.',
+        'Official portfolio of Mabrig Korie: full-stack developer, published author, academic researcher, gospel musician, and digital entrepreneur.',
       url: SITE_URL(),
     },
     byCategory,
+    bioPoints: BIO_POINTS,
+    socialLinks,
+    stats,
+  });
+});
+
+router.get('/contact', (req, res) => {
+  SocialLink.find()
+    .sort({ order: 1 })
+    .then((socialLinks) => {
+      res.render('contact', {
+        siteName: SITE_NAME,
+        siteUrl: SITE_URL(),
+        meta: {
+          title: `Contact — ${SITE_NAME}`,
+          description: 'Get in touch with Mabrig Korie for development, writing, research, or production projects.',
+          url: `${SITE_URL()}/contact`,
+        },
+        socialLinks,
+      });
+    });
+});
+
+Object.keys(CATEGORY_PAGES).forEach((slug) => {
+  router.get(`/${slug}`, async (req, res) => {
+    const page = CATEGORY_PAGES[slug];
+    const works = await Work.find({ category: page.category }).sort({ order: 1, createdAt: -1 });
+
+    res.render('category', {
+      siteName: SITE_NAME,
+      siteUrl: SITE_URL(),
+      meta: {
+        title: `${page.title} — ${SITE_NAME}`,
+        description: page.intro,
+        url: `${SITE_URL()}/${slug}`,
+      },
+      page,
+      works,
+    });
   });
 });
 
@@ -50,6 +148,8 @@ router.get('/sitemap.xml', async (req, res) => {
   const works = await Work.find().select('slug updatedAt');
   const urls = [
     `${SITE_URL()}/`,
+    ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
+    `${SITE_URL()}/contact`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];
   res.set('Content-Type', 'application/xml');

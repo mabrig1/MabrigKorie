@@ -182,3 +182,97 @@ workForm.addEventListener('submit', async (e) => {
 });
 
 loadWorks();
+
+// ===== Social Links =====
+let socialLinks = [];
+let editingSocialId = null;
+const socialModalOverlay = document.getElementById('socialModalOverlay');
+const socialForm = document.getElementById('socialForm');
+
+async function loadSocialLinks() {
+  const res = await fetch('/api/social-links');
+  socialLinks = await res.json();
+  renderSocialList();
+}
+
+function renderSocialList() {
+  const list = document.getElementById('socialList');
+  if (socialLinks.length === 0) {
+    list.innerHTML = `<p style="color:var(--muted);text-align:center;padding:20px;">No social links yet.</p>`;
+    return;
+  }
+  list.innerHTML = socialLinks.map((s) => `
+    <div class="work-row" data-id="${s._id}">
+      <div class="meta">
+        <div class="title">${s.icon || ''} ${escapeHtml(s.platform)}</div>
+        <div class="sub">${escapeHtml(s.url)}</div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-action="edit-social" data-id="${s._id}">Edit</button>
+        <button class="btn btn-danger btn-sm" data-action="delete-social" data-id="${s._id}">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openSocialModal(link) {
+  editingSocialId = link ? link._id : null;
+  document.getElementById('socialModalTitle').textContent = link ? 'Edit Social Link' : 'Add Social Link';
+  document.getElementById('s_id').value = link ? link._id : '';
+  document.getElementById('s_platform').value = link ? link.platform : '';
+  document.getElementById('s_url').value = link ? link.url : '';
+  document.getElementById('s_icon').value = link ? (link.icon || '') : '';
+  document.getElementById('s_order').value = link ? link.order : 0;
+  socialModalOverlay.classList.add('open');
+}
+
+function closeSocialModal() {
+  socialModalOverlay.classList.remove('open');
+  socialForm.reset();
+  editingSocialId = null;
+}
+
+document.getElementById('addSocialBtn').addEventListener('click', () => openSocialModal(null));
+document.getElementById('socialCancelBtn').addEventListener('click', closeSocialModal);
+socialModalOverlay.addEventListener('click', (e) => { if (e.target === socialModalOverlay) closeSocialModal(); });
+
+document.getElementById('socialList').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const link = socialLinks.find((s) => s._id === id);
+
+  if (btn.dataset.action === 'edit-social') {
+    openSocialModal(link);
+  } else if (btn.dataset.action === 'delete-social') {
+    if (!confirm(`Delete "${link.platform}"?`)) return;
+    await fetch(`/api/social-links/${id}`, { method: 'DELETE' });
+    await loadSocialLinks();
+  }
+});
+
+socialForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const payload = {
+    platform: document.getElementById('s_platform').value,
+    url: document.getElementById('s_url').value,
+    icon: document.getElementById('s_icon').value,
+    order: document.getElementById('s_order').value,
+  };
+  const url = editingSocialId ? `/api/social-links/${editingSocialId}` : '/api/social-links';
+  const method = editingSocialId ? 'PUT' : 'POST';
+  const res = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    alert('Error: ' + err.error);
+    return;
+  }
+  closeSocialModal();
+  await loadSocialLinks();
+});
+
+loadSocialLinks();
