@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const worksRoutes = require('./routes/works');
 const socialLinksRoutes = require('./routes/socialLinks');
+const blogRoutes = require('./routes/blog');
 const publicRoutes = require('./routes/public');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/admin/login', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api/works', worksRoutes);
 app.use('/api/social-links', socialLinksRoutes);
+app.use('/api/blog', blogRoutes);
 app.use('/', publicRoutes);
 
 const PORT = process.env.PORT || 3000;

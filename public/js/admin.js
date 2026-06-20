@@ -278,3 +278,113 @@ socialForm.addEventListener('submit', async (e) => {
 });
 
 loadSocialLinks();
+
+// ===== Blog =====
+let blogPosts = [];
+let editingBlogId = null;
+const blogModalOverlay = document.getElementById('blogModalOverlay');
+const blogForm = document.getElementById('blogForm');
+
+async function loadBlogPosts() {
+  const res = await fetch('/api/blog?all=1');
+  blogPosts = await res.json();
+  renderBlogList();
+}
+
+function renderBlogList() {
+  const list = document.getElementById('blogList');
+  if (blogPosts.length === 0) {
+    list.innerHTML = `<p style="color:var(--muted);text-align:center;padding:30px;">No posts yet. Click "New Post" to start writing.</p>`;
+    return;
+  }
+  list.innerHTML = blogPosts.map((p) => `
+    <div class="work-row" data-id="${p._id}">
+      <div class="meta">
+        <div class="title">${escapeHtml(p.title)} ${p.published ? '🟢' : '⚪ Draft'}</div>
+        <div class="sub">/blog/${p.slug}</div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-action="edit-blog" data-id="${p._id}">Edit</button>
+        <button class="btn btn-danger btn-sm" data-action="delete-blog" data-id="${p._id}">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openBlogModal(post) {
+  editingBlogId = post ? post._id : null;
+  document.getElementById('blogModalTitle').textContent = post ? 'Edit Post' : 'New Post';
+  document.getElementById('b_id').value = post ? post._id : '';
+  document.getElementById('b_title').value = post ? post.title : '';
+  document.getElementById('b_excerpt').value = post ? (post.excerpt || '') : '';
+  document.getElementById('b_coverImage').value = post ? (post.coverImage || '') : '';
+  document.getElementById('b_tags').value = post ? (post.tags || []).join(', ') : '';
+  document.getElementById('b_slug').value = post ? post.slug : '';
+  document.getElementById('b_published').checked = post ? !!post.published : false;
+  document.getElementById('b_content').value = post ? post.content : '';
+  document.getElementById('b_seoTitle').value = post ? (post.seoTitle || '') : '';
+  document.getElementById('b_seoDescription').value = post ? (post.seoDescription || '') : '';
+  document.getElementById('b_seoKeywords').value = post ? (post.seoKeywords || []).join(', ') : '';
+  blogModalOverlay.classList.add('open');
+}
+
+function closeBlogModal() {
+  blogModalOverlay.classList.remove('open');
+  blogForm.reset();
+  editingBlogId = null;
+}
+
+document.getElementById('addBlogBtn').addEventListener('click', () => openBlogModal(null));
+document.getElementById('blogCancelBtn').addEventListener('click', closeBlogModal);
+blogModalOverlay.addEventListener('click', (e) => { if (e.target === blogModalOverlay) closeBlogModal(); });
+
+document.getElementById('blogList').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const post = blogPosts.find((p) => p._id === id);
+
+  if (btn.dataset.action === 'edit-blog') {
+    openBlogModal(post);
+  } else if (btn.dataset.action === 'delete-blog') {
+    if (!confirm(`Delete "${post.title}"?`)) return;
+    await fetch(`/api/blog/${id}`, { method: 'DELETE' });
+    await loadBlogPosts();
+  }
+});
+
+blogForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const payload = {
+    title: document.getElementById('b_title').value,
+    excerpt: document.getElementById('b_excerpt').value,
+    coverImage: document.getElementById('b_coverImage').value,
+    tags: document.getElementById('b_tags').value,
+    slug: document.getElementById('b_slug').value,
+    published: document.getElementById('b_published').checked,
+    content: document.getElementById('b_content').value,
+    seoTitle: document.getElementById('b_seoTitle').value,
+    seoDescription: document.getElementById('b_seoDescription').value,
+    seoKeywords: document.getElementById('b_seoKeywords').value,
+  };
+
+  const url = editingBlogId ? `/api/blog/${editingBlogId}` : '/api/blog';
+  const method = editingBlogId ? 'PUT' : 'POST';
+
+  const res = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    alert('Error: ' + err.error);
+    return;
+  }
+
+  closeBlogModal();
+  await loadBlogPosts();
+});
+
+loadBlogPosts();

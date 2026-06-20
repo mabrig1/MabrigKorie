@@ -43,6 +43,12 @@
     <div class="work-list" id="workList"></div>
 
     <div class="admin-topbar">
+      <h1 style="font-size:1.2rem;">Blog Posts</h1>
+      <button class="btn btn-primary" id="addBlogBtn">+ New Post</button>
+    </div>
+    <div class="work-list" id="blogList"></div>
+
+    <div class="admin-topbar">
       <h1 style="font-size:1.2rem;">Social Links</h1>
       <button class="btn btn-ghost btn-sm" id="addSocialBtn">+ Add Social Link</button>
     </div>
@@ -138,6 +144,66 @@
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
         <button type="submit" class="btn btn-primary">Save Work</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="blogModalOverlay">
+  <div class="modal">
+    <h2 id="blogModalTitle">New Post</h2>
+    <form id="blogForm">
+      <input type="hidden" id="b_id">
+      <div class="field">
+        <label>Title</label>
+        <input type="text" id="b_title" required>
+      </div>
+      <div class="field">
+        <label>Excerpt (short summary, shown on the blog list)</label>
+        <textarea id="b_excerpt"></textarea>
+      </div>
+      <div class="field">
+        <label>Cover Image URL</label>
+        <input type="url" id="b_coverImage" placeholder="https://...">
+      </div>
+      <div class="field">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="b_tags" placeholder="faith, technology, research">
+      </div>
+      <div class="field">
+        <label>Slug (URL path, auto-generated if blank)</label>
+        <input type="text" id="b_slug" placeholder="how-i-built-destiny-skills-bridge">
+      </div>
+      <div class="field checkbox-row">
+        <input type="checkbox" id="b_published">
+        <label style="margin:0;">Published (uncheck to save as draft)</label>
+      </div>
+
+      <hr style="border-color:var(--border);margin:20px 0;">
+      <h3 style="font-size:1rem;color:var(--accent-soft);margin-bottom:14px;">Post Content</h3>
+      <div class="field">
+        <label>Raw HTML body</label>
+        <textarea id="b_content" rows="14" spellcheck="false" style="font-family:monospace;font-size:0.85rem;" placeholder="&lt;p&gt;Write your post here. HTML is rendered as-is.&lt;/p&gt;" required></textarea>
+      </div>
+
+      <hr style="border-color:var(--border);margin:20px 0;">
+      <h3 style="font-size:1rem;color:var(--accent-soft);margin-bottom:14px;">SEO Optimization</h3>
+      <div class="field">
+        <label>SEO Title</label>
+        <input type="text" id="b_seoTitle" maxlength="70" placeholder="Defaults to title">
+      </div>
+      <div class="field">
+        <label>SEO Description</label>
+        <textarea id="b_seoDescription" maxlength="160" placeholder="Defaults to excerpt"></textarea>
+      </div>
+      <div class="field">
+        <label>SEO Keywords (comma separated)</label>
+        <input type="text" id="b_seoKeywords" placeholder="gospel music, faith, MERN stack">
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="blogCancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Post</button>
       </div>
     </form>
   </div>

@@ -1,6 +1,7 @@
 const express = require('express');
 const Work = require('../models/Work');
 const SocialLink = require('../models/SocialLink');
+const Blog = require('../models/Blog');
 const router = express.Router();
 
 const SITE_NAME = 'Mabrig Korie';
@@ -144,13 +145,48 @@ router.get('/work/:slug', async (req, res) => {
   });
 });
 
+router.get('/blog', async (req, res) => {
+  const posts = await Blog.find({ published: true }).sort({ publishedAt: -1 });
+  res.render('blog-list', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: `Blog — ${SITE_NAME}`,
+      description: 'Articles and writing from Mabrig Korie on faith, technology, research, and creative work.',
+      url: `${SITE_URL()}/blog`,
+    },
+    posts,
+  });
+});
+
+router.get('/blog/:slug', async (req, res) => {
+  const post = await Blog.findOne({ slug: req.params.slug, published: true });
+  if (!post) return res.status(404).send('Not found');
+
+  res.render('blog-post', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: post.seoTitle || `${post.title} — ${SITE_NAME}`,
+      description: post.seoDescription || post.excerpt,
+      url: `${SITE_URL()}/blog/${post.slug}`,
+      keywords: (post.seoKeywords || []).join(', '),
+      image: post.coverImage,
+    },
+    post,
+  });
+});
+
 router.get('/sitemap.xml', async (req, res) => {
   const works = await Work.find().select('slug updatedAt');
+  const posts = await Blog.find({ published: true }).select('slug updatedAt');
   const urls = [
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
     `${SITE_URL()}/contact`,
+    `${SITE_URL()}/blog`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
+    ...posts.map((p) => `${SITE_URL()}/blog/${p.slug}`),
   ];
   res.set('Content-Type', 'application/xml');
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
