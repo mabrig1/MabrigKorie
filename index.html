@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mabrig Korie — Developer, Author, Researcher & Gospel Artist</title>
+<meta name="description" content="Official portfolio of Mabrig Korie: full-stack developer, published author, academic researcher, and gospel musician.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0d12;
+    --bg-alt:#11141b;
+    --card:#161a23;
+    --border:#242a36;
+    --text:#e8eaf0;
+    --muted:#9aa2b2;
+    --accent:#d4af37;
+    --accent-soft:#f0d98c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{font-family:'Playfair Display',serif;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,13,18,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1100px;margin:0 auto;}
+  .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:var(--accent-soft);}
+  .navlinks{display:flex;gap:24px;flex-wrap:wrap;}
+  .navlinks a{font-size:0.92rem;color:var(--muted);transition:color .2s;}
+  .navlinks a:hover{color:var(--accent-soft);}
+
+  /* HERO */
+  .hero{
+    padding:90px 0 70px;
+    text-align:center;
+    background:radial-gradient(ellipse at top,rgba(212,175,55,0.08),transparent 60%);
+  }
+  .hero .eyebrow{
+    letter-spacing:3px;text-transform:uppercase;font-size:0.78rem;
+    color:var(--accent);font-weight:600;margin-bottom:18px;
+  }
+  .hero h1{font-size:clamp(2.2rem,5vw,3.6rem);margin-bottom:18px;color:#fff;}
+  .hero p.tagline{
+    font-size:1.15rem;color:var(--muted);max-width:680px;margin:0 auto 28px;
+  }
+  .hero-roles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:34px;}
+  .role-pill{
+    border:1px solid var(--border);background:var(--card);
+    padding:7px 16px;border-radius:30px;font-size:0.85rem;color:var(--accent-soft);
+  }
+  .btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:13px 28px;border-radius:8px;font-weight:600;font-size:0.95rem;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-primary{background:var(--accent);color:#161a23;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(212,175,55,0.25);}
+  .btn-ghost{border:1px solid var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-soft);}
+
+  /* SECTIONS */
+  section{padding:70px 0;border-top:1px solid var(--border);}
+  .section-head{margin-bottom:40px;text-align:center;}
+  .section-head .eyebrow{
+    letter-spacing:3px;text-transform:uppercase;font-size:0.75rem;color:var(--accent);font-weight:600;margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(1.6rem,3.5vw,2.3rem);color:#fff;}
+  .section-head p{color:var(--muted);max-width:620px;margin:14px auto 0;}
+
+  .grid{display:grid;gap:22px;}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:26px;transition:border-color .2s, transform .2s;
+  }
+  .card:hover{border-color:var(--accent);transform:translateY(-3px);}
+  .card .icon{font-size:1.6rem;margin-bottom:14px;display:block;}
+  .card h3{font-size:1.1rem;color:#fff;margin-bottom:8px;}
+  .card p{color:var(--muted);font-size:0.92rem;margin-bottom:14px;}
+  .card a.link{color:var(--accent-soft);font-size:0.88rem;font-weight:600;}
+  .card a.link:hover{text-decoration:underline;}
+
+  .tag{
+    display:inline-block;background:rgba(212,175,55,0.1);color:var(--accent-soft);
+    border:1px solid rgba(212,175,55,0.3);font-size:0.72rem;padding:3px 10px;border-radius:20px;margin-bottom:10px;
+  }
+
+  /* skills matrix */
+  table{width:100%;border-collapse:collapse;}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:0.9rem;}
+  th{color:var(--accent-soft);font-weight:600;}
+  td{color:var(--muted);}
+
+  .pub-list{display:flex;flex-direction:column;gap:14px;}
+  .pub{
+    border:1px solid var(--border);background:var(--bg-alt);border-radius:10px;padding:16px 20px;
+    font-size:0.92rem;color:var(--muted);
+  }
+  .pub strong{color:var(--text);}
+
+  footer{
+    text-align:center;padding:50px 24px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);
+  }
+  footer a{color:var(--accent-soft);}
+
+  .alt-bg{background:var(--bg-alt);}
+
+  @media(max-width:640px){
+    .navlinks{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">Mabrig Korie</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#apps">Apps</a>
+      <a href="#research">Research</a>
+      <a href="#books">Books</a>
+      <a href="#music">Music</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Full-Stack Developer · Author · Researcher · Gospel Artist</div>
+    <h1>Mabrig Korie</h1>
+    <p class="tagline">
+      I build complete digital products from the ground up — the code, the curriculum, the manuscript, and the message.
+      Full-stack engineer, published author of 47+ books, founder of an academic research journal, and a Nigerian
+      gospel artist and prophetic minister based in Port Harcourt / Nsukka, Nigeria.
+    </p>
+    <div class="hero-roles">
+      <span class="role-pill">MERN Stack Developer</span>
+      <span class="role-pill">Published Author</span>
+      <span class="role-pill">Founder, Mabrig Research Institute</span>
+      <span class="role-pill">Gospel Musician</span>
+      <span class="role-pill">Course Architect</span>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#apps">View My Work</a>
+      <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">About</div>
+      <h2>Disciplined, end-to-end work</h2>
+      <p>
+        I designed and built <strong>Destiny Skills Bridge</strong>, a live MERN-stack e-learning platform
+        (Express/MongoDB backend, Vercel-deployed frontend) that takes Nigerian learners from zero to
+        income-earning freelance skills — including a full 15-module Affiliate Marketing Mastery course I authored
+        myself. I'm also the author of <em>The Perception Pressure Theory</em>, a full-length book on identity and
+        mindset, founder of the Mabrig Journal of Interdisciplinary Research, and a gospel artist releasing
+        prophetic worship music across major streaming platforms.
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="icon">💻</span>
+        <h3>Development</h3>
+        <p>Node.js, Express, MongoDB, REST APIs, auth & payment systems, Vercel/Railway deployment.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📚</span>
+        <h3>Authorship</h3>
+        <p>47+ published books spanning spiritual warfare, prayer, identity & mindset, personal development.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🔬</span>
+        <h3>Research</h3>
+        <p>Theology, security studies, political economy, public health, and computational pharmacology.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🎵</span>
+        <h3>Music & Ministry</h3>
+        <p>Prophetic worship, deliverance music, and gospel albums across Spotify, Apple Music & Audiomack.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🎓</span>
+        <h3>Course Design</h3>
+        <p>Curriculum architecture, lesson breakdowns, quiz/assessment design, capstone projects.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🚀</span>
+        <h3>Digital Publishing</h3>
+        <p>eBook formatting, multi-platform distribution: KDP, Selar, Gumroad, Paystack.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apps" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Apps & Platforms Built</div>
+      <h2>Web Applications &amp; Research Platforms</h2>
+      <p>Live, deployed products designed and built end-to-end — backend, frontend, and content.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="tag">MERN Stack · Flagship Product</span>
+        <h3>Destiny Skills Bridge</h3>
+        <p>E-learning platform taking Nigerian learners from zero to income-earning freelance skills, including a full 15-module Affiliate Marketing Mastery course.</p>
+        <a class="link" href="https://www.mabrigresearch.online/" target="_blank" rel="noopener">View Project →</a>
+      </div>
+      <div class="card">
+        <span class="tag">Research Platform</span>
+        <h3>Mabrig Research Institute</h3>
+        <p>Home of the Mabrig Journal of Interdisciplinary Research (MJIR) — an open-access academic journal.</p>
+        <a class="link" href="https://www.mabrigresearch.online/" target="_blank" rel="noopener">Visit Site →</a>
+      </div>
+      <div class="card">
+        <span class="tag">Academic Journal</span>
+        <h3>iJournal</h3>
+        <p>Academic publishing platform for peer-reviewed, interdisciplinary research.</p>
+        <a class="link" href="https://www.ijournal.uk/" target="_blank" rel="noopener">Visit Site →</a>
+      </div>
+      <div class="card">
+        <span class="tag">Grant & Funding Platform</span>
+        <h3>Afrigrant Pipeline</h3>
+        <p>Platform connecting researchers and organizations to grant and funding opportunities across Africa.</p>
+        <a class="link" href="https://www.afrigrantpipeline.com/" target="_blank" rel="noopener">Visit Site →</a>
+      </div>
+      <div class="card">
+        <span class="tag">Web Platform</span>
+        <h3>DDEI Online</h3>
+        <p>Digital platform built and deployed as part of the Mabrig Technologies portfolio.</p>
+        <a class="link" href="https://ddei.online/" target="_blank" rel="noopener">Visit Site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Academic & Scientific Writing</div>
+      <h2>Mabrig Journal of Interdisciplinary Research</h2>
+      <p>Selected published work — converting dense source material into publication-ready, citation-verified academic writing.</p>
+    </div>
+    <div class="pub-list">
+      <div class="pub"><strong>Deus ex Machina?</strong> A Theological Framework for Imago Dei and Moral Agency in the Age of Generative AI — <em>Theology / AI Ethics</em></div>
+      <div class="pub"><strong>The IPOB Shield:</strong> Narrative Labeling, Moral Panic, and the Architecture of Impunity in Nigeria's South-East Security Crisis — <em>Security Studies / Human Rights</em></div>
+      <div class="pub"><strong>Manufacturing a Threat:</strong> A Critical History of the "Civilizational Jihad" Narrative — <em>Religious Studies / Security Studies</em></div>
+      <div class="pub"><strong>State Capture, Institutional Decay, and the Limits of Sovereignty in Nigeria</strong> — <em>Governance / Security Studies</em></div>
+      <div class="pub"><strong>"Na Statistics We Go Chop?"</strong> Macroeconomic Gaslighting and Nigeria's Trillion-Dollar Delusion — <em>Political Economy</em></div>
+      <div class="pub"><strong>Network Pharmacology Synthesis</strong> of Anacardiaceae and Poaceae Leaf Combinations — <em>Computational Pharmacology</em></div>
+      <div class="pub"><strong>Inflation, Food Insecurity, and Household Resilience in Nigeria</strong> — <em>Development Economics</em></div>
+      <div class="pub"><strong>The 'Japa' Phenomenon</strong> and Human Capital Flight in Nigeria — <em>Public Health / Migration Studies</em></div>
+    </div>
+    <div class="btn-row" style="margin-top:30px;">
+      <a class="btn btn-primary" href="https://www.mabrigresearch.online/" target="_blank" rel="noopener">Full Catalogue & Downloads</a>
+    </div>
+  </div>
+</section>
+
+<section id="books" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Authorship</div>
+      <h2>Books & Publishing</h2>
+      <p>47+ published books on prayer, spiritual warfare, identity, and personal development.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Decrees That Govern the Heavens</h3>
+        <p>Spiritual warfare and declaration prayers.</p>
+      </div>
+      <div class="card">
+        <h3>Pleading the Blood of Jesus</h3>
+        <p>Warfare prayers & decrees — his most popular title on Goodreads.</p>
+      </div>
+      <div class="card">
+        <h3>Warfare Prayer Against Poverty &amp; Financial Attacks</h3>
+        <p>Deliverance-focused prayer guide.</p>
+      </div>
+      <div class="card">
+        <h3>30-Day Faith Activation Blueprint</h3>
+        <p>Structured devotional and faith-building program.</p>
+      </div>
+      <div class="card">
+        <h3>Night Prayers: Breakthrough Prayer Series</h3>
+        <p>Prophetic prayer series for breakthrough.</p>
+      </div>
+      <div class="card">
+        <h3>The Perception Pressure Theory</h3>
+        <p>Full-length book on identity and mindset.</p>
+      </div>
+    </div>
+    <div class="section-head" style="margin-top:50px;">
+      <h2 style="font-size:1.4rem;">Where to Find &amp; Buy</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Gumroad Store</h3>
+        <p>Digital books and eBooks for direct purchase.</p>
+        <a class="link" href="https://mabrig.gumroad.com" target="_blank" rel="noopener">Visit Store →</a>
+      </div>
+      <div class="card">
+        <h3>Mabrig Korie Store</h3>
+        <p>Official book and digital product storefront.</p>
+        <a class="link" href="https://store.mabrigkorie.org/" target="_blank" rel="noopener">Visit Store →</a>
+      </div>
+      <div class="card">
+        <h3>Goodreads Author Page</h3>
+        <p>Full catalogue of 47 books with reader reviews and ratings.</p>
+        <a class="link" href="https://www.goodreads.com/author/list/18160841.Mabrig_Korie" target="_blank" rel="noopener">View on Goodreads →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="music">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Music & Ministry</div>
+      <h2>Gospel Discography</h2>
+      <p>Prophetic worship and deliverance music as a Nigerian gospel artist and minister.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="icon">🎶</span>
+        <h3>Spotify</h3>
+        <p>Albums including Where is the Love?, Miracle Worker, The Remnant Cry (Arise), Justice Before Unity.</p>
+        <a class="link" href="https://open.spotify.com/artist/" target="_blank" rel="noopener">Listen on Spotify →</a>
+      </div>
+      <div class="card">
+        <span class="icon">🎧</span>
+        <h3>Apple Music</h3>
+        <p>Justice Before Unity, Igbo Truth (Glory Hallelujah), and more singles & albums.</p>
+        <a class="link" href="https://music.apple.com/album/justice-before-unity" target="_blank" rel="noopener">Listen on Apple Music →</a>
+      </div>
+      <div class="card">
+        <span class="icon">☁️</span>
+        <h3>SoundCloud</h3>
+        <p>There Is Power in the Blood of the Lamb, The Blood Still Speaks, and more.</p>
+        <a class="link" href="https://soundcloud.com/mabrigkorie" target="_blank" rel="noopener">Listen on SoundCloud →</a>
+      </div>
+      <div class="card">
+        <span class="icon">🎙️</span>
+        <h3>Audiomack</h3>
+        <p>Believer, and other prophetic worship tracks.</p>
+        <a class="link" href="https://audiomack.com/mabrig" target="_blank" rel="noopener">Listen on Audiomack →</a>
+      </div>
+      <div class="card">
+        <span class="icon">📀</span>
+        <h3>UnitedMasters</h3>
+        <p>Full discography, music videos, and links.</p>
+        <a class="link" href="https://unitedmasters.com/mabrig-korie" target="_blank" rel="noopener">View Profile →</a>
+      </div>
+      <div class="card">
+        <span class="icon">📱</span>
+        <h3>TikTok</h3>
+        <p>Short-form gospel content and music clips.</p>
+        <a class="link" href="https://www.tiktok.com/@mabrigkorie" target="_blank" rel="noopener">Follow on TikTok →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Hire Me</div>
+      <h2>Core Service Offerings</h2>
+      <p>End-to-end capability across development, writing, research, and digital publishing.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="icon">🖥️</span>
+        <h3>Full-Stack Web & App Development</h3>
+        <p>Node.js/Express APIs, MongoDB data modeling, REST API design, admin dashboards, auth/payment systems, Vercel/Railway deployment.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🎓</span>
+        <h3>Online Course Creation & Instructional Design</h3>
+        <p>Curriculum architecture, module/lesson breakdowns, quiz and assessment design, capstone projects, LMS data structuring.</p>
+      </div>
+      <div class="card">
+        <span class="icon">✍️</span>
+        <h3>Book Authorship & Ghostwriting</h3>
+        <p>Long-form nonfiction writing, manuscript structuring, chapter development, identity/mindset and self-help content.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🔬</span>
+        <h3>Academic & Research Writing</h3>
+        <p>Literature reviews, policy briefs, qualitative/quantitative analysis, thesis structuring and editing.</p>
+      </div>
+      <div class="card">
+        <span class="icon">📦</span>
+        <h3>Digital Publishing & Launch Setup</h3>
+        <p>eBook formatting, multi-platform distribution (Selar, Gumroad, Paystack), course/product launch architecture.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🎬</span>
+        <h3>AI Multimedia & Cinematic Production</h3>
+        <p>Cinematic AI video generation, sound design, viral short-form scriptwriting for faith-based and motivational content.</p>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:50px;">
+      <h2 style="font-size:1.4rem;">Skills Matrix</h2>
+    </div>
+    <table>
+      <tr><th>Development</th><th>Content & Education</th><th>Business & Publishing</th></tr>
+      <tr><td>Node.js / Express / MongoDB</td><td>Curriculum & Lesson Design</td><td>Digital Product Launch Strategy</td></tr>
+      <tr><td>REST API Design</td><td>Quiz/Assessment Authoring</td><td>Selar / Gumroad / Paystack Setup</td></tr>
+      <tr><td>Auth & Admin Systems</td><td>Long-Form Book Writing</td><td>Course Monetization</td></tr>
+      <tr><td>Vercel / Railway Deployment</td><td>Academic & Policy Research</td><td>E-commerce Automation</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Let's Build Something Impactful</h2>
+      <p>Based in Port Harcourt, Rivers State, Nigeria. Open to development, writing, research, and production projects.</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="mailto:contact@mabrigkorie.org">contact@mabrigkorie.org</a>
+      <a class="btn btn-ghost" href="https://www.mabrigresearch.online/" target="_blank" rel="noopener">mabrigresearch.online</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Mabrig Korie · Mabrig Technologies · Mabrig Research Institute · Mabrig Korie Ministries</p>
+    <p style="margin-top:8px;">
+      <a href="https://www.mabrigresearch.online/" target="_blank" rel="noopener">mabrigresearch.online</a> ·
+      <a href="https://www.ijournal.uk/" target="_blank" rel="noopener">ijournal.uk</a> ·
+      <a href="https://mabrig.gumroad.com" target="_blank" rel="noopener">gumroad store</a> ·
+      <a href="https://store.mabrigkorie.org/" target="_blank" rel="noopener">official store</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
