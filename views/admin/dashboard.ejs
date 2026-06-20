@@ -99,6 +99,11 @@
         <input type="url" id="f_image" placeholder="https://...">
       </div>
       <div class="field">
+        <label>YouTube Video Link (optional, embeds on the work's page)</label>
+        <input type="url" id="f_videoUrl" placeholder="https://www.youtube.com/watch?v=...">
+        <div id="videoPreview"></div>
+      </div>
+      <div class="field">
         <label>Slug (URL path, auto-generated if blank)</label>
         <input type="text" id="f_slug" placeholder="destiny-skills-bridge">
       </div>
@@ -112,10 +117,28 @@
       </div>
 
       <hr style="border-color:var(--border);margin:20px 0;">
-      <h3 style="font-size:1rem;color:var(--accent-soft);margin-bottom:14px;">Raw Content Editor</h3>
+      <h3 style="font-size:1rem;color:var(--accent-soft);margin-bottom:14px;">Article Content</h3>
       <div class="field">
-        <label>Raw HTML (rendered as-is on the work detail page)</label>
-        <textarea id="f_content" rows="10" spellcheck="false" style="font-family:monospace;font-size:0.85rem;" placeholder="&lt;p&gt;Custom HTML, embeds, iframes, etc.&lt;/p&gt;"></textarea>
+        <label>Body</label>
+        <div class="rte-toolbar">
+          <button type="button" data-cmd="bold" title="Bold"><strong>B</strong></button>
+          <button type="button" data-cmd="italic" title="Italic"><em>I</em></button>
+          <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
+          <button type="button" data-cmd="formatBlock" data-value="H2" title="Heading 2">H2</button>
+          <button type="button" data-cmd="formatBlock" data-value="H3" title="Heading 3">H3</button>
+          <button type="button" data-cmd="formatBlock" data-value="P" title="Paragraph">¶</button>
+          <button type="button" data-cmd="insertUnorderedList" title="Bullet list">• List</button>
+          <button type="button" data-cmd="insertOrderedList" title="Numbered list">1. List</button>
+          <button type="button" data-cmd="formatBlock" data-value="BLOCKQUOTE" title="Quote">"</button>
+          <button type="button" data-cmd="createLink" title="Insert link">🔗</button>
+          <button type="button" data-cmd="removeFormat" title="Clear formatting">⨯</button>
+        </div>
+        <div class="rte-editor" id="f_contentEditor" contenteditable="true"></div>
+        <textarea id="f_content" style="display:none;"></textarea>
+        <div class="rte-file-row">
+          <input type="file" id="f_contentFile" accept=".html,.htm,.txt">
+          <span style="color:var(--muted);font-size:0.78rem;">Upload a Word/HTML export or .txt file to load it into the editor, or paste content directly above.</span>
+        </div>
       </div>
 
       <hr style="border-color:var(--border);margin:20px 0;">
