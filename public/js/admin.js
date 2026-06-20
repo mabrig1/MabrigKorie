@@ -74,6 +74,7 @@ function openModal(work) {
   document.getElementById('f_platform').value = work ? (work.platform || '') : '';
   document.getElementById('f_tags').value = work ? (work.tags || []).join(', ') : '';
   document.getElementById('f_image').value = work ? (work.image || '') : '';
+  document.getElementById('f_content').value = work ? (work.content || '') : '';
   document.getElementById('f_slug').value = work ? work.slug : '';
   document.getElementById('f_order').value = work ? work.order : 0;
   document.getElementById('f_featured').checked = work ? !!work.featured : false;
@@ -154,6 +155,7 @@ workForm.addEventListener('submit', async (e) => {
     platform: document.getElementById('f_platform').value,
     tags: document.getElementById('f_tags').value,
     image: document.getElementById('f_image').value,
+    content: document.getElementById('f_content').value,
     slug: document.getElementById('f_slug').value,
     order: document.getElementById('f_order').value,
     featured: document.getElementById('f_featured').checked,
