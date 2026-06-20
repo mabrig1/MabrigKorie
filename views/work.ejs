@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head', { meta }) %>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><a href="/">Mabrig Korie</a></div>
+    <div class="navlinks"><a href="/">← Back to Portfolio</a></div>
+  </nav>
+</header>
+
+<section class="hero" style="padding:60px 0;">
+  <div class="container">
+    <div class="eyebrow"><%= work.category.toUpperCase() %><% if (work.platform) { %> · <%= work.platform %><% } %></div>
+    <h1 style="font-size:2.2rem;"><%= work.title %></h1>
+    <p class="tagline"><%= work.description %></p>
+    <% if (work.tags && work.tags.length) { %>
+      <div class="hero-roles">
+        <% work.tags.forEach(function(t) { %><span class="role-pill"><%= t %></span><% }); %>
+      </div>
+    <% } %>
+    <div class="btn-row">
+      <% if (work.url) { %><a class="btn btn-primary" href="<%= work.url %>" target="_blank" rel="noopener">Visit Project →</a><% } %>
+    </div>
+    <%- include('partials/share', { work, siteUrl }) %>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Mabrig Korie</p>
+  </div>
+</footer>
+
+</body>
+</html>

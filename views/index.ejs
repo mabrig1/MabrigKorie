@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('partials/head', { meta }) %>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">Mabrig Korie</div>
+    <div class="navlinks">
+      <a href="#apps">Apps</a>
+      <a href="#research">Research</a>
+      <a href="#books">Books</a>
+      <a href="#music">Music</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Full-Stack Developer · Author · Researcher · Gospel Artist</div>
+    <h1>Mabrig Korie</h1>
+    <p class="tagline">
+      I build complete digital products from the ground up — the code, the curriculum, the manuscript, and the message.
+      Full-stack engineer, published author, founder of an academic research journal, and a Nigerian
+      gospel artist and prophetic minister.
+    </p>
+    <div class="hero-roles">
+      <span class="role-pill">MERN Stack Developer</span>
+      <span class="role-pill">Published Author</span>
+      <span class="role-pill">Founder, Mabrig Research Institute</span>
+      <span class="role-pill">Gospel Musician</span>
+      <span class="role-pill">Course Architect</span>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#apps">View My Work</a>
+      <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<% function renderSection(id, eyebrow, title, intro, items) { %>
+  <section id="<%= id %>"<%= id === 'research' || id === 'music' ? ' class="alt-bg"' : '' %>>
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow"><%= eyebrow %></div>
+        <h2><%= title %></h2>
+        <p><%= intro %></p>
+      </div>
+      <% if (items.length === 0) { %>
+        <p style="text-align:center;color:var(--muted);">More coming soon.</p>
+      <% } else { %>
+        <div class="grid grid-3">
+          <% items.forEach(function(work) { %>
+            <div class="card">
+              <% if (work.platform) { %><span class="tag"><%= work.platform %></span><% } %>
+              <h3><%= work.title %></h3>
+              <p><%= work.description %></p>
+              <% if (work.url) { %>
+                <a class="link" href="<%= work.url %>" target="_blank" rel="noopener">Visit →</a>
+              <% } %>
+              <%- include('partials/share', { work, siteUrl }) %>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  </section>
+<% } %>
+
+<% renderSection('apps', 'Apps & Platforms Built', 'Web Applications & Research Platforms', 'Live, deployed products designed and built end-to-end — backend, frontend, and content.', byCategory.app) %>
+<% renderSection('research', 'Academic & Scientific Writing', 'Mabrig Journal of Interdisciplinary Research', 'Selected published work — converting dense source material into publication-ready, citation-verified academic writing.', byCategory.research) %>
+<% renderSection('books', 'Authorship', 'Books & Publishing', '47+ published books on prayer, spiritual warfare, identity, and personal development.', byCategory.book) %>
+<% renderSection('music', 'Music & Ministry', 'Gospel Discography', 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.', byCategory.music) %>
+<% renderSection('services', 'Hire Me', 'Core Service Offerings', 'End-to-end capability across development, writing, research, and digital publishing.', byCategory.service) %>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Let's Build Something Impactful</h2>
+      <p>Based in Port Harcourt, Rivers State, Nigeria. Open to development, writing, research, and production projects.</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="mailto:contact@mabrigkorie.org">contact@mabrigkorie.org</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Mabrig Korie · Mabrig Technologies · Mabrig Research Institute · Mabrig Korie Ministries</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Mabrig Korie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <span class="logo">Mabrig Korie</span>
+    <nav>
+      <a href="/admin" class="active">📋 Content Hub</a>
+      <a href="/" target="_blank">🌐 View Live Site</a>
+      <form method="POST" action="/admin/login/logout" style="margin-top:20px;">
+        <button class="btn btn-ghost btn-sm" type="submit" style="width:100%;">Log Out</button>
+      </form>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1>Content Hub</h1>
+      <button class="btn btn-primary" id="addWorkBtn">+ Add Work</button>
+    </div>
+
+    <div class="stat-row" id="statRow"></div>
+
+    <div class="toolbar">
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="app">Apps</option>
+        <option value="research">Research</option>
+        <option value="book">Books</option>
+        <option value="music">Music</option>
+        <option value="service">Services</option>
+      </select>
+    </div>
+
+    <div class="work-list" id="workList"></div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">Add Work</h2>
+    <form id="workForm">
+      <input type="hidden" id="workId">
+      <div class="field">
+        <label>Category</label>
+        <select id="f_category" required>
+          <option value="app">App / Platform</option>
+          <option value="research">Research Publication</option>
+          <option value="book">Book</option>
+          <option value="music">Music Release</option>
+          <option value="service">Service Offering</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Title</label>
+        <input type="text" id="f_title" required>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="f_description" required></textarea>
+      </div>
+      <div class="field">
+        <label>Link / URL</label>
+        <input type="url" id="f_url" placeholder="https://...">
+      </div>
+      <div class="field">
+        <label>Platform Label (e.g. Spotify, Goodreads, Gumroad)</label>
+        <input type="text" id="f_platform">
+      </div>
+      <div class="field">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="f_tags" placeholder="MERN Stack, Flagship Product">
+      </div>
+      <div class="field">
+        <label>Image URL (for social preview)</label>
+        <input type="url" id="f_image" placeholder="https://...">
+      </div>
+      <div class="field">
+        <label>Slug (URL path, auto-generated if blank)</label>
+        <input type="text" id="f_slug" placeholder="destiny-skills-bridge">
+      </div>
+      <div class="field">
+        <label>Display Order</label>
+        <input type="number" id="f_order" value="0">
+      </div>
+      <div class="field checkbox-row">
+        <input type="checkbox" id="f_featured">
+        <label style="margin:0;">Featured</label>
+      </div>
+
+      <hr style="border-color:var(--border);margin:20px 0;">
+      <h3 style="font-size:1rem;color:var(--accent-soft);margin-bottom:14px;">SEO Optimization</h3>
+
+      <div class="field">
+        <label>SEO Title</label>
+        <input type="text" id="f_seoTitle" maxlength="70" placeholder="Defaults to title">
+      </div>
+      <div class="field">
+        <label>SEO Description</label>
+        <textarea id="f_seoDescription" maxlength="160" placeholder="Defaults to description"></textarea>
+      </div>
+      <div class="field">
+        <label>SEO Keywords (comma separated)</label>
+        <input type="text" id="f_seoKeywords" placeholder="full-stack developer, MERN, e-learning">
+      </div>
+
+      <div class="seo-preview" id="seoPreview">
+        <div class="sp-title">Preview title</div>
+        <div class="sp-url">mabrigkorie.org</div>
+        <div class="sp-desc">Preview description</div>
+      </div>
+      <div class="seo-check" id="seoCheck"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Work</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/public/js/admin.js"></script>
+</body>
+</html>
