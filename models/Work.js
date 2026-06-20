@@ -13,6 +13,8 @@ const workSchema = new mongoose.Schema(
     platform: { type: String, trim: true }, // e.g. Spotify, Goodreads, Gumroad
     tags: [{ type: String, trim: true }],
     image: { type: String, trim: true },
+    content: { type: String, trim: true },
+    videoUrl: { type: String, trim: true },
     featured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
     slug: { type: String, required: true, unique: true, lowercase: true, trim: true },

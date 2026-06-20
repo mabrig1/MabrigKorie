@@ -74,6 +74,9 @@ function openModal(work) {
   document.getElementById('f_platform').value = work ? (work.platform || '') : '';
   document.getElementById('f_tags').value = work ? (work.tags || []).join(', ') : '';
   document.getElementById('f_image').value = work ? (work.image || '') : '';
+  document.getElementById('f_videoUrl').value = work ? (work.videoUrl || '') : '';
+  document.getElementById('f_content').value = work ? (work.content || '') : '';
+  document.getElementById('f_contentEditor').innerHTML = work ? (work.content || '') : '';
   document.getElementById('f_slug').value = work ? work.slug : '';
   document.getElementById('f_order').value = work ? work.order : 0;
   document.getElementById('f_featured').checked = work ? !!work.featured : false;
@@ -81,14 +84,80 @@ function openModal(work) {
   document.getElementById('f_seoDescription').value = work ? (work.seoDescription || '') : '';
   document.getElementById('f_seoKeywords').value = work ? (work.seoKeywords || []).join(', ') : '';
   updateSeoPreview();
+  updateVideoPreview();
   modalOverlay.classList.add('open');
 }
 
 function closeModal() {
   modalOverlay.classList.remove('open');
   workForm.reset();
+  document.getElementById('f_contentEditor').innerHTML = '';
+  document.getElementById('videoPreview').innerHTML = '';
   editingId = null;
 }
+
+function youtubeEmbedSrc(url) {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+
+function updateVideoPreview() {
+  const url = document.getElementById('f_videoUrl').value.trim();
+  const embedSrc = youtubeEmbedSrc(url);
+  const preview = document.getElementById('videoPreview');
+  if (!embedSrc) {
+    preview.innerHTML = url ? '<span style="color:var(--muted);font-size:0.78rem;">⚠ Couldn\'t recognize this as a YouTube link</span>' : '';
+    return;
+  }
+  preview.innerHTML = `
+    <div class="video-preview">
+      <div style="position:relative;padding-top:56.25%;">
+        <iframe src="${embedSrc}" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+    </div>`;
+}
+
+document.getElementById('f_videoUrl').addEventListener('input', updateVideoPreview);
+
+// ===== Rich text editor for article content =====
+const contentEditor = document.getElementById('f_contentEditor');
+const contentField = document.getElementById('f_content');
+
+document.querySelectorAll('.rte-toolbar button').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const cmd = btn.dataset.cmd;
+    contentEditor.focus();
+    if (cmd === 'createLink') {
+      const url = prompt('Enter link URL:', 'https://');
+      if (!url) return;
+      document.execCommand(cmd, false, url);
+    } else {
+      document.execCommand(cmd, false, btn.dataset.value || null);
+    }
+    contentField.value = contentEditor.innerHTML;
+  });
+});
+
+contentEditor.addEventListener('input', () => {
+  contentField.value = contentEditor.innerHTML;
+});
+
+document.getElementById('f_contentFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const text = reader.result;
+    const isHtml = /\.html?$/i.test(file.name) || /<\/?[a-z][\s\S]*>/i.test(text);
+    contentEditor.innerHTML = isHtml
+      ? text
+      : text.split(/\n{2,}/).map((p) => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`).join('');
+    contentField.value = contentEditor.innerHTML;
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
 
 function updateSeoPreview() {
   const title = document.getElementById('f_seoTitle').value || document.getElementById('f_title').value || 'Page Title';
@@ -154,6 +223,8 @@ workForm.addEventListener('submit', async (e) => {
     platform: document.getElementById('f_platform').value,
     tags: document.getElementById('f_tags').value,
     image: document.getElementById('f_image').value,
+    videoUrl: document.getElementById('f_videoUrl').value,
+    content: document.getElementById('f_content').value,
     slug: document.getElementById('f_slug').value,
     order: document.getElementById('f_order').value,
     featured: document.getElementById('f_featured').checked,
