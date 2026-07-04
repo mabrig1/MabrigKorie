@@ -41,6 +41,12 @@ const CATEGORY_PAGES = {
     title: 'Gospel Discography',
     intro: 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.',
   },
+  blog: {
+    category: 'blog',
+    eyebrow: 'Faith & Prayer Writing',
+    title: 'Prayer Bootcamp Blog',
+    intro: 'Daily declarations, spiritual warfare teaching, and breakthrough devotionals.',
+  },
   services: {
     category: 'service',
     eyebrow: 'Hire Me',
@@ -50,14 +56,15 @@ const CATEGORY_PAGES = {
 };
 
 async function getStats() {
-  const [apps, research, books, music, services] = await Promise.all([
+  const [apps, research, books, music, blog, services] = await Promise.all([
     Work.countDocuments({ category: 'app' }),
     Work.countDocuments({ category: 'research' }),
     Work.countDocuments({ category: 'book' }),
     Work.countDocuments({ category: 'music' }),
+    Work.countDocuments({ category: 'blog' }),
     Work.countDocuments({ category: 'service' }),
   ]);
-  return { apps, research, books, music, services };
+  return { apps, research, books, music, blog, services };
 }
 
 router.get('/', async (req, res) => {
@@ -71,6 +78,7 @@ router.get('/', async (req, res) => {
     research: works.filter((w) => w.category === 'research'),
     book: works.filter((w) => w.category === 'book'),
     music: works.filter((w) => w.category === 'music'),
+    blog: works.filter((w) => w.category === 'blog'),
     service: works.filter((w) => w.category === 'service'),
   };
 

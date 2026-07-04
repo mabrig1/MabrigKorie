@@ -5,7 +5,7 @@ const workSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ['app', 'research', 'book', 'music', 'service'],
+      enum: ['app', 'research', 'book', 'music', 'blog', 'service'],
     },
     title: { type: String, required: true, trim: true },
     description: { type: String, required: true },

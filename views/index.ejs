@@ -50,6 +50,7 @@
       <div class="stat-card"><div class="num counter" data-target="<%= stats.books %>">0</div><div class="lbl">Books Published</div></div>
       <div class="stat-card"><div class="num counter" data-target="<%= stats.research %>">0</div><div class="lbl">Research Papers</div></div>
       <div class="stat-card"><div class="num counter" data-target="<%= stats.music %>">0</div><div class="lbl">Music Releases</div></div>
+      <div class="stat-card"><div class="num counter" data-target="<%= stats.blog %>">0</div><div class="lbl">Blog Posts</div></div>
     </div>
   </div>
 </section>
@@ -90,6 +91,7 @@
 <% renderSection('research', 'Academic & Scientific Writing', 'Mabrig Journal of Interdisciplinary Research', 'Selected published work spanning AI Ethics, Security Studies, Political Economy, Theology, Public Health, and Pharmacology.', byCategory.research, '/research') %>
 <% renderSection('books', 'Authorship', 'Books & Publications', '40+ published books on prayer, spiritual warfare, identity, and personal development.', byCategory.book, '/books') %>
 <% renderSection('music', 'Music & Ministry', 'Gospel Discography', 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.', byCategory.music, '/music') %>
+<% renderSection('blog', 'Faith & Prayer Writing', 'Prayer Bootcamp Blog', 'Daily declarations, spiritual warfare teaching, and breakthrough devotionals.', byCategory.blog, '/blog') %>
 <% renderSection('services', 'Hire Me', 'Core Service Offerings', 'End-to-end capability across development, AI solutions, research, publishing, and content strategy.', byCategory.service, '/services') %>
 
 <section id="contact">

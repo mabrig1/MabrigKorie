@@ -15,9 +15,9 @@ async function loadWorks() {
 }
 
 function renderStats() {
-  const counts = { app: 0, research: 0, book: 0, music: 0, service: 0 };
+  const counts = { app: 0, research: 0, book: 0, music: 0, blog: 0, service: 0 };
   works.forEach((w) => { if (counts[w.category] !== undefined) counts[w.category]++; });
-  const labels = { app: 'Apps', research: 'Research', book: 'Books', music: 'Music', service: 'Services' };
+  const labels = { app: 'Apps', research: 'Research', book: 'Books', music: 'Music', blog: 'Blog', service: 'Services' };
   document.getElementById('statRow').innerHTML = Object.keys(counts)
     .map((k) => `<div class="stat-card"><div class="num">${counts[k]}</div><div class="lbl">${labels[k]}</div></div>`)
     .join('') + `<div class="stat-card"><div class="num">${works.length}</div><div class="lbl">Total Works</div></div>`;

@@ -217,6 +217,15 @@ const works = [
     tags: ['Discography'],
   },
   {
+    category: 'blog',
+    title: 'Prayer Bootcamp',
+    description: 'Faith and prayer blog — daily declarations, spiritual warfare teaching, and breakthrough devotionals.',
+    url: 'https://prayerbootcamp.blogspot.com/',
+    platform: 'Blogspot',
+    tags: ['Prayer', 'Faith', 'Devotional'],
+    featured: true,
+  },
+  {
     category: 'service',
     title: 'Full-Stack Web & App Development',
     description: 'Node.js/Express APIs, MongoDB data modeling, REST API design, admin dashboards, auth/payment systems, Vercel/Railway deployment.',
