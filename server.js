@@ -3,12 +3,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const slugify = require('slugify');
 
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const worksRoutes = require('./routes/works');
 const socialLinksRoutes = require('./routes/socialLinks');
 const publicRoutes = require('./routes/public');
+const Work = require('./models/Work');
+const SocialLink = require('./models/SocialLink');
+const { works, socialLinks } = require('./data/seedData');
 
 const app = express();
 
@@ -28,8 +32,28 @@ app.use('/', publicRoutes);
 
 const PORT = process.env.PORT || 3000;
 
+async function seedIfEmpty() {
+  const [workCount, socialCount] = await Promise.all([
+    Work.countDocuments(),
+    SocialLink.countDocuments(),
+  ]);
+
+  if (workCount === 0) {
+    await Work.insertMany(
+      works.map((w, i) => ({ ...w, slug: slugify(w.title, { lower: true, strict: true }), order: i }))
+    );
+    console.log(`Auto-seeded ${works.length} works (database was empty).`);
+  }
+
+  if (socialCount === 0) {
+    await SocialLink.insertMany(socialLinks);
+    console.log(`Auto-seeded ${socialLinks.length} social links (database was empty).`);
+  }
+}
+
 async function start() {
   await mongoose.connect(process.env.MONGODB_URI);
+  await seedIfEmpty();
   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 }
 
