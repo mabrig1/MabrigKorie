@@ -368,14 +368,16 @@ const works = [
 ];
 
 const socialLinks = [
-  { platform: 'TikTok', url: 'https://www.tiktok.com/@mabrigkorie', icon: '📱', order: 1 },
-  { platform: 'SoundCloud', url: 'https://soundcloud.com/mabrigkorie', icon: '☁️', order: 2 },
-  { platform: 'Audiomack', url: 'https://audiomack.com/mabrig', icon: '🎙️', order: 3 },
-  { platform: 'Apple Music', url: 'https://music.apple.com/album/justice-before-unity', icon: '🎧', order: 4 },
-  { platform: 'Spotify', url: 'https://open.spotify.com/search/Mabrig%20Korie', icon: '🎶', order: 5 },
-  { platform: 'Goodreads', url: 'https://www.goodreads.com/author/list/18160841.Mabrig_Korie', icon: '📚', order: 6 },
-  { platform: 'Gumroad Store', url: 'https://mabrig.gumroad.com', icon: '🛒', order: 7 },
-  { platform: 'Official Store', url: 'https://store.mabrigkorie.org/', icon: '🏬', order: 8 },
+  { platform: 'WhatsApp', url: 'https://wa.me/2347065342818', icon: '💬', order: 1 },
+  { platform: 'Telegram', url: 'https://t.me/+2347065342818', icon: '✈️', order: 2 },
+  { platform: 'TikTok', url: 'https://www.tiktok.com/@mabrigkorie', icon: '📱', order: 3 },
+  { platform: 'SoundCloud', url: 'https://soundcloud.com/mabrigkorie', icon: '☁️', order: 4 },
+  { platform: 'Audiomack', url: 'https://audiomack.com/mabrig', icon: '🎙️', order: 5 },
+  { platform: 'Apple Music', url: 'https://music.apple.com/album/justice-before-unity', icon: '🎧', order: 6 },
+  { platform: 'Spotify', url: 'https://open.spotify.com/search/Mabrig%20Korie', icon: '🎶', order: 7 },
+  { platform: 'Goodreads', url: 'https://www.goodreads.com/author/list/18160841.Mabrig_Korie', icon: '📚', order: 8 },
+  { platform: 'Gumroad Store', url: 'https://mabrig.gumroad.com', icon: '🛒', order: 9 },
+  { platform: 'Official Store', url: 'https://store.mabrigkorie.org/', icon: '🏬', order: 10 },
 ];
 
 module.exports = { works, socialLinks, CONTACT_EMAIL };
