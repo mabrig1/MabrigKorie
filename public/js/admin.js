@@ -347,3 +347,59 @@ socialForm.addEventListener('submit', async (e) => {
 });
 
 loadSocialLinks();
+
+// ===== Appointments =====
+let appointments = [];
+
+async function loadAppointments() {
+  const res = await fetch('/api/appointments');
+  appointments = await res.json();
+  renderAppointmentList();
+}
+
+function renderAppointmentList() {
+  const list = document.getElementById('appointmentList');
+  if (appointments.length === 0) {
+    list.innerHTML = `<p style="color:var(--muted);text-align:center;padding:20px;">No appointment requests yet.</p>`;
+    return;
+  }
+  list.innerHTML = appointments.map((a) => {
+    const date = a.preferredDate ? new Date(a.preferredDate).toLocaleDateString() : '';
+    return `
+    <div class="work-row" data-id="${a._id}">
+      <div class="meta">
+        <div class="title">${escapeHtml(a.name)} — ${escapeHtml(a.service)}</div>
+        <div class="sub">${escapeHtml(a.email)}${a.phone ? ' · ' + escapeHtml(a.phone) : ''} · ${date}${a.preferredTime ? ' ' + escapeHtml(a.preferredTime) : ''}</div>
+        ${a.message ? `<div class="sub">${escapeHtml(a.message)}</div>` : ''}
+      </div>
+      <div class="actions">
+        <select data-action="status" data-id="${a._id}">
+          <option value="pending" ${a.status === 'pending' ? 'selected' : ''}>Pending</option>
+          <option value="confirmed" ${a.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+          <option value="cancelled" ${a.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+        </select>
+        <button class="btn btn-danger btn-sm" data-action="delete-appointment" data-id="${a._id}">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('appointmentList').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action="delete-appointment"]');
+  if (!btn) return;
+  if (!confirm('Delete this appointment request?')) return;
+  await fetch(`/api/appointments/${btn.dataset.id}`, { method: 'DELETE' });
+  await loadAppointments();
+});
+
+document.getElementById('appointmentList').addEventListener('change', async (e) => {
+  const select = e.target.closest('select[data-action="status"]');
+  if (!select) return;
+  await fetch(`/api/appointments/${select.dataset.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: select.value }),
+  });
+});
+
+loadAppointments();

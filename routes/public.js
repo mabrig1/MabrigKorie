@@ -53,7 +53,7 @@ const CATEGORY_PAGES = {
     category: 'service',
     eyebrow: 'Hire Me',
     title: 'Core Service Offerings',
-    intro: 'End-to-end capability across development, AI solutions, research, publishing, and content strategy.',
+    intro: 'Full-stack development, research assistance, grant writing, article and book publishing, music production, and content writing — done for you, on schedule. Pick a service below and book your slot.',
   },
 };
 
@@ -97,6 +97,18 @@ router.get('/', async (req, res) => {
     bioPoints: BIO_POINTS,
     socialLinks,
     stats,
+  });
+});
+
+router.get('/booking', (req, res) => {
+  res.render('booking', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: `Book an Appointment — ${SITE_NAME}`,
+      description: 'Book a consultation with Mabrig Korie for full-stack development, research assistance, grant writing, publishing, music production, or content writing.',
+      url: `${SITE_URL()}/booking`,
+    },
   });
 });
 
@@ -160,6 +172,7 @@ router.get('/sitemap.xml', async (req, res) => {
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
     `${SITE_URL()}/contact`,
+    `${SITE_URL()}/booking`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];
   res.set('Content-Type', 'application/xml');

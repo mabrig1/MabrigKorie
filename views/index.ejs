@@ -16,10 +16,10 @@
       research, software, and mentorship.
     </p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="/projects">View Projects</a>
+      <a class="btn btn-primary" href="/booking">Book an Appointment →</a>
+      <a class="btn btn-ghost" href="/projects">View Projects</a>
       <a class="btn btn-ghost" href="/books">Read Books</a>
       <a class="btn btn-ghost" href="/music">Listen to Music</a>
-      <a class="btn btn-ghost" href="/contact">Contact Me</a>
     </div>
   </div>
 </section>
@@ -74,8 +74,12 @@
               <% if (work.platform) { %><span class="tag"><%= work.platform %></span><% } %>
               <h3><%= work.title %></h3>
               <p><%= work.description %></p>
-              <% if (work.url) { %>
-                <a class="link" href="<%= work.url %>" target="_blank" rel="noopener">Visit →</a>
+              <% if (work.url) {
+                const isInternal = work.url.startsWith('/');
+                const isMailto = work.url.startsWith('mailto:');
+                const ctaLabel = isInternal ? 'Book Now' : (isMailto ? 'Get in Touch' : 'Visit');
+              %>
+                <a class="link" href="<%= work.url %>"<% if (!isInternal && !isMailto) { %> target="_blank" rel="noopener"<% } %>><%= ctaLabel %> →</a>
               <% } %>
               <%- include('partials/share', { work, siteUrl }) %>
             </div>
@@ -94,7 +98,7 @@
 <% renderSection('books', 'Authorship', 'Books & Publications', '40+ published books on prayer, spiritual warfare, identity, and personal development.', byCategory.book, '/books') %>
 <% renderSection('music', 'Music & Ministry', 'Gospel Discography', 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.', byCategory.music, '/music') %>
 <% renderSection('blog', 'Faith & Prayer Writing', 'Prayer Bootcamp Blog', 'Daily declarations, spiritual warfare teaching, and breakthrough devotionals.', byCategory.blog, '/blog') %>
-<% renderSection('services', 'Hire Me', 'Core Service Offerings', 'End-to-end capability across development, AI solutions, research, publishing, and content strategy.', byCategory.service, '/services') %>
+<% renderSection('services', 'Hire Me', 'Core Service Offerings', 'Full-stack development, research assistance, grant writing, article and book publishing, music production, and content writing — done for you, on schedule. Pick a service below and book your slot.', byCategory.service, '/services') %>
 
 <section id="contact">
   <div class="container">

@@ -26,8 +26,12 @@
             <% if (work.platform) { %><span class="tag"><%= work.platform %></span><% } %>
             <h3><%= work.title %></h3>
             <p><%= work.description %></p>
-            <% if (work.url) { %>
-              <a class="link" href="<%= work.url %>" target="_blank" rel="noopener">Visit →</a>
+            <% if (work.url) {
+              const isInternal = work.url.startsWith('/');
+              const isMailto = work.url.startsWith('mailto:');
+              const ctaLabel = isInternal ? 'Book Now' : (isMailto ? 'Get in Touch' : 'Visit');
+            %>
+              <a class="link" href="<%= work.url %>"<% if (!isInternal && !isMailto) { %> target="_blank" rel="noopener"<% } %>><%= ctaLabel %> →</a>
             <% } %>
             <%- include('partials/share', { work, siteUrl }) %>
           </div>

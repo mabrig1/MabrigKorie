@@ -18,7 +18,13 @@
       </div>
     <% } %>
     <div class="btn-row">
-      <% if (work.url) { %><a class="btn btn-primary" href="<%= work.url %>" target="_blank" rel="noopener">Visit Project →</a><% } %>
+      <% if (work.url) {
+        const isInternal = work.url.startsWith('/');
+        const isMailto = work.url.startsWith('mailto:');
+        const ctaLabel = isInternal ? 'Book Now' : (isMailto ? 'Get in Touch' : 'Visit Project');
+      %>
+        <a class="btn btn-primary" href="<%= work.url %>"<% if (!isInternal && !isMailto) { %> target="_blank" rel="noopener"<% } %>><%= ctaLabel %> →</a>
+      <% } %>
     </div>
     <%- include('partials/share', { work, siteUrl }) %>
   </div>

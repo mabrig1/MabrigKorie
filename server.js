@@ -9,6 +9,7 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const worksRoutes = require('./routes/works');
 const socialLinksRoutes = require('./routes/socialLinks');
+const appointmentsRoutes = require('./routes/appointments');
 const publicRoutes = require('./routes/public');
 const Work = require('./models/Work');
 const SocialLink = require('./models/SocialLink');
@@ -28,6 +29,7 @@ app.use('/admin/login', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api/works', worksRoutes);
 app.use('/api/social-links', socialLinksRoutes);
+app.use('/api/appointments', appointmentsRoutes);
 app.use('/', publicRoutes);
 
 const PORT = process.env.PORT || 3000;

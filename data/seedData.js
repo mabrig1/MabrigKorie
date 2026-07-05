@@ -4,6 +4,10 @@ function serviceMailto(title) {
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Inquiry: ${title}`)}`;
 }
 
+function serviceBookingUrl(title) {
+  return `/booking?service=${encodeURIComponent(title)}`;
+}
+
 const works = [
   {
     category: 'app',
@@ -283,10 +287,54 @@ const works = [
   },
   {
     category: 'service',
-    title: 'Full-Stack Web & App Development',
-    description: 'Node.js/Express APIs, MongoDB data modeling, REST API design, admin dashboards, auth/payment systems, Vercel/Railway deployment.',
-    url: serviceMailto('Full-Stack Web & App Development'),
+    title: 'Full-Stack Web App Development',
+    description: 'Your idea deserves more than a template. I design and ship production-grade web apps — database, backend, frontend, and deployment — built to turn visitors into customers. Ready to go live? Book a free consultation today.',
+    url: serviceBookingUrl('Full-Stack Web App Development'),
     tags: ['Node.js', 'MongoDB', 'REST API'],
+    featured: true,
+  },
+  {
+    category: 'service',
+    title: 'Research Assistant',
+    description: 'Drowning in literature reviews, data cleaning, or thesis structuring? I step in as your dedicated research assistant — accurate, deadline-driven, and fluent in qualitative and quantitative methods. Stop stalling on your research — book a session now.',
+    url: serviceBookingUrl('Research Assistant'),
+    tags: ['Academic Writing', 'Data Analysis'],
+  },
+  {
+    category: 'service',
+    title: 'Grant Writing',
+    description: "Funders don't fund ideas — they fund proposals that prove impact. I craft grant applications and pitch documents built to get read, shortlisted, and funded. Deadline coming up? Book a grant-writing session before the window closes.",
+    url: serviceBookingUrl('Grant Writing'),
+    tags: ['Grant Writing', 'Proposals'],
+  },
+  {
+    category: 'service',
+    title: 'Article Publishing',
+    description: 'A great insight buried in your notes helps no one. I turn your expertise into polished, publication-ready articles — placed with the right outlets and formatted to get read. Let\'s get your name in print — book a slot today.',
+    url: serviceBookingUrl('Article Publishing'),
+    tags: ['Article Writing', 'Publishing'],
+  },
+  {
+    category: 'service',
+    title: 'Book Publishing',
+    description: 'From first draft to a finished book people can actually buy — I handle manuscript structuring, editing, formatting, and multi-platform distribution (Gumroad, Selar, Paystack, Goodreads). Stop letting your manuscript sit in a folder — book your publishing consultation.',
+    url: serviceBookingUrl('Book Publishing'),
+    tags: ['Book Publishing', 'Ghostwriting'],
+    featured: true,
+  },
+  {
+    category: 'service',
+    title: 'Music Production',
+    description: 'Every ministry and artist needs sound that moves people. I produce, mix, and master gospel and inspirational tracks from concept to release-ready masters. Bring me your lyrics or melody — book a production session and let\'s build your sound.',
+    url: serviceBookingUrl('Music Production'),
+    tags: ['Music Production', 'Mixing & Mastering'],
+  },
+  {
+    category: 'service',
+    title: 'Content Writing Assistance',
+    description: 'Consistent, on-brand content is the difference between an audience and a following. I write blog posts, scripts, captions, and email sequences that sound like you — on schedule, every time. Tired of the blank page? Book a content session.',
+    url: serviceBookingUrl('Content Writing Assistance'),
+    tags: ['Content Writing', 'Content Strategy'],
   },
   {
     category: 'service',
@@ -294,27 +342,6 @@ const works = [
     description: 'Curriculum architecture, module/lesson breakdowns, quiz and assessment design, capstone projects, LMS data structuring.',
     url: serviceMailto('Online Course Creation & Instructional Design'),
     tags: ['Curriculum Design'],
-  },
-  {
-    category: 'service',
-    title: 'Book Authorship & Ghostwriting',
-    description: 'Long-form nonfiction writing, manuscript structuring, chapter development, identity/mindset and self-help content.',
-    url: serviceMailto('Book Authorship & Ghostwriting'),
-    tags: ['Ghostwriting'],
-  },
-  {
-    category: 'service',
-    title: 'Academic & Research Writing',
-    description: 'Literature reviews, policy briefs, qualitative/quantitative analysis, thesis structuring and editing.',
-    url: serviceMailto('Academic & Research Writing'),
-    tags: ['Academic Writing'],
-  },
-  {
-    category: 'service',
-    title: 'Digital Publishing & Launch Setup',
-    description: 'eBook formatting, multi-platform distribution (Selar, Gumroad, Paystack), course/product launch architecture.',
-    url: serviceMailto('Digital Publishing & Launch Setup'),
-    tags: ['Digital Publishing'],
   },
   {
     category: 'service',
@@ -329,13 +356,6 @@ const works = [
     description: 'AI prompt engineering, chatbot and automation workflows, AI-assisted content and research pipelines for businesses and ministries.',
     url: serviceMailto('AI Solutions'),
     tags: ['AI Solutions'],
-  },
-  {
-    category: 'service',
-    title: 'Content Strategy',
-    description: 'Editorial calendars, brand voice development, and cross-platform content systems that turn a single idea into a full content pipeline.',
-    url: serviceMailto('Content Strategy'),
-    tags: ['Content Strategy'],
   },
   {
     category: 'service',
