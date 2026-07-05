@@ -103,6 +103,34 @@ const works = [
     tags: ['Public Health', 'Migration'],
   },
   {
+    category: 'research',
+    title: 'The Calling Effect',
+    description: 'A June 2026 theoretical framework exploring purpose, identity, and personal-societal alignment.',
+    platform: 'Theology / Identity Studies',
+    tags: ['Purpose', 'Identity', 'Original Theory'],
+  },
+  {
+    category: 'research',
+    title: 'Theory of Atmospheric Multiplication',
+    description: 'Original framework examining how personal transformation multiplies outward to shape environments and communities.',
+    platform: 'Theology / Leadership',
+    tags: ['Original Theory', 'Transformation'],
+  },
+  {
+    category: 'research',
+    title: 'Portable Dominion Theory',
+    description: 'Original framework on carrying influence and authority across shifting personal and environmental contexts.',
+    platform: 'Theology / Leadership',
+    tags: ['Original Theory', 'Leadership'],
+  },
+  {
+    category: 'research',
+    title: 'Institutional E-Governance Awareness and Administrative Efficiency in Abuja\'s Government Agencies',
+    description: 'Ongoing research into e-governance awareness and administrative bottlenecks within Nigerian federal agencies.',
+    platform: 'Public Administration',
+    tags: ['E-Governance', 'Public Administration'],
+  },
+  {
     category: 'book',
     title: 'Decrees That Govern the Heavens',
     description: 'Spiritual warfare and declaration prayers.',
@@ -150,6 +178,20 @@ const works = [
     url: 'https://mabrig.gumroad.com',
     platform: 'Gumroad',
     tags: ['Identity', 'Mindset'],
+  },
+  {
+    category: 'book',
+    title: 'Shadows of Progress: How Scientific Advance Fuels Barbarism in Modern Africa and Beyond',
+    description: 'In development — examines how technological advancement can outpace moral and institutional development, fueling new forms of barbarism.',
+    platform: 'In Development',
+    tags: ['Technology & Society', 'Africa', 'Civilization'],
+  },
+  {
+    category: 'book',
+    title: 'Unoffendable Life: How to Live Above Insults, Gossip, and the Need for Human Approval',
+    description: 'In development — a practical and biblical guide to emotional resilience, freedom from approval-seeking, and living unoffended.',
+    platform: 'In Development',
+    tags: ['Emotional Resilience', 'Christian Living'],
   },
   {
     category: 'music',
@@ -217,6 +259,20 @@ const works = [
     tags: ['Discography'],
   },
   {
+    category: 'music',
+    title: 'The Midnight Protocol',
+    description: 'Multi-volume audio series on resilience — spoken-word declarations and prayers for the darkest hours.',
+    platform: 'Audio Series',
+    tags: ['Resilience', 'Audio Series'],
+  },
+  {
+    category: 'music',
+    title: 'Arise, O Lord',
+    description: 'Prophetic audio production calling for revival and breakthrough.',
+    platform: 'Audio Production',
+    tags: ['Prophetic', 'Revival'],
+  },
+  {
     category: 'blog',
     title: 'Prayer Bootcamp',
     description: 'Faith and prayer blog — daily declarations, spiritual warfare teaching, and breakthrough devotionals.',
@@ -280,6 +336,14 @@ const works = [
     description: 'Editorial calendars, brand voice development, and cross-platform content systems that turn a single idea into a full content pipeline.',
     url: serviceMailto('Content Strategy'),
     tags: ['Content Strategy'],
+  },
+  {
+    category: 'service',
+    title: 'EarnCraft Mentorship',
+    description: 'Digital entrepreneurship mentorship program teaching sustainable online business models — from product creation to multi-platform monetization.',
+    url: serviceMailto('EarnCraft Mentorship'),
+    tags: ['Mentorship', 'Digital Entrepreneurship'],
+    featured: true,
   },
 ];
 

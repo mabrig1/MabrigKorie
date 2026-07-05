@@ -10,10 +10,12 @@ const BIO_POINTS = [
   'Founder of Mabrig Technologies',
   'Founder of Mabrig Research Institute',
   'Author of 40+ books',
-  'Gospel Music Artist',
+  'Gospel Music Minister',
   'Creator of Destiny Skills Bridge',
-  'Academic Researcher',
+  'Academic Researcher & Original Theorist',
   'Full-Stack Developer',
+  'Founder of EarnCraft Mentorship',
+  'Digital Content Creator',
 ];
 
 const CATEGORY_PAGES = {
@@ -27,7 +29,7 @@ const CATEGORY_PAGES = {
     category: 'research',
     eyebrow: 'Academic & Scientific Writing',
     title: 'Mabrig Journal of Interdisciplinary Research',
-    intro: 'Selected published work spanning AI Ethics, Security Studies, Political Economy, Theology, Public Health, and Pharmacology.',
+    intro: 'Selected published work and original theoretical frameworks spanning AI Ethics, Security Studies, Political Economy, Theology, Public Administration, Public Health, and Pharmacology.',
   },
   books: {
     category: 'book',
@@ -88,7 +90,7 @@ router.get('/', async (req, res) => {
     meta: {
       title: 'Mabrig Korie — Author, Researcher, Gospel Musician & Full-Stack Developer',
       description:
-        'Official portfolio of Mabrig Korie: full-stack developer, published author, academic researcher, gospel musician, and digital entrepreneur.',
+        'Official portfolio of Mabrig Korie: Christian author, researcher, gospel music minister, full-stack developer, and digital entrepreneur behind Mabrig Technologies, Mabrig Research Institute, and the EarnCraft mentorship program.',
       url: SITE_URL(),
     },
     byCategory,
