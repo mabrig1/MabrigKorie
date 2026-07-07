@@ -43,14 +43,6 @@ const works = [
     tags: ['Grants', 'Funding'],
   },
   {
-    category: 'app',
-    title: 'DDEI Online',
-    description: 'Digital platform built and deployed as part of the Mabrig Technologies portfolio.',
-    url: 'https://ddei.online/',
-    platform: 'Web Platform',
-    tags: ['Web Platform'],
-  },
-  {
     category: 'research',
     title: 'Deus ex Machina? A Theological Framework for Imago Dei and Moral Agency in the Age of Generative AI',
     description: 'Theology / AI Ethics — published in the Mabrig Journal of Interdisciplinary Research.',
