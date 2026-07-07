@@ -10,10 +10,12 @@ const BIO_POINTS = [
   'Founder of Mabrig Technologies',
   'Founder of Mabrig Research Institute',
   'Author of 40+ books',
-  'Gospel Music Artist',
+  'Gospel Music Minister',
   'Creator of Destiny Skills Bridge',
-  'Academic Researcher',
+  'Academic Researcher & Original Theorist',
   'Full-Stack Developer',
+  'Founder of EarnCraft Mentorship',
+  'Digital Content Creator',
 ];
 
 const CATEGORY_PAGES = {
@@ -27,7 +29,7 @@ const CATEGORY_PAGES = {
     category: 'research',
     eyebrow: 'Academic & Scientific Writing',
     title: 'Mabrig Journal of Interdisciplinary Research',
-    intro: 'Selected published work spanning AI Ethics, Security Studies, Political Economy, Theology, Public Health, and Pharmacology.',
+    intro: 'Selected published work and original theoretical frameworks spanning AI Ethics, Security Studies, Political Economy, Theology, Public Administration, Public Health, and Pharmacology.',
   },
   books: {
     category: 'book',
@@ -41,23 +43,30 @@ const CATEGORY_PAGES = {
     title: 'Gospel Discography',
     intro: 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.',
   },
+  blog: {
+    category: 'blog',
+    eyebrow: 'Faith & Prayer Writing',
+    title: 'Prayer Bootcamp Blog',
+    intro: 'Daily declarations, spiritual warfare teaching, and breakthrough devotionals.',
+  },
   services: {
     category: 'service',
     eyebrow: 'Hire Me',
     title: 'Core Service Offerings',
-    intro: 'End-to-end capability across development, AI solutions, research, publishing, and content strategy.',
+    intro: 'Full-stack development, research assistance, grant writing, article and book publishing, music production, and content writing — done for you, on schedule. Pick a service below and book your slot.',
   },
 };
 
 async function getStats() {
-  const [apps, research, books, music, services] = await Promise.all([
+  const [apps, research, books, music, blog, services] = await Promise.all([
     Work.countDocuments({ category: 'app' }),
     Work.countDocuments({ category: 'research' }),
     Work.countDocuments({ category: 'book' }),
     Work.countDocuments({ category: 'music' }),
+    Work.countDocuments({ category: 'blog' }),
     Work.countDocuments({ category: 'service' }),
   ]);
-  return { apps, research, books, music, services };
+  return { apps, research, books, music, blog, services };
 }
 
 router.get('/', async (req, res) => {
@@ -71,6 +80,7 @@ router.get('/', async (req, res) => {
     research: works.filter((w) => w.category === 'research'),
     book: works.filter((w) => w.category === 'book'),
     music: works.filter((w) => w.category === 'music'),
+    blog: works.filter((w) => w.category === 'blog'),
     service: works.filter((w) => w.category === 'service'),
   };
 
@@ -80,13 +90,25 @@ router.get('/', async (req, res) => {
     meta: {
       title: 'Mabrig Korie — Author, Researcher, Gospel Musician & Full-Stack Developer',
       description:
-        'Official portfolio of Mabrig Korie: full-stack developer, published author, academic researcher, gospel musician, and digital entrepreneur.',
+        'Official portfolio of Mabrig Korie: Christian author, researcher, gospel music minister, full-stack developer, and digital entrepreneur behind Mabrig Technologies, Mabrig Research Institute, and the EarnCraft mentorship program.',
       url: SITE_URL(),
     },
     byCategory,
     bioPoints: BIO_POINTS,
     socialLinks,
     stats,
+  });
+});
+
+router.get('/booking', (req, res) => {
+  res.render('booking', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: `Book an Appointment — ${SITE_NAME}`,
+      description: 'Book a consultation with Mabrig Korie for full-stack development, research assistance, grant writing, publishing, music production, or content writing.',
+      url: `${SITE_URL()}/booking`,
+    },
   });
 });
 
@@ -150,6 +172,7 @@ router.get('/sitemap.xml', async (req, res) => {
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
     `${SITE_URL()}/contact`,
+    `${SITE_URL()}/booking`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];
   res.set('Content-Type', 'application/xml');

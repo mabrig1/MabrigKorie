@@ -9,16 +9,17 @@
 
 <section class="hero">
   <div class="container">
-    <div class="eyebrow">Author · Researcher · Gospel Musician · Full-Stack Developer · Digital Entrepreneur</div>
+    <div class="eyebrow">Author · Researcher · Gospel Music Minister · Full-Stack Developer · Digital Entrepreneur</div>
     <h1>Mabrig Korie</h1>
     <p class="tagline">
-      Building platforms, publishing ideas, creating music, and transforming lives through faith, technology, and knowledge.
+      Equipping people with biblical wisdom, transformational knowledge, and practical solutions — through books, music,
+      research, software, and mentorship.
     </p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="/projects">View Projects</a>
+      <a class="btn btn-primary" href="/booking">Book an Appointment →</a>
+      <a class="btn btn-ghost" href="/projects">View Projects</a>
       <a class="btn btn-ghost" href="/books">Read Books</a>
       <a class="btn btn-ghost" href="/music">Listen to Music</a>
-      <a class="btn btn-ghost" href="/contact">Contact Me</a>
     </div>
   </div>
 </section>
@@ -30,9 +31,10 @@
       <h2>Disciplined, end-to-end work</h2>
       <p>
         I designed and built <strong>Destiny Skills Bridge</strong>, a live MERN-stack e-learning platform that takes
-        Nigerian learners from zero to income-earning freelance skills. I'm also a published author, founder of an
-        academic research institute, and a gospel artist releasing prophetic worship music across major streaming
-        platforms.
+        Nigerian learners from zero to income-earning freelance skills. I'm also a published author of 40+ books,
+        founder of the Mabrig Research Institute where I develop original interdisciplinary theories, a gospel music
+        minister releasing prophetic worship across major streaming platforms, and founder of
+        <strong>EarnCraft</strong>, a mentorship program teaching sustainable digital entrepreneurship.
       </p>
     </div>
     <div class="grid grid-2" style="max-width:700px;margin:0 auto;">
@@ -50,6 +52,7 @@
       <div class="stat-card"><div class="num counter" data-target="<%= stats.books %>">0</div><div class="lbl">Books Published</div></div>
       <div class="stat-card"><div class="num counter" data-target="<%= stats.research %>">0</div><div class="lbl">Research Papers</div></div>
       <div class="stat-card"><div class="num counter" data-target="<%= stats.music %>">0</div><div class="lbl">Music Releases</div></div>
+      <div class="stat-card"><div class="num counter" data-target="<%= stats.blog %>">0</div><div class="lbl">Blog Posts</div></div>
     </div>
   </div>
 </section>
@@ -71,8 +74,12 @@
               <% if (work.platform) { %><span class="tag"><%= work.platform %></span><% } %>
               <h3><%= work.title %></h3>
               <p><%= work.description %></p>
-              <% if (work.url) { %>
-                <a class="link" href="<%= work.url %>" target="_blank" rel="noopener">Visit →</a>
+              <% if (work.url) {
+                const isInternal = work.url.startsWith('/');
+                const isMailto = work.url.startsWith('mailto:');
+                const ctaLabel = isInternal ? 'Book Now' : (isMailto ? 'Get in Touch' : 'Visit');
+              %>
+                <a class="link" href="<%= work.url %>"<% if (!isInternal && !isMailto) { %> target="_blank" rel="noopener"<% } %>><%= ctaLabel %> →</a>
               <% } %>
               <%- include('partials/share', { work, siteUrl }) %>
             </div>
@@ -87,10 +94,11 @@
 <% } %>
 
 <% renderSection('projects', 'Apps & Platforms Built', 'Web Applications & Research Platforms', 'Live, deployed products designed and built end-to-end — backend, frontend, and content.', byCategory.app, '/projects') %>
-<% renderSection('research', 'Academic & Scientific Writing', 'Mabrig Journal of Interdisciplinary Research', 'Selected published work spanning AI Ethics, Security Studies, Political Economy, Theology, Public Health, and Pharmacology.', byCategory.research, '/research') %>
+<% renderSection('research', 'Academic & Scientific Writing', 'Mabrig Journal of Interdisciplinary Research', 'Selected published work and original theoretical frameworks spanning AI Ethics, Security Studies, Political Economy, Theology, Public Administration, Public Health, and Pharmacology.', byCategory.research, '/research') %>
 <% renderSection('books', 'Authorship', 'Books & Publications', '40+ published books on prayer, spiritual warfare, identity, and personal development.', byCategory.book, '/books') %>
 <% renderSection('music', 'Music & Ministry', 'Gospel Discography', 'Prophetic worship and deliverance music as a Nigerian gospel artist and minister.', byCategory.music, '/music') %>
-<% renderSection('services', 'Hire Me', 'Core Service Offerings', 'End-to-end capability across development, AI solutions, research, publishing, and content strategy.', byCategory.service, '/services') %>
+<% renderSection('blog', 'Faith & Prayer Writing', 'Prayer Bootcamp Blog', 'Daily declarations, spiritual warfare teaching, and breakthrough devotionals.', byCategory.blog, '/blog') %>
+<% renderSection('services', 'Hire Me', 'Core Service Offerings', 'Full-stack development, research assistance, grant writing, article and book publishing, music production, and content writing — done for you, on schedule. Pick a service below and book your slot.', byCategory.service, '/services') %>
 
 <section id="contact">
   <div class="container">
