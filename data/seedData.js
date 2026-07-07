@@ -13,7 +13,7 @@ const works = [
     category: 'app',
     title: 'Destiny Skills Bridge',
     description: 'E-learning platform taking Nigerian learners from zero to income-earning freelance skills, including a full 15-module Affiliate Marketing Mastery course.',
-    url: 'https://www.mabrigresearch.online/',
+    url: 'https://ddei.online/',
     platform: 'MERN Stack · Flagship Product',
     tags: ['MERN Stack', 'E-Learning', 'Flagship Product'],
     featured: true,
