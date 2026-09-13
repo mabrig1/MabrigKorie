@@ -218,3 +218,176 @@ footer a{color:var(--accent-soft);}
 
 .checkbox-row{display:flex;align-items:center;gap:8px;}
 .checkbox-row input{width:auto;}
+
+
+/* ===== ENGINEERING PORTFOLIO REFRESH ===== */
+.hero-upgraded{padding:104px 0 78px;}
+.hero-upgraded h1{
+  max-width:900px;margin:0 auto 20px;
+  font-size:clamp(2.45rem,6vw,4.65rem);
+  line-height:1.05;letter-spacing:-0.035em;
+}
+.hero-upgraded .tagline{max-width:790px;font-size:1.08rem;line-height:1.75;}
+.hero-upgraded .hero-roles{margin:30px auto 30px;max-width:920px;}
+
+.proof-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  max-width:980px;
+  margin:48px auto 0;
+}
+.proof-item{
+  min-height:124px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:6px;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(212,175,55,.035));
+}
+.proof-item strong{
+  color:#fff;
+  font-family:'Playfair Display',serif;
+  font-size:1.28rem;
+}
+.proof-item span{color:var(--muted);font-size:.82rem;line-height:1.45;}
+
+.project-card{
+  position:relative;
+  overflow:hidden;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.project-card::before{
+  content:'';
+  position:absolute;
+  inset:0 0 auto 0;
+  height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent 72%);
+  opacity:.85;
+}
+.project-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+.project-badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:rgba(212,175,55,.09);
+  border:1px solid rgba(212,175,55,.25);
+  color:var(--accent-soft);
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.project-card h3{font-size:1.22rem;margin-bottom:10px;}
+.project-card > p{line-height:1.7;}
+.project-outcome{
+  margin-top:auto;
+  padding-top:6px;
+  color:#c8ced9!important;
+}
+.project-outcome strong{color:var(--accent-soft);font-weight:600;}
+.project-stack{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 18px;}
+.chip{
+  border:1px solid var(--border);
+  background:var(--bg-alt);
+  color:#b9c0cd;
+  border-radius:6px;
+  padding:4px 8px;
+  font-size:.7rem;
+}
+.project-actions{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:18px;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+}
+.project-actions .link{font-size:.82rem;}
+
+.section-cta{margin-top:34px;}
+.skill-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+.skill-card{padding:28px;}
+.skill-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;height:34px;
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:8px;
+  color:var(--accent-soft);
+  font-weight:700;
+  font-size:.78rem;
+  margin-bottom:16px;
+}
+.skill-card h3,.build-card h3{font-size:1.05rem;margin-bottom:12px;}
+.skill-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.skill-list li{
+  color:var(--muted);
+  font-size:.85rem;
+  padding-left:15px;
+  position:relative;
+}
+.skill-list li::before{
+  content:'•';
+  position:absolute;
+  left:0;
+  color:var(--accent);
+}
+
+.builder-grid{max-width:900px;margin:0 auto;}
+.build-card{min-height:190px;}
+.bio-points{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  max-width:980px;
+  margin:34px auto 0;
+}
+.bio-pill{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:8px 13px;
+  background:rgba(22,26,35,.72);
+  color:#c4cad5;
+  font-size:.8rem;
+}
+.portfolio-stats{margin-top:40px!important;max-width:900px;margin-left:auto!important;margin-right:auto!important;}
+.contact-panel{
+  background:
+    radial-gradient(ellipse at center,rgba(212,175,55,.08),transparent 62%),
+    var(--bg);
+}
+.contact-panel .section-head{max-width:780px;margin-left:auto;margin-right:auto;}
+
+@media (max-width:900px){
+  .proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:620px){
+  nav{align-items:flex-start;gap:14px;}
+  .navlinks{gap:12px 16px;}
+  .hero-upgraded{padding:76px 0 58px;}
+  .hero-upgraded h1{font-size:clamp(2.2rem,12vw,3.25rem);}
+  .proof-grid,.skill-grid{grid-template-columns:1fr;}
+  .proof-item{min-height:auto;}
+  .project-actions{gap:14px;}
+  .container{padding:0 18px;}
+}
