@@ -93,6 +93,15 @@ const FEATURED_PROJECTS = [
   },
 ];
 
+const ACADEMY_SCHOOLS = [
+  { title:'Digital Skills & Career School', platform:'Destiny Skills Bridge', description:'Accessible digital-skills entry point for Nigerian youths: AI productivity, practical digital skills, portfolio building, freelancing and opportunity readiness.', audience:'Beginners · Students · Nigerian Youths', level:'Foundation → Career', live:'https://ddei.online/', repo:'https://github.com/mabrig1/DDEI-APP', next:'Progress to BuildRx for software and AI product development.' },
+  { title:'Software & AI Development School', platform:'BuildRx + Full Stack Master Class', description:'Project-first full-stack engineering, AI application development, agentic systems, SaaS building, GitHub workflows and production deployment.', audience:'UNN Students · Developers · Founders', level:'Beginner → Advanced', live:'https://www.buildrx.online/', repo:'https://github.com/mabrig1/BuildRx', secondaryRepo:'https://github.com/mabrig1/FULL-STACK-MASTER-CLASS', next:'Validate capstone projects with DevShield and publish a verified portfolio.' },
+  { title:'AI & Technology School', platform:'FINTIGEN Academy', description:'Structured AI, agentic AI, machine-learning, data and emerging-technology learning paths designed for repeatable career-oriented training.', audience:'Students · Professionals · Builders', level:'Foundation → Specialist', live:'https://www.fintigen.com/', repo:'https://github.com/mabrig1/Fintigen', next:'Apply skills in BuildRx projects or research workflows.' },
+  { title:'Research, Grants & Funding School', platform:'AfriGrant Pipeline', description:'Practical grant discovery, eligibility analysis, proposal development, scholarships, fellowships, research funding, partnerships and funding-readiness workflows.', audience:'Postgraduates · Researchers · Lecturers · Founders', level:'Practical Professional', live:'https://www.afrigrantpipeline.com/', repo:'https://github.com/mabrig1/AfrigrantPipeline', next:'Move funded research and publication work into Scholar and KnowledgeForge.' },
+  { title:'Academic & Research Technology School', platform:'Scholar + KnowledgeForge', description:'AI-assisted research, evidence workflows, literature review, citation integrity, academic publishing, data analysis and research productivity.', audience:'UNN Final-Year · Postgraduates · Lecturers', level:'Academic → Advanced Research', live:'https://scholar.mabrigkorie.org/', repo:'https://github.com/mabrig1/Scholar', secondaryRepo:'https://github.com/mabrig1/KnowledgeForge', next:'Use AfriGrant Pipeline for funding and publication opportunities.' },
+  { title:'Secure Development & DevSecOps School', platform:'MABRIG DevShield AI', description:'Secure coding, repository auditing, dependency intelligence, CI security checks and evidence-based project verification for learner capstones.', audience:'Developers · Technical Students · Teams', level:'Intermediate → Advanced', repo:'https://github.com/mabrig1/mabrig-devshield-ai', next:'Scan, repair and certify BuildRx and Full Stack capstone projects.' }
+];
+
 const CATEGORY_PAGES = {
   projects: {
     category: 'app',
@@ -167,6 +176,11 @@ router.get('/', async (req, res) => {
     socialLinks,
     stats,
   });
+});
+
+router.get('/academy', async (req, res) => {
+  const socialLinks = await SocialLink.find().sort({ order: 1 });
+  res.render('academy', { siteName:SITE_NAME, siteUrl:SITE_URL(), meta:{ title:'MABRIG Tech+ Academy — Learn. Build. Research. Fund. Earn.', description:'MABRIG Tech+ Academy connects digital skills, full-stack and AI development, FINTIGEN technology education, research, grants, funding and secure development into practical learning pathways.', url:`${SITE_URL()}/academy`, keywords:'MABRIG Tech+ Academy, Nigeria digital skills, UNN digital training, AI training, full stack development, FINTIGEN, AfriGrant Pipeline, BuildRx' }, schools:ACADEMY_SCHOOLS, socialLinks });
 });
 
 router.get('/contact', (req, res) => {
