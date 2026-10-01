@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><%- include('partials/head', { meta }) %></head>
+<body>
+<%- include('partials/nav') %>
+<section class="hero hero-upgraded academy-hero">
+  <div class="container">
+    <div class="eyebrow">MABRIG Technologies · Skills Ecosystem</div>
+    <h1>MABRIG Tech+ Academy</h1>
+    <p class="tagline">Learn. Build. Research. Fund. Earn. One connected academy for practical digital skills, AI, software development, research technology, funding intelligence and secure product building.</p>
+    <div class="hero-roles">
+      <span class="role-pill">Nigeria-first</span><span class="role-pill">UNN-ready</span><span class="role-pill">Project-based</span><span class="role-pill">AI-assisted</span><span class="role-pill">Portfolio-driven</span>
+    </div>
+    <div class="btn-row"><a class="btn btn-primary" href="#schools">Explore Schools</a><a class="btn btn-ghost" href="https://ddei.online/" target="_blank" rel="noopener">Start Digital Skills ↗</a></div>
+  </div>
+</section>
+
+<section class="alt-bg academy-path">
+ <div class="container">
+  <div class="section-head"><div class="eyebrow">Connected Learning Journey</div><h2>From first skill to real opportunity</h2><p>The academy does not duplicate your specialist products. It connects them into one progression so learners know where to start and where to go next.</p></div>
+  <div class="academy-flow">
+    <span>1 · Learn</span><b>→</b><span>2 · Build</span><b>→</b><span>3 · Verify</span><b>→</b><span>4 · Research</span><b>→</b><span>5 · Fund</span><b>→</b><span>6 · Earn</span>
+  </div>
+ </div>
+</section>
+
+<section id="schools">
+ <div class="container">
+  <div class="section-head"><div class="eyebrow">Academy Schools</div><h2>Choose a practical pathway</h2><p>Each school links directly to the platform that already provides the strongest tools for that skill domain.</p></div>
+  <div class="grid grid-3">
+   <% schools.forEach(function(school, index) { %>
+    <article class="card academy-card">
+      <span class="skill-number"><%= String(index + 1).padStart(2, '0') %></span>
+      <div class="project-badge"><%= school.level %></div>
+      <h3><%= school.title %></h3>
+      <p class="academy-platform"><strong>Powered by:</strong> <%= school.platform %></p>
+      <p><%= school.description %></p>
+      <div class="academy-audience"><%= school.audience %></div>
+      <p class="academy-next"><strong>Next step:</strong> <%= school.next %></p>
+      <div class="project-actions">
+        <% if (school.live) { %><a class="link" href="<%= school.live %>" target="_blank" rel="noopener">Open Platform ↗</a><% } %>
+        <a class="link" href="<%= school.repo %>" target="_blank" rel="noopener">GitHub ↗</a>
+        <% if (school.secondaryRepo) { %><a class="link" href="<%= school.secondaryRepo %>" target="_blank" rel="noopener">Companion Engine ↗</a><% } %>
+      </div>
+    </article>
+   <% }); %>
+  </div>
+ </div>
+</section>
+
+<section class="alt-bg">
+ <div class="container">
+  <div class="section-head"><div class="eyebrow">MABRIG Tech+ Model</div><h2>One academy. Specialist engines.</h2><p>Destiny Skills Bridge provides broad access; BuildRx and Full Stack Master Class power software learning; FINTIGEN expands AI and technology training; Scholar and KnowledgeForge power research skills; AfriGrant Pipeline connects learners to funding; DevShield validates secure development practice.</p></div>
+  <div class="grid grid-3">
+    <div class="card"><h3>For Nigerian Youths</h3><p>Start with accessible digital skills, progress into AI and software, and leave with practical portfolio evidence.</p></div>
+    <div class="card"><h3>For UNN</h3><p>Combine digital productivity, research technology, full-stack development, grant readiness and specialist workshops.</p></div>
+    <div class="card"><h3>For Professionals</h3><p>Use specialist schools for AI, research, funding intelligence, secure development and product-building upskilling.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="contact-panel">
+ <div class="container">
+  <div class="section-head"><div class="eyebrow">Start Here</div><h2>Build skills that produce evidence.</h2><p>Learn a skill, build something real, verify the work, connect it to research or funding where relevant, and turn capability into opportunity.</p></div>
+  <div class="btn-row"><a class="btn btn-primary" href="https://ddei.online/" target="_blank" rel="noopener">Begin at Destiny Skills Bridge</a><a class="btn btn-ghost" href="https://www.buildrx.online/" target="_blank" rel="noopener">Enter BuildRx Academy</a><a class="btn btn-ghost" href="https://www.afrigrantpipeline.com/" target="_blank" rel="noopener">Explore Funding</a></div>
+ </div>
+</section>
+<%- include('partials/footer') %>
+<script src="/public/js/site.js"></script>
+</body></html>

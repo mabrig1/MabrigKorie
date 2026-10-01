@@ -391,3 +391,17 @@ footer a{color:var(--accent-soft);}
   .project-actions{gap:14px;}
   .container{padding:0 18px;}
 }
+
+
+/* MABRIG Tech+ Academy */
+.academy-hero .tagline{max-width:860px;}
+.academy-flow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.academy-flow span{padding:12px 18px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--accent-soft);font-weight:700;font-size:.86rem;}
+.academy-flow b{color:var(--accent);}
+.academy-card{display:flex;flex-direction:column;min-height:100%;}
+.academy-card .project-badge{align-self:flex-start;margin-bottom:12px;}
+.academy-platform{color:#d9dde5!important;}
+.academy-platform strong,.academy-next strong{color:var(--accent-soft);}
+.academy-audience{font-size:.76rem;color:var(--accent-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 0;margin:4px 0 14px;}
+.academy-next{margin-top:auto;}
+@media(max-width:620px){.academy-flow{align-items:stretch;flex-direction:column}.academy-flow b{text-align:center;transform:rotate(90deg)}}

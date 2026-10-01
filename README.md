@@ -4,6 +4,20 @@ A Node.js/Express + MongoDB portfolio site with an admin dashboard for managing
 all of Mabrig Korie's works (apps, research, books, music, services), per-item
 SEO fields, and one-click social sharing.
 
+## MABRIG Tech+ Academy
+
+The portfolio now includes a connected academy gateway at `/academy`.
+
+**Learning journey:** Learn → Build → Verify → Research → Fund → Earn.
+
+The academy interlinks existing specialist platforms rather than duplicating them:
+- Destiny Skills Bridge — digital skills and career entry
+- BuildRx + Full Stack Master Class — software, AI and project-based development
+- FINTIGEN Academy — AI, data and technology education
+- AfriGrant Pipeline — grants, scholarships, fellowships and funding readiness
+- Scholar + KnowledgeForge — academic and research technology
+- MABRIG DevShield AI — secure development and capstone verification
+
 ## Features
 
 - **Public site** — dynamic homepage pulling all works from the database, plus
