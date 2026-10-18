@@ -1,0 +1,46 @@
+/* DevShield product page: scoped styles preserve existing site branding */
+.ds { background: #0b0d12; color: #e8eaf0; }
+.ds section { border-top: 1px solid #242a36; }
+.ds-hero { background: radial-gradient(ellipse at 65% 25%, rgba(212,175,55,.14),transparent 55%), radial-gradient(ellipse at 5% 85%,rgba(73,105,189,.13),transparent 55%), #0b0d12; padding: 108px 0 88px; }
+.ds-kicker { font-size:.77rem; letter-spacing:.21em; font-weight:700; color:#d4af37; text-transform:uppercase; margin-bottom:18px; }
+.ds-status { display:inline-flex; gap:10px; align-items:center; color:#c9d1df; border:1px solid #343d4d; padding:8px 15px; border-radius:999px; font-size:.8rem; margin-bottom:25px; background:#141b27; }
+.ds-status span { width:8px;height:8px;border-radius:50%;background:#52d49c; }
+.ds-hero h1 { font-size:clamp(2.4rem,5.9vw,5rem); letter-spacing:-.04em; line-height:1.12; max-width:850px; margin-bottom:25px; }
+.ds-hero h1 em { color:#f0d98c; font-style:normal; }
+.ds-hero p:not(.ds-note) { color:#abb6c9; max-width:740px; font-size:1.15rem; margin-bottom:27px; }
+.ds-actions { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin:25px 0 10px; }
+.ds-note { font-size:.8rem; color:#9aa2b2; margin-top:20px; }
+.ds-section { padding:80px 0; }
+.ds-alt { background:#10141d; }
+.ds-grid { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:19px; }
+.ds-card { padding:28px; border:1px solid #303a4a; background:linear-gradient(160deg,#1a2130,#141821); border-radius:16px; }
+.ds-card h3 { font-size:1.16rem; margin:12px 0 11px; }
+.ds-card p { color:#afb7c6; font-size:.91rem; }
+.ds-icon { display:inline-flex; align-items:center; justify-content:center; font:700 .9rem Inter,sans-serif; color:#171b23; background:#d4af37; width:38px;height:38px;border-radius:10px; }
+.ds-steps { display:grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap:22px; margin-bottom:30px; }
+.ds-steps div { border-left:2px solid #d4af37; padding-left:16px; }
+.ds-steps strong { color:#f0d98c; }
+.ds-steps p { color:#aeb7c6; margin-top:6px; font-size:.91rem; }
+.ds-codebox { background:#080b12;border:1px solid #323b49;border-radius:12px;padding:22px; max-width:690px; margin:20px auto 0; overflow-x:auto; }
+.ds-codebox span { display:block;color:#d4af37;font-size:.73rem;margin-bottom:12px;letter-spacing:.12em;text-transform:uppercase; }
+.ds-codebox pre { white-space:pre; overflow-x:auto; color:#d7e2f5; line-height:1.65; font-size:.9rem; }
+.ds-pricing { display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px; }
+.ds-price { border:1px solid #323947;background:#161c27;border-radius:14px;padding:23px 18px;display:flex;flex-direction:column;gap:16px; }
+.ds-price.featured { border-color:#d4af37;background:#242315; }
+.ds-price h3 { font-size:1.14rem; }
+.ds-price small { display:block; color:#b4bed0; font:600 .65rem Inter,sans-serif; text-transform:uppercase; letter-spacing:.08em; padding-top:6px; }
+.ds-price strong { font-size:2rem; color:#fff; font-family:Inter,sans-serif; }
+.ds-price strong span { font-size:.78rem; color:#aab1be; font-weight:400; }
+.ds-price p { font-size:.85rem;color:#afb7c8;flex:1; }
+.ds-price a { display:block; color:#f0d98c;font-weight:700;font-size:.84rem; }
+.ds-service-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
+.ds-service-grid > div { border:1px solid #323947; padding:26px;border-radius:14px; }
+.ds-service-grid strong { color:#f0d98c;font-size:1.7rem;font-family:Inter,sans-serif; }
+.ds-service-grid h3 { margin:10px 0; }
+.ds-service-grid p { color:#afb7c8;font-size:.9rem; }
+.ds-contact { text-align:center; }
+.ds-contact h2 { font-size:clamp(2rem,4vw,3.4rem);margin-bottom:14px; }
+.ds-contact p { color:#b4bece;font-size:1.08rem; }
+.ds-contact .ds-actions { justify-content:center; }
+@media(max-width:1000px) { .ds-pricing { grid-template-columns:repeat(3,minmax(0,1fr)); } .ds-grid {grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media(max-width:700px) { .ds-hero {padding:68px 0 55px;} .ds-section {padding:58px 0;} .ds-grid,.ds-steps,.ds-service-grid,.ds-pricing {grid-template-columns:1fr;} .ds-price {gap:10px;} .ds-status {border-radius:14px;} .ds-actions {align-items:stretch;} .ds-actions a {width:100%;text-align:center;} }
