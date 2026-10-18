@@ -1,0 +1,41 @@
+name: DevShield landing verification
+
+on:
+  pull_request:
+  push:
+    branches: [claude/focused-ptolemy-2s4mah]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - run: npm ci
+      - run: node --check routes/public.js
+      - name: Render DevShield page using production EJS templates
+        run: |
+          node <<'NODE'
+          const ejs = require('ejs');
+          ejs.renderFile('views/devshield.ejs', {
+            meta: {
+              title: 'DevShield', description: 'DevShield test render',
+              url: 'https://mabrigkorie.org/devshield'
+            }
+          }).then((html) => {
+            for (const piece of [
+              'Secure your code', 'Request Commercial API Access',
+              'commercial API in early access', 'MABRIG DevShield AI'
+            ]) {
+              if (!html.includes(piece)) throw new Error('Missing content: ' + piece);
+            }
+            console.log('DevShield EJS renders correctly.');
+          }).catch((error) => { console.error(error); process.exitCode = 1; });
+          NODE
