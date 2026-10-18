@@ -32,6 +32,7 @@ const FEATURED_PROJECTS = [
     outcome: 'Fast, transparent pull-request security checks without requiring code to leave CI.',
     stack: ['GitHub Actions', 'Node.js', 'SARIF', 'OpenRouter', 'DevSecOps'],
     repo: 'https://github.com/mabrig1/mabrig-devshield-ai',
+    live: 'https://mabrigkorie.org/devshield',
   },
   {
     title: 'AfriGrant Pipeline',
@@ -183,6 +184,19 @@ router.get('/academy', async (req, res) => {
   res.render('academy', { siteName:SITE_NAME, siteUrl:SITE_URL(), meta:{ title:'MABRIG Tech+ Academy — Learn. Build. Research. Fund. Earn.', description:'MABRIG Tech+ Academy connects digital skills, full-stack and AI development, FINTIGEN technology education, research, grants, funding and secure development into practical learning pathways.', url:`${SITE_URL()}/academy`, keywords:'MABRIG Tech+ Academy, Nigeria digital skills, UNN digital training, AI training, full stack development, FINTIGEN, AfriGrant Pipeline, BuildRx' }, schools:ACADEMY_SCHOOLS, socialLinks });
 });
 
+router.get('/devshield', (req, res) => {
+  res.render('devshield', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: 'MABRIG DevShield AI — Security Scanner, WAAP & Commercial API',
+      description: 'Open-source DevShield AI security checks and professional security services from MABRIG Technologies. Commercial API early access and managed plans in development.',
+      url: `${SITE_URL()}/devshield`,
+      keywords: 'MABRIG DevShield AI, DevSecOps, GitHub security scanner, WAAP, API security, cybersecurity Nigeria'
+    }
+  });
+});
+
 router.get('/contact', (req, res) => {
   SocialLink.find()
     .sort({ order: 1 })
@@ -242,6 +256,7 @@ router.get('/sitemap.xml', async (req, res) => {
   const urls = [
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
+    `${SITE_URL()}/devshield`,
     `${SITE_URL()}/contact`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];
