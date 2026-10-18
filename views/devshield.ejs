@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { meta }) %>
+  <link rel="stylesheet" href="/public/css/devshield.css">
+</head>
+<body>
+<%- include('partials/nav') %>
+<main class="ds">
+  <section class="ds-hero">
+    <div class="container">
+      <div class="ds-kicker">MABRIG TECHNOLOGIES / DEVSECOPS</div>
+      <div class="ds-status"><span aria-hidden="true"></span> Open-source scanner available · Commercial API in early access</div>
+      <h1>Secure your code.<br><em>Defend your applications.</em></h1>
+      <p>DevShield AI helps developers identify changes that introduce risk, protect APIs with programmable edge security, and turn findings into meaningful next steps.</p>
+      <div class="ds-actions">
+        <a href="https://github.com/mabrig1/mabrig-devshield-ai" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Start with the Free Scanner ↗</a>
+        <a href="mailto:mabrig@mabrigkorie.org?subject=DevShield%20Commercial%20API%20Early%20Access" class="btn btn-ghost">Request Commercial API Access</a>
+      </div>
+      <p class="ds-note">No public paid API endpoint is advertised as live until deployment and customer onboarding are verified.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="ds-capabilities-title" class="ds-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Security engineered for builders</div>
+        <h2 id="ds-capabilities-title">A clearer path from risk to resolution</h2>
+      </div>
+      <div class="ds-grid">
+        <article class="ds-card"><span class="ds-icon" aria-hidden="true">01</span><h3>Pull request security</h3><p>Diff-aware deterministic checks, risk gates, SARIF findings and optional AI-assisted context before changes merge.</p></article>
+        <article class="ds-card"><span class="ds-icon" aria-hidden="true">02</span><h3>API &amp; agent trust</h3><p>Checks for risky authentication boundaries, webhook signatures, overbroad agent authority and insecure integrations.</p></article>
+        <article class="ds-card"><span class="ds-icon" aria-hidden="true">03</span><h3>WAAP edge protection</h3><p>Programmable web and API controls including request contracts, GraphQL limits, bot signals and staged observe/block policy.</p></article>
+        <article class="ds-card"><span class="ds-icon" aria-hidden="true">04</span><h3>Security intelligence</h3><p>Dependency evidence, repository security graphs, regression tracking and approval-gated remediation proposals.</p></article>
+        <article class="ds-card"><span class="ds-icon" aria-hidden="true">05</span><h3>Cloud reporting API</h3><p>A tenant-isolated Cloudflare Worker backend for structured scan ingestion and reporting, with scoped API keys and quotas. Deployment pending.</p></article>
+        <article class="ds-card"><span class="ds-icon" aria-hidden="true">06</span><h3>Professional implementation</h3><p>Installation, baseline tuning, policy rollout and ongoing security review for teams that need help getting started.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-section ds-alt" aria-labelledby="ds-steps-title">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">Simple developer workflow</div><h2 id="ds-steps-title">Protect every release</h2></div>
+      <div class="ds-steps">
+        <div><strong>01. Connect</strong><p>Add the DevShield GitHub Action to your CI workflow.</p></div>
+        <div><strong>02. Assess</strong><p>Scan changed code and review evidence-linked findings.</p></div>
+        <div><strong>03. Improve</strong><p>Prioritize fixes, validate protection and approve changes.</p></div>
+        <div><strong>04. Scale</strong><p>Adopt managed reporting and API access as they become available.</p></div>
+      </div>
+      <div class="ds-codebox" aria-label="DevShield GitHub Action usage example">
+        <span>GitHub Actions / example</span>
+        <pre><code>- uses: mabrig1/mabrig-devshield-ai@v1
+  with:
+    github-token: &#36;{{ github.token }}
+    fail-on: high</code></pre>
+      </div>
+      <p class="ds-note">The open-source Action operates without requiring a commercial subscription.</p>
+    </div>
+  </section>
+
+  <section class="ds-section" id="pricing" aria-labelledby="ds-pricing-title">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">Open core, managed convenience</div><h2 id="ds-pricing-title">Choose the level of support you need</h2><p>Free self-managed scanning is available today. Managed cloud subscriptions below are target prices, not active self-service checkout plans.</p></div>
+      <div class="ds-pricing">
+        <article class="ds-price featured"><h3>Community</h3><strong>Free</strong><p>Open-source scanner, local CLI, GitHub Actions and optional bring-your-own AI key.</p><a href="https://github.com/mabrig1/mabrig-devshield-ai" target="_blank" rel="noopener noreferrer">Use free DevShield ↗</a></article>
+        <article class="ds-price"><h3>Solo <small>Planned</small></h3><strong>$19 <span>/mo</span></strong><p>Target: managed reviews and personal security reporting.</p><a href="mailto:mabrig@mabrigkorie.org?subject=DevShield%20Solo%20Interest">Join early access ↗</a></article>
+        <article class="ds-price"><h3>Pro <small>Planned</small></h3><strong>$59 <span>/mo</span></strong><p>Target: multi-repository reporting, security policy packs and analytics.</p><a href="mailto:mabrig@mabrigkorie.org?subject=DevShield%20Pro%20Interest">Join early access ↗</a></article>
+        <article class="ds-price"><h3>Team <small>Planned</small></h3><strong>$149 <span>/mo</span></strong><p>Target: organization policies, shared reporting and audit records.</p><a href="mailto:mabrig@mabrigkorie.org?subject=DevShield%20Team%20Interest">Join early access ↗</a></article>
+        <article class="ds-price"><h3>Business <small>Planned</small></h3><strong>$399 <span>/mo</span></strong><p>Target: advanced governance, onboarding and high-usage reporting.</p><a href="mailto:mabrig@mabrigkorie.org?subject=DevShield%20Business%20Interest">Join early access ↗</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-section ds-alt" id="services">
+    <div class="container">
+      <div class="section-head"><div class="eyebrow">Professional services</div><h2>Get hands-on security support</h2></div>
+      <div class="ds-service-grid">
+        <div><strong>$99</strong><h3>Launch Setup</h3><p>Up to three repositories, Action configuration, SARIF and policy tuning.</p></div>
+        <div><strong>$299</strong><h3>Security Hardening Sprint</h3><p>Up to ten repositories, policy review and prioritized remediation guidance.</p></div>
+        <div><strong>$750</strong><h3>Team Rollout</h3><p>Shared policy and training across up to 25 repositories.</p></div>
+      </div>
+      <p class="ds-note">Service availability and project scope are confirmed individually before engagement.</p>
+    </div>
+  </section>
+
+  <section class="ds-section ds-contact">
+    <div class="container">
+      <div class="ds-kicker">SECURE THE NEXT RELEASE</div>
+      <h2>Build with confidence. Ship with evidence.</h2>
+      <p>Request implementation support or join the commercial API early-access list.</p>
+      <div class="ds-actions">
+        <a href="mailto:mabrig@mabrigkorie.org?subject=MABRIG%20DevShield%20Consultation" class="btn btn-primary">Talk to MABRIG Technologies</a>
+        <a href="https://github.com/mabrig1/mabrig-devshield-ai/tree/main/commercial-api" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View API Documentation ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>
+<script src="/public/js/site.js"></script>
+</body>
+</html>
