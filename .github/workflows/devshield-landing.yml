@@ -32,7 +32,7 @@ jobs:
           }).then((html) => {
             for (const piece of [
               'Secure your code', 'Request Commercial API Access',
-              'commercial API in early access', 'MABRIG DevShield AI'
+              'Commercial API in early access', 'DevShield AI helps'
             ]) {
               if (!html.includes(piece)) throw new Error('Missing content: ' + piece);
             }
