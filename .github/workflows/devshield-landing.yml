@@ -23,7 +23,7 @@ jobs:
       - run: node --check public/js/business.js
       - run: node --check public/js/business-check.js
       - run: node --check public/js/quote.js
-      - run: node --test tests/business-landing.test.js tests/operations.test.js tests/marketing-tools.test.js
+      - run: node --test tests/business-landing.test.js tests/operations.test.js tests/marketing-tools.test.js tests/admin-security.test.js
       - name: Render DevShield page using production EJS templates
         run: |
           node <<'NODE'
