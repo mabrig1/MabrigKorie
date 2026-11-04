@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/admin/login', authRoutes);
+app.use('/admin/operations', operationsRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api/works', worksRoutes);
 app.use('/api/social-links', socialLinksRoutes);
