@@ -43,6 +43,8 @@ The campaign marker is included in the user-reviewed WhatsApp message, **not col
 
 No invented customer testimonials, client counts, conversion rates or guaranteed project timelines. Prices are intentionally quoted case-by-case.
 
+Read the public business-enquiry privacy notice at `/business/privacy` before collecting customer details. The notice specifically distinguishes the user's voluntary WhatsApp send from subsequent manually entered admin records.
+
 ## Private operations desk
 
 - Open `/admin/login` using your existing administrator login, then `/admin/operations`.
