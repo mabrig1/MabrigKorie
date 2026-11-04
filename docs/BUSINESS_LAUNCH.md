@@ -55,6 +55,7 @@ Read the public business-enquiry privacy notice at `/business/privacy` before co
 - Create a lead from a *real received* customer enquiry. Log the campaign source visible in the customer's WhatsApp message when available.
 - Move each lead through New → Contacted → Quoted → Won → In progress → Completed (or Lost).
 - Record quote and actually confirmed receipts only, in the correct currency; no cross-currency revenue totals.
+- Use **Prepare printable project quotation** for a private client-specific draft that can be printed or saved as a PDF in the browser. This draft is not a tax invoice, does not collect payment, and does not update the recorded quote automatically.
 - Prepare promotional posts, copy captions manually, then log verified views and new followers from Facebook/TikTok/YouTube's own analytics.
 - Compare the published posts by views, followers per 1,000 views, enquiries and paid sales. A small three-day sample indicates early traction, not sustainability.
 
