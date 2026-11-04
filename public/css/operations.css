@@ -41,6 +41,10 @@
 .ops-update .ops-full {grid-column:1 / -1;}
 .ops-update button {align-self:end; justify-self:start;}
 .ops-empty {padding:30px; border:1px dashed var(--border); border-radius:12px; color:var(--muted);}
+.ops-campaign-results {border:1px solid var(--border); border-radius:14px; padding:20px; margin:22px 0;}
+.ops-campaign-results h3 {font-size:1.12rem; margin-bottom:8px; color:#fff;}
+.ops-table-wrap {overflow-x:auto; margin-top:12px;}
+.ops-table-wrap table {min-width:680px;}
 .ops-samples {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; margin:21px 0 28px;}
 .ops-samples h3 {font-size:1.05rem; margin-top:9px;}
 .ops-layout-posts {margin-top:24px;}
