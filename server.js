@@ -10,22 +10,34 @@ const worksRoutes = require('./routes/works');
 const socialLinksRoutes = require('./routes/socialLinks');
 const publicRoutes = require('./routes/public');
 const operationsRoutes = require('./routes/operations');
+const { sameOriginMutation } = require('./middleware/sameOrigin');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use((req, res, next) => {
+  res.set('X-Content-Type-Options', 'nosniff');
+  res.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.set('X-Frame-Options', 'DENY');
+  res.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  if (req.path === '/admin' || req.path.startsWith('/admin/')) {
+    res.set('Cache-Control', 'private, no-store');
+    res.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+  next();
+});
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.use('/admin/login', authRoutes);
-app.use('/admin/operations', operationsRoutes);
+app.use('/admin/login', sameOriginMutation, authRoutes);
+app.use('/admin/operations', sameOriginMutation, operationsRoutes);
 app.use('/admin', adminRoutes);
-app.use('/api/works', worksRoutes);
-app.use('/api/social-links', socialLinksRoutes);
+app.use('/api/works', sameOriginMutation, worksRoutes);
+app.use('/api/social-links', sameOriginMutation, socialLinksRoutes);
 app.use('/', publicRoutes);
 
 const PORT = process.env.PORT || 3000;
