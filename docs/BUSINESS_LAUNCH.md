@@ -20,6 +20,10 @@ Offer manually scoped work: business websites, online stores, custom application
 
 The new private operations dashboard provides a basic manual sales pipeline, manual quotation and receipt records, campaign post drafts and manually reported social metrics. It does **not** capture WhatsApp messages automatically, process money, create real invoices, sync platform analytics or publish social posts. For now, quotations and payments are confirmed independently with customers. Never record passwords, sensitive identification data or bank card details.
 
+## Zero-cost customer lead magnet
+
+Share `https://www.mabrigkorie.org/business/check`: a free, privacy-first seven-question digital readiness self-check. Answers remain in the customer's browser. The assessment does not save results, automatically send data, or collect contacts; customers must voluntarily initiate WhatsApp contact to discuss improvements.
+
 ## Three-day organic campaign (no ad spending)
 
 Post one original demonstration video and one supporting short post per day. Use distinct link parameters to observe which content initiated a WhatsApp enquiry:
