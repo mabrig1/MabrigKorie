@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { meta }) %>
+  <link rel="stylesheet" href="/public/css/business.css">
+  <script type="application/ld+json"><%- JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'MABRIG Technologies',
+    url: siteUrl + '/business',
+    email: 'mabrig@mabrigkorie.org',
+    telephone: '+2347065342818',
+    areaServed: ['Nigeria', 'International'],
+    serviceType: ['Business websites', 'E-commerce websites', 'Custom applications', 'AI workflow automation', 'Security implementation']
+  }).replace(/</g, '\\u003c') %></script>
+</head>
+<body>
+<%- include('partials/nav') %>
+<main id="main-content" class="business-page">
+  <section class="business-hero">
+    <div class="container">
+      <div class="business-kicker">MABRIG TECHNOLOGIES · NIGERIA &amp; GLOBAL</div>
+      <h1>Make your business easier to find, easier to buy from, and easier to run.</h1>
+      <p>Professional websites, online stores, business applications and practical AI automation. Built for entrepreneurs and organisations in Nsukka, across Nigeria and internationally.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#request">Request a project quotation</a>
+        <a class="btn btn-ghost" href="#services">Explore services</a>
+      </div>
+      <p class="business-hero-note">Start with a conversation. Scope, pricing and delivery dates are confirmed before work begins.</p>
+    </div>
+  </section>
+
+  <section id="services" class="business-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">SOLUTIONS THAT SUPPORT SALES</div>
+        <h2>Choose the result your business needs</h2>
+        <p>Begin with one clear problem. We recommend the simplest dependable solution rather than unnecessary software.</p>
+      </div>
+      <div class="business-grid">
+        <article class="business-card">
+          <div class="business-card-number">01 / VISIBILITY</div>
+          <h3>Business websites</h3>
+          <p>Mobile-friendly websites with clear service information, business contacts, enquiry actions and search-ready pages.</p>
+          <p class="business-fit">For shops, churches, schools, consultants and local service businesses.</p>
+          <a href="#request" data-service-choice="Business website">Discuss a website →</a>
+        </article>
+        <article class="business-card">
+          <div class="business-card-number">02 / COMMERCE</div>
+          <h3>Online stores</h3>
+          <p>Product catalogues, enquiries, customer journeys and, where supported, verified payment-provider integrations.</p>
+          <p class="business-fit">For retailers, wholesalers and product-based businesses.</p>
+          <a href="#request" data-service-choice="Online store">Discuss an online store →</a>
+        </article>
+        <article class="business-card">
+          <div class="business-card-number">03 / OPERATIONS</div>
+          <h3>Custom business applications</h3>
+          <p>Booking systems, inventory tools, dashboards, customer workflows and business-specific software.</p>
+          <p class="business-fit">For growing teams tired of scattered spreadsheets and manual records.</p>
+          <a href="#request" data-service-choice="Custom business application">Discuss an application →</a>
+        </article>
+        <article class="business-card">
+          <div class="business-card-number">04 / PRODUCTIVITY</div>
+          <h3>AI &amp; workflow automation</h3>
+          <p>Practical automation for repetitive processes, document workflows and approved AI-assisted business operations.</p>
+          <p class="business-fit">For organisations that want to reclaim staff time without losing oversight.</p>
+          <a href="#request" data-service-choice="AI and workflow automation">Discuss automation →</a>
+        </article>
+        <article class="business-card">
+          <div class="business-card-number">05 / SECURITY</div>
+          <h3>Secure software implementation</h3>
+          <p>GitHub security scanning, CI setup, policy review and managed support using our DevShield engineering toolkit.</p>
+          <p class="business-fit">For developers, SaaS teams and software agencies worldwide.</p>
+          <a href="/devshield#services">Explore DevShield services →</a>
+        </article>
+        <article class="business-card">
+          <div class="business-card-number">06 / LEARNING</div>
+          <h3>AI &amp; digital skills training</h3>
+          <p>Practical digital learning and workshops through Destiny Skills Bridge and our academy ecosystem.</p>
+          <p class="business-fit">For students, teams and aspiring digital professionals.</p>
+          <a href="https://ddei.online/" target="_blank" rel="noopener noreferrer">Visit DDEI Online ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="business-section business-process">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">HOW WE WORK</div>
+        <h2>From your brief to a maintainable product</h2>
+      </div>
+      <ol class="business-steps">
+        <li><strong>01. Describe</strong><span>Tell us what your customers or staff need to accomplish.</span></li>
+        <li><strong>02. Scope</strong><span>We agree on deliverables, timeline, responsibilities and quotation.</span></li>
+        <li><strong>03. Build</strong><span>Design and develop the agreed solution with progress reviews.</span></li>
+        <li><strong>04. Verify</strong><span>Test key flows and confirm what is ready before release.</span></li>
+        <li><strong>05. Support</strong><span>Agree on handover, maintenance and optional ongoing support.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="business-section" id="request">
+    <div class="container business-contact-grid">
+      <div>
+        <div class="business-kicker">LET'S DISCUSS YOUR PROJECT</div>
+        <h2>Get a quotation for your business</h2>
+        <p>Share a short brief and open WhatsApp with your enquiry pre-filled. No account, upfront payment or AI subscription is required to request a quotation.</p>
+        <div class="business-contact-links">
+          <a href="https://wa.me/2347065342818" target="_blank" rel="noopener noreferrer">WhatsApp: +234 706 534 2818 ↗</a>
+          <a href="mailto:mabrig@mabrigkorie.org?subject=Business%20project%20enquiry">mabrig@mabrigkorie.org ↗</a>
+        </div>
+      </div>
+      <form id="business-enquiry" class="business-form" novalidate>
+        <div class="field">
+          <label for="business-name">Your business or organisation</label>
+          <input id="business-name" name="business" maxlength="80" autocomplete="organization" required placeholder="e.g., Nsukka Fashion Store">
+        </div>
+        <div class="field">
+          <label for="business-location">Your market</label>
+          <select id="business-location" name="market" required>
+            <option value="">Select a market</option>
+            <option value="Nsukka / Enugu">Nsukka / Enugu</option>
+            <option value="Elsewhere in Nigeria">Elsewhere in Nigeria</option>
+            <option value="International">International</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="business-service">What do you need?</label>
+          <select id="business-service" name="service" required>
+            <option value="">Select a service</option>
+            <option value="Business website">Business website</option>
+            <option value="Online store">Online store</option>
+            <option value="Custom business application">Custom business application</option>
+            <option value="AI and workflow automation">AI and workflow automation</option>
+            <option value="Security implementation">Security implementation</option>
+            <option value="Digital skills training">Digital skills training</option>
+            <option value="Not sure - need advice">Not sure — need advice</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="business-goal">What should the solution achieve?</label>
+          <textarea id="business-goal" name="goal" maxlength="450" required placeholder="Describe the problem, customers and outcome. Please do not include passwords, bank details or sensitive personal data."></textarea>
+        </div>
+        <div class="field">
+          <label for="business-budget">Budget range (optional)</label>
+          <select id="business-budget" name="budget">
+            <option value="">Prefer to discuss</option>
+            <option value="Under NGN 100,000">Under ₦100,000</option>
+            <option value="NGN 100,000 - 250,000">₦100,000–₦250,000</option>
+            <option value="NGN 250,000 - 500,000">₦250,000–₦500,000</option>
+            <option value="NGN 500,000+">₦500,000+</option>
+            <option value="International budget - discuss">International budget — discuss</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary business-submit">Continue to WhatsApp ↗</button>
+        <p id="business-form-error" role="alert" class="business-form-error" hidden></p>
+        <p class="business-form-note">Your brief is prepared in your browser, not stored on this site. WhatsApp opens for you to review and send it yourself. WhatsApp's privacy terms apply.</p>
+      </form>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>
+<script src="/public/js/business.js" defer></script>
+</body>
+</html>
