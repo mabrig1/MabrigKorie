@@ -9,6 +9,7 @@ const adminRoutes = require('./routes/admin');
 const worksRoutes = require('./routes/works');
 const socialLinksRoutes = require('./routes/socialLinks');
 const publicRoutes = require('./routes/public');
+const operationsRoutes = require('./routes/operations');
 
 const app = express();
 
