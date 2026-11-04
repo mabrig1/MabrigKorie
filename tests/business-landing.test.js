@@ -81,4 +81,5 @@ test('marketing route and sitemap are registered', () => {
   assert.ok(src.includes("`${SITE_URL()}/business`"));
   assert.ok(fs.readFileSync('views/index.ejs','utf8').includes('href="/business#request"'));
   assert.ok(fs.readFileSync('views/partials/nav.ejs','utf8').includes('href="/business"'));
+  assert.ok(src.includes("router.get('/business/privacy'"));
 });
