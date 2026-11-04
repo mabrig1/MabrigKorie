@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Business Operations — MABRIG Technologies</title>
+<link rel="stylesheet" href="/public/css/style.css">
+<link rel="stylesheet" href="/public/css/operations.css">
+</head>
+<body>
+<header class="ops-header">
+  <div class="container ops-topline">
+    <a class="logo" href="/admin">MABRIG Technologies · Admin</a>
+    <nav aria-label="Admin sections">
+      <a href="/admin">Content Hub</a>
+      <a href="/admin/operations" aria-current="page">Business Operations</a>
+      <a href="/business" target="_blank" rel="noopener noreferrer">Business Page ↗</a>
+    </nav>
+  </div>
+</header>
+<main class="container ops-main">
+  <div class="ops-heading">
+    <div class="eyebrow">PRIVATE OPERATIONS WORKSPACE</div>
+    <h1>Leads, revenue records &amp; organic promotion</h1>
+    <p>Manage business enquiries manually, record confirmed client payments, and plan original posts. No public customer signup, payment processing or automatic social publishing is activated here.</p>
+  </div>
+
+  <section aria-labelledby="summary-heading" class="ops-section">
+    <div class="ops-section-heading">
+      <h2 id="summary-heading">Business overview</h2>
+      <span class="ops-note">Owner-entered records; not bank or advertising-platform verified</span>
+    </div>
+    <div class="ops-metrics">
+      <article class="ops-metric"><strong><%= totalLeadCount %></strong><span>Total manually recorded leads</span></article>
+      <article class="ops-metric"><strong><%= totalPostCount %></strong><span>Total planned / logged posts</span></article>
+      <% if (!totals.length) { %>
+        <article class="ops-metric"><strong>—</strong><span>No payment records yet</span></article>
+      <% } else { totals.forEach(function(total) { %>
+        <article class="ops-metric">
+          <strong><%= formatAmount(total.recorded, total._id) %></strong>
+          <span>Manually recorded receipts (<%= total._id %>, <%= total.count %> leads)</span>
+        </article>
+      <% }); } %>
+    </div>
+    <p class="ops-note">Revenue figures are entered by an administrator after independent payment confirmation. Amounts from different currencies are never summed together. All currently saved leads contribute to summary totals.</p>
+  </section>
+
+  <section id="leads" class="ops-section" aria-labelledby="leads-heading">
+    <div class="ops-section-heading"><h2 id="leads-heading">Customer pipeline</h2><span class="ops-note">Most recent 100 of <%= totalLeadCount %> leads shown</span></div>
+    <div class="ops-layout">
+      <form class="ops-panel ops-form" method="POST" action="/admin/operations/leads">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <h3>Record an enquiry</h3>
+        <p>Enter a brief only after someone has contacted your business. Do not enter ID numbers, banking credentials or sensitive personal information.</p>
+        <label>Business or client name <input name="business" maxlength="100" required placeholder="Business or client"></label>
+        <label>Contact (optional) <input name="contact" maxlength="120" placeholder="Business email or WhatsApp number"></label>
+        <label>Market <select name="market" required><% MARKETS.forEach(function(item) { %><option value="<%= item %>"><%= item %></option><% }); %></select></label>
+        <label>Service requested <input name="service" maxlength="80" required placeholder="Business website"></label>
+        <label>Enquiry source <input name="source" maxlength="100" value="manual" placeholder="facebook / website-demo-day1"></label>
+        <label>Brief <textarea name="summary" maxlength="600" placeholder="What the client needs"></textarea></label>
+        <label>Billing currency <select name="currency"><% CURRENCIES.forEach(function(item) { %><option value="<%= item %>"><%= item %></option><% }); %></select></label>
+        <button class="btn btn-primary" type="submit">Save lead</button>
+      </form>
+      <div class="ops-records">
+        <% if (!leads.length) { %><p class="ops-empty">No enquiries recorded. Start with a real WhatsApp or email enquiry.</p><% } %>
+        <% leads.forEach(function(lead) { %>
+          <article class="ops-panel ops-record">
+            <div class="ops-record-heading">
+              <h3><%= lead.business %></h3>
+              <span class="ops-badge"><%= lead.stage %></span>
+            </div>
+            <p><strong>Service:</strong> <%= lead.service %> · <strong>Market:</strong> <%= lead.market %></p>
+            <p><strong>Contact:</strong> <%= lead.contact || 'Not provided' %></p>
+            <p><strong>Source:</strong> <%= lead.source %></p>
+            <% if (lead.summary) { %><p><strong>Brief:</strong> <%= lead.summary %></p><% } %>
+            <p class="ops-money">Quoted: <%= formatAmount(lead.quotedMinor, lead.currency) %> · Recorded receipts: <%= formatAmount(lead.collectedMinor, lead.currency) %></p>
+            <p><a href="/admin/operations/quotes/<%= lead._id %>">Prepare printable project quotation →</a></p>
+            <form class="ops-update" method="POST" action="/admin/operations/leads/<%= lead._id %>">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <label>Stage<select name="stage"><% STAGES.forEach(function(item) { %><option value="<%= item %>" <%= lead.stage === item ? 'selected' : '' %>><%= item %></option><% }); %></select></label>
+              <label>Currency<select name="currency"><% CURRENCIES.forEach(function(item) { %><option value="<%= item %>" <%= lead.currency === item ? 'selected' : '' %>><%= item %></option><% }); %></select></label>
+              <label>Quote (<%= lead.currency %>)<input inputmode="decimal" name="quoted" value="<%= ((lead.quotedMinor || 0)/100).toFixed(2) %>"></label>
+              <label>Confirmed receipts (<%= lead.currency %>)<input inputmode="decimal" name="collected" value="<%= ((lead.collectedMinor || 0)/100).toFixed(2) %>"></label>
+              <label class="ops-full">Payment record note<input name="paymentNote" maxlength="250" value="<%= lead.paymentNote || '' %>" placeholder="Reference and date, without card or bank details"></label>
+              <button class="btn btn-ghost btn-sm" type="submit">Update lead</button>
+            </form>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section id="posts" class="ops-section" aria-labelledby="posts-heading">
+    <div class="ops-section-heading"><h2 id="posts-heading">Organic promotion studio</h2><span class="ops-note">Most recent 50 of <%= totalPostCount %> records</span></div>
+    <p>Use your own videos, screenshots and text. Posting and engagement data must be entered manually; this page does not publish to Facebook, TikTok or YouTube or read their analytics.</p>
+    <div class="ops-campaign-results" aria-label="Results of published promotion posts">
+      <h3>Three-day performance comparison</h3>
+      <p class="ops-note">Published posts only; all results below are manually entered, not independently verified by social platforms. Follows per 1,000 views is a directional indicator, not a reach-based conversion rate.</p>
+      <% if (!campaignTotals.length) { %>
+        <p class="ops-empty">Publish your first post, then record its views, followers, enquiries and paid sales to compare products.</p>
+      <% } else { %>
+        <div class="ops-table-wrap"><table>
+          <thead><tr><th>Product</th><th>Posts</th><th>Views</th><th>New followers</th><th>Follows / 1k views</th><th>Enquiries</th><th>Paid sales</th></tr></thead>
+          <tbody><% campaignTotals.forEach(function(row) { %>
+            <tr><th><%= row._id %></th><td><%= row.posts %></td><td><%= row.views %></td>
+              <td><%= row.followers %></td>
+              <td><%= row.views ? (1000 * row.followers / row.views).toFixed(1) : '—' %></td>
+              <td><%= row.enquiries %></td><td><%= row.sales %></td>
+            </tr>
+          <% }); %></tbody>
+        </table></div>
+      <% } %>
+    </div>
+    <div class="ops-samples">
+      <article class="ops-panel">
+        <div class="ops-day">DAY 1 · WEBSITE DEMONSTRATION</div>
+        <h3>“Can customers find your business online?”</h3>
+        <p>Record a short screen demo of an actual mobile-friendly business website. Explain how visitors can discover services and make contact.</p>
+        <a href="/business?utm_source=facebook&amp;utm_campaign=website-demo-day1" target="_blank" rel="noopener noreferrer">Day 1 tracking link ↗</a>
+      </article>
+      <article class="ops-panel">
+        <div class="ops-day">DAY 2 · ONLINE STORE DEMONSTRATION</div>
+        <h3>“See what a simple online catalogue can do.”</h3>
+        <p>Demonstrate a working product catalogue and show how a real customer would enquire. Do not claim payment is enabled unless verified.</p>
+        <a href="/business?utm_source=facebook&amp;utm_campaign=store-demo-day2" target="_blank" rel="noopener noreferrer">Day 2 tracking link ↗</a>
+      </article>
+      <article class="ops-panel">
+        <div class="ops-day">DAY 3 · BUSINESS AUTOMATION</div>
+        <h3>“What task takes too much of your working day?”</h3>
+        <p>Explain a real automation workflow, its human review step and the problem it solves. Invite questions instead of promising unrealistic results.</p>
+        <a href="/business?utm_source=facebook&amp;utm_campaign=automation-demo-day3" target="_blank" rel="noopener noreferrer">Day 3 tracking link ↗</a>
+      </article>
+    </div>
+    <div class="ops-layout ops-layout-posts">
+      <form class="ops-panel ops-form" method="POST" action="/admin/operations/posts">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <h3>Plan a post</h3>
+        <label>Posting date<input name="day" type="date" value="<%= today %>" required></label>
+        <label>Platform<select name="platform"><% PLATFORMS.forEach(function(item) { %><option value="<%= item %>"><%= item %></option><% }); %></select></label>
+        <label>Product<select name="product"><% PRODUCTS.forEach(function(item) { %><option value="<%= item %>"><%= item %></option><% }); %></select></label>
+        <label>Campaign code<input name="source" required maxlength="64" placeholder="website-demo-day1" pattern="[a-zA-Z0-9_-]{3,64}"></label>
+        <label>Hook / video title<input name="title" required maxlength="140" placeholder="What if your shop had a website?"></label>
+        <label>Caption<textarea name="caption" required maxlength="2400" rows="7" placeholder="Write an original explanation and a clear call to action."></textarea></label>
+        <button class="btn btn-primary" type="submit">Save draft</button>
+      </form>
+      <div class="ops-records">
+        <% if (!posts.length) { %><p class="ops-empty">No promotional drafts saved yet. Create your first demonstration post.</p><% } %>
+        <% posts.forEach(function(post) { %>
+          <article class="ops-panel ops-record">
+            <div class="ops-record-heading"><h3><%= post.title %></h3><span class="ops-badge"><%= post.status %></span></div>
+            <p><%= post.day %> · <%= post.platform %> · <%= post.product %></p>
+            <label>Caption ready to copy<textarea readonly rows="4"><%= post.caption %></textarea></label>
+            <p class="ops-note">Campaign: <%= post.source %></p>
+            <p><a href="/business?utm_source=<%= encodeURIComponent(post.platform.toLowerCase()) %>&amp;utm_campaign=<%= encodeURIComponent(post.source) %>" target="_blank" rel="noopener noreferrer">Open attributed business link ↗</a></p>
+            <form class="ops-update" method="POST" action="/admin/operations/posts/<%= post._id %>">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <label>Status<select name="status"><% POST_STATUSES.forEach(function(item) { %><option value="<%= item %>" <%= post.status === item ? 'selected' : '' %>><%= item %></option><% }); %></select></label>
+              <label>Views<input name="views" inputmode="numeric" value="<%= post.views || 0 %>"></label>
+              <label>New followers<input name="followers" inputmode="numeric" value="<%= post.followers || 0 %>"></label>
+              <label>Enquiries<input name="enquiries" inputmode="numeric" value="<%= post.enquiries || 0 %>"></label>
+              <label>Paid sales<input name="sales" inputmode="numeric" value="<%= post.sales || 0 %>"></label>
+              <button class="btn btn-ghost btn-sm" type="submit">Update results</button>
+            </form>
+            <p class="ops-note">Metrics are manual observations. They are not automatically verified against platform analytics or payment records.</p>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+  <footer class="ops-footer"><p>Internal dashboard · Keep client data private · Verify payments independently · No automated posting or billing</p></footer>
+</main>
+</body>
+</html>

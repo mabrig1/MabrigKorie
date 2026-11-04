@@ -4,7 +4,7 @@ const SocialLink = require('../models/SocialLink');
 const router = express.Router();
 
 const SITE_NAME = 'Mabrig Korie';
-const SITE_URL = () => process.env.SITE_URL || 'https://mabrigkorie.org';
+const SITE_URL = () => process.env.SITE_URL || 'https://www.mabrigkorie.org';
 
 const BIO_POINTS = [
   'Founder of MABRIG Technologies',
@@ -165,9 +165,9 @@ router.get('/', async (req, res) => {
     siteName: SITE_NAME,
     siteUrl: SITE_URL(),
     meta: {
-      title: 'Mabrig Korie — Full-Stack Developer, Agentic AI Builder & Product Architect',
+      title: 'MABRIG Technologies — Business Websites, Applications & AI Automation',
       description:
-        'Portfolio of Mabrig Korie, a full-stack developer and agentic AI builder creating production web applications across research, education, grants, developer security, agriculture and digital infrastructure.',
+        'MABRIG Technologies builds websites, online stores, custom business applications and practical AI automation in Nigeria and internationally. Explore our work and request a quotation.',
       url: SITE_URL(),
       keywords: 'Mabrig Korie, full-stack developer, agentic AI, AI developer, Next.js, Node.js, MongoDB, DevSecOps, AI applications, Nigeria technology',
     },
@@ -176,6 +176,54 @@ router.get('/', async (req, res) => {
     bioPoints: BIO_POINTS,
     socialLinks,
     stats,
+  });
+});
+
+router.get('/business', (req, res) => {
+  res.render('business', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: 'Business Websites, Online Stores & AI Automation | MABRIG Technologies',
+      description: 'MABRIG Technologies designs websites, online stores, business systems and AI automation for businesses in Nsukka, Nigeria and internationally. Request a project quote.',
+      url: `${SITE_URL()}/business`,
+      keywords: 'MABRIG Technologies, Nsukka website developer, business websites Nigeria, online store development, custom apps, AI automation, small business software'
+    }
+  });
+});
+
+router.get('/business/check', (req, res) => {
+  const questions = [
+    { id: 'discover', question: 'Can a new customer easily find your business online?' },
+    { id: 'contact', question: 'Is there a clear call, email or WhatsApp contact option?' },
+    { id: 'offer', question: 'Can customers see what you sell or the services you offer?' },
+    { id: 'mobile', question: 'Is your business information easy to read on a phone?' },
+    { id: 'followup', question: 'Do you keep track of enquiries so nobody is forgotten?' },
+    { id: 'trust', question: 'Can customers verify who you are and understand your service terms?' },
+    { id: 'workflow', question: 'Have you identified recurring work that a simple digital tool could improve?' }
+  ];
+  res.render('business-check', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    questions,
+    meta: {
+      title: 'Free Business Digital Readiness Check | MABRIG Technologies',
+      description: 'Check your business online readiness in seven simple questions. Get free, practical steps for improving online visibility, customer enquiries and workflow.',
+      url: `${SITE_URL()}/business/check`,
+      keywords: 'business readiness check, free business website audit, Nsukka business, online presence assessment, small business Nigeria'
+    }
+  });
+});
+
+router.get('/business/privacy', (req, res) => {
+  res.render('business-privacy', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: 'Business Enquiry Privacy | MABRIG Technologies',
+      description: 'How MABRIG Technologies handles quotations and client business enquiries.',
+      url: `${SITE_URL()}/business/privacy`
+    }
   });
 });
 
@@ -257,6 +305,10 @@ router.get('/sitemap.xml', async (req, res) => {
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
     `${SITE_URL()}/devshield`,
+    `${SITE_URL()}/academy`,
+    `${SITE_URL()}/business`,
+    `${SITE_URL()}/business/privacy`,
+    `${SITE_URL()}/business/check`,
     `${SITE_URL()}/contact`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];

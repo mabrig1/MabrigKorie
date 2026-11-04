@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { meta }) %>
+  <link rel="stylesheet" href="/public/css/business.css">
+  <link rel="stylesheet" href="/public/css/business-check.css">
+</head>
+<body>
+<%- include('partials/nav') %>
+<main class="check-page">
+  <section class="check-hero">
+    <div class="container">
+      <div class="business-kicker">FREE BUSINESS TOOL · NO ACCOUNT REQUIRED</div>
+      <h1>How ready is your business for customers online?</h1>
+      <p>Answer seven practical questions about how customers discover, contact and buy from your business. Get a simple action plan in your browser — no payment or personal information needed.</p>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="/business">Explore MABRIG Services</a>
+        <a class="btn btn-ghost" href="#check">Start the free check ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="check" class="check-section">
+    <div class="container check-container">
+      <div class="check-intro">
+        <h2>Your seven-point business readiness check</h2>
+        <p>Choose what is true for your business today. This is an informal self-assessment, not a security audit or a guarantee of more sales.</p>
+      </div>
+      <form id="readiness-check" class="check-form">
+        <% questions.forEach(function(question, i) { %>
+        <fieldset class="check-question" data-id="<%= question.id %>">
+          <legend><span class="check-number"><%= i + 1 %></span> <%= question.question %></legend>
+          <div class="check-options">
+            <label><input type="radio" name="<%= question.id %>" value="1" required> Yes</label>
+            <label><input type="radio" name="<%= question.id %>" value="0"> Not yet</label>
+          </div>
+        </fieldset>
+        <% }); %>
+        <button type="submit" class="btn btn-primary check-submit">See my free action plan</button>
+        <p class="check-note">Your answers and score remain in your browser. We do not send them to our server or track your results automatically.</p>
+      </form>
+      <section id="check-result" class="check-result" aria-live="polite" aria-labelledby="result-heading" hidden>
+        <div class="check-result-summary">
+          <div class="business-kicker">YOUR PRACTICAL NEXT STEPS</div>
+          <h2 id="result-heading">Your digital readiness result</h2>
+          <strong id="check-score" class="check-score"></strong>
+          <p id="check-result-intro"></p>
+        </div>
+        <h3>Start with these priorities</h3>
+        <ol id="check-next-steps" class="check-steps"></ol>
+        <div class="btn-row check-actions">
+          <a id="check-discuss" class="btn btn-primary" href="https://wa.me/2347065342818" target="_blank" rel="noopener noreferrer">Discuss improvements on WhatsApp ↗</a>
+          <button type="button" id="check-share" class="btn btn-ghost">Share this free business check</button>
+          <button type="button" id="check-reset" class="btn btn-ghost">Check again</button>
+        </div>
+        <p id="share-message" role="status" class="check-note"></p>
+      </section>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>
+<script src="/public/js/business-check.js" defer></script>
+</body>
+</html>
