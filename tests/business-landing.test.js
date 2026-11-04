@@ -30,6 +30,16 @@ test('business landing renders with conversion CTAs, canonical metadata and cont
   assert.ok(!html.includes('Guaranteed earnings'));
 });
 
+test('enquiry privacy disclosure renders without implied auto-collection', async () => {
+  const html = await ejs.renderFile('views/business-privacy.ejs', {
+    meta: { title: 'Business privacy', description: 'Privacy notice',
+      url: 'https://www.mabrigkorie.org/business/privacy' }
+  });
+  assert.match(html, /not automatically save the form/);
+  assert.match(html, /manually record/);
+  assert.match(html, /mabrig@mabrigkorie.org/);
+});
+
 test('enquiry script builds user-reviewed WhatsApp brief with attribution, without server submission', () => {
   let submitted;
   let opened;
