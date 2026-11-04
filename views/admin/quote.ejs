@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Prepare Project Quotation — MABRIG Technologies</title>
+<link rel="stylesheet" href="/public/css/style.css">
+<link rel="stylesheet" href="/public/css/quote.css">
+</head>
+<body>
+<header class="quote-admin-bar">
+  <div class="container"><a href="/admin/operations#leads">← Back to customer pipeline</a><span>Private project quotation builder</span></div>
+</header>
+<main class="container quote-layout">
+  <form id="quote-form" class="quote-fields">
+    <h1>Prepare a quotation</h1>
+    <p>Edit the details, then choose <strong>Print / Save as PDF</strong>. This tool does not charge a customer or automatically email a quotation.</p>
+    <label>Customer / business name
+      <input id="q-client" maxlength="100" value="<%= lead.business %>" required>
+    </label>
+    <label>Contact detail
+      <input id="q-contact" maxlength="120" value="<%= lead.contact || '' %>">
+    </label>
+    <label>Project / service title
+      <input id="q-title" maxlength="140" value="<%= lead.service %>" required>
+    </label>
+    <label>Deliverables and scope
+      <textarea id="q-scope" rows="7" maxlength="2500" required placeholder="List the deliverables and exclusions."><%= lead.summary || '' %></textarea>
+    </label>
+    <label>Estimated delivery timeline
+      <input id="q-timeline" maxlength="120" value="To be agreed after requirements review">
+    </label>
+    <label>Terms and milestones
+      <textarea id="q-terms" rows="5" maxlength="2000">Final scope, timeline, payment milestones, ownership, hosting and ongoing support must be agreed in writing before work begins. Any changes to scope require separate approval.</textarea>
+    </label>
+    <div class="quote-two">
+      <label>Currency
+        <select id="q-currency">
+          <% CURRENCIES.forEach(function(currency) { %>
+            <option value="<%= currency %>" <%= lead.currency === currency ? 'selected' : '' %>><%= currency %></option>
+          <% }); %>
+        </select>
+      </label>
+      <label>Quote amount
+        <input id="q-amount" type="number" step="0.01" min="0" max="100000000000" value="<%= ((lead.quotedMinor || 0) / 100).toFixed(2) %>" required>
+      </label>
+    </div>
+    <label>Quotation valid until
+      <input id="q-valid" type="date" required value="<%= validUntil %>">
+    </label>
+    <div class="quote-actions">
+      <button class="btn btn-primary" id="q-print" type="button">Print / Save as PDF</button>
+      <button class="btn btn-ghost" id="q-copy" type="button">Copy quotation text</button>
+    </div>
+    <p class="quote-feedback" id="quote-feedback" role="status"></p>
+    <p class="quote-note">This is a manually prepared proposal, not a tax invoice or verified payment receipt. Editing this draft does not update the lead's saved quotation amount. Confirm terms and record them separately in the operations dashboard.</p>
+  </form>
+  <article id="quote-preview" class="quote-paper" aria-label="Quotation preview">
+    <div class="quote-paper-header">
+      <div><div class="quote-brand">MABRIG</div><strong>MABRIG Technologies</strong><p>Website &amp; software services · Nigeria &amp; International</p></div>
+      <div class="quote-paper-meta"><strong>PROJECT QUOTATION</strong><p>Reference: <%= reference %></p><p>Date: <%= issueDate %></p></div>
+    </div>
+    <div class="quote-address">
+      <div><small>PREPARED FOR</small><h2 id="p-client"><%= lead.business %></h2><p id="p-contact"><%= lead.contact || 'Contact to be confirmed' %></p></div>
+      <div><small>VALID UNTIL</small><p id="p-valid"><%= validUntil %></p><small>CONTACT</small><p>mabrig@mabrigkorie.org</p><p>+234 706 534 2818</p></div>
+    </div>
+    <section class="quote-paper-section"><small>PROJECT</small><h2 id="p-title"><%= lead.service %></h2></section>
+    <section class="quote-paper-section"><small>PROPOSED SCOPE</small><p id="p-scope" class="quote-multiline"><%= lead.summary || 'Project scope to be confirmed.' %></p></section>
+    <section class="quote-paper-section"><small>DELIVERY TIMELINE</small><p id="p-timeline">To be agreed after requirements review</p></section>
+    <section class="quote-paper-section quote-amount-row"><div><small>PROJECT QUOTATION</small><p>This proposal covers only the agreed scope.</p></div><strong id="p-amount"><%= formatAmount(lead.quotedMinor, lead.currency) %></strong></section>
+    <section class="quote-paper-section"><small>TERMS &amp; MILESTONES</small><p id="p-terms" class="quote-multiline">Final scope, timeline, payment milestones, ownership, hosting and ongoing support must be agreed in writing before work begins. Any changes to scope require separate approval.</p></section>
+    <footer class="quote-paper-footer"><strong>Let's build something that works.</strong><p>www.mabrigkorie.org/business · mabrig@mabrigkorie.org</p><p>This document is a project quotation, not proof of payment or a tax invoice.</p></footer>
+  </article>
+</main>
+<script src="/public/js/quote.js" defer></script>
+</body>
+</html>
