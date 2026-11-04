@@ -1,0 +1,28 @@
+.check-page h1,.check-page h2,.check-page h3{color:#fff;}
+.check-hero{text-align:center;padding:85px 0 64px;background:radial-gradient(ellipse at top,rgba(212,175,55,.14),transparent 65%),var(--bg);}
+.check-hero h1{font-size:clamp(2.1rem,5.5vw,4rem);line-height:1.12;max-width:800px;margin:0 auto 22px;}
+.check-hero p{max-width:760px;margin:0 auto 25px;font-size:1.05rem;color:var(--muted);}
+.check-section{padding:52px 0 84px;}
+.check-container{max-width:840px;}
+.check-intro h2{font-size:1.8rem;margin-bottom:11px;}
+.check-intro p{color:var(--muted);margin-bottom:28px;}
+.check-form{display:flex;flex-direction:column;gap:14px;}
+.check-question{border:1px solid var(--border);padding:22px;border-radius:13px;background:var(--card);min-width:0;}
+.check-question legend{float:left;width:100%;font-size:1rem;font-weight:700;margin-bottom:16px;line-height:1.5;}
+.check-number{color:var(--accent-soft);display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid rgba(212,175,55,.3);border-radius:50%;margin-right:8px;}
+.check-options{display:flex;flex-wrap:wrap;gap:13px;clear:both;}
+.check-options label{display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;}
+.check-options label:has(input:checked){border-color:var(--accent);background:rgba(212,175,55,.08);}
+.check-options input{accent-color:var(--accent);width:18px;height:18px;}
+.check-submit{align-self:flex-start;margin-top:15px;}
+.check-note{color:var(--muted);font-size:.82rem;line-height:1.65;}
+.check-result{border:1px solid rgba(212,175,55,.45);border-radius:15px;padding:30px;margin-top:30px;background:linear-gradient(150deg,rgba(212,175,55,.09),var(--card));}
+.check-score{display:block;color:var(--accent-soft);font-size:2.2rem;margin:12px 0;}
+.check-result-summary p{font-size:1rem;color:var(--muted);}
+.check-result h3{margin:28px 0 15px;}
+.check-steps{padding-left:24px;color:var(--text);}
+.check-steps li{padding-left:6px;margin-bottom:12px;line-height:1.65;}
+.check-actions{justify-content:flex-start;margin:23px 0;}
+.check-options label:focus-within{outline:2px solid var(--accent);outline-offset:3px;}
+[hidden]{display:none!important;}
+@media(max-width:620px){.check-hero{padding:58px 0;}.check-question{padding:16px;}.check-result{padding:19px;}.check-submit{width:100%;}}
