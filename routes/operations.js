@@ -54,6 +54,27 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/quotes/:id', async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) return res.status(400).send('Invalid lead ID.');
+  try {
+    const lead = await BusinessLead.findById(req.params.id).lean();
+    if (!lead) return res.status(404).send('Lead not found.');
+    const today = new Date();
+    const validity = new Date(today.getTime() + (14 * 24 * 60 * 60 * 1000));
+    return res.render('admin/quote', {
+      lead,
+      CURRENCIES,
+      formatAmount,
+      reference: 'MBR-' + String(lead._id).slice(-8).toUpperCase(),
+      issueDate: today.toISOString().slice(0, 10),
+      validUntil: validity.toISOString().slice(0, 10)
+    });
+  } catch (error) {
+    console.error('Quotation rendering failed:', error.message);
+    return res.status(503).send('The quotation could not be prepared right now.');
+  }
+});
+
 router.use(verifyOperationsCsrf);
 
 function respondError(res, error) {
