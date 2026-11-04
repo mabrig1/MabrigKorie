@@ -192,6 +192,18 @@ router.get('/business', (req, res) => {
   });
 });
 
+router.get('/business/privacy', (req, res) => {
+  res.render('business-privacy', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: 'Business Enquiry Privacy | MABRIG Technologies',
+      description: 'How MABRIG Technologies handles quotations and client business enquiries.',
+      url: `${SITE_URL()}/business/privacy`
+    }
+  });
+});
+
 router.get('/academy', async (req, res) => {
   const socialLinks = await SocialLink.find().sort({ order: 1 });
   res.render('academy', { siteName:SITE_NAME, siteUrl:SITE_URL(), meta:{ title:'MABRIG Tech+ Academy — Learn. Build. Research. Fund. Earn.', description:'MABRIG Tech+ Academy connects digital skills, full-stack and AI development, FINTIGEN technology education, research, grants, funding and secure development into practical learning pathways.', url:`${SITE_URL()}/academy`, keywords:'MABRIG Tech+ Academy, Nigeria digital skills, UNN digital training, AI training, full stack development, FINTIGEN, AfriGrant Pipeline, BuildRx' }, schools:ACADEMY_SCHOOLS, socialLinks });
