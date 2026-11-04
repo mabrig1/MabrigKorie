@@ -1,0 +1,49 @@
+/* Private operations dashboard — MABRIG dark/gold design */
+.ops-header {position:sticky; top:0; z-index:20; border-bottom:1px solid var(--border); background:var(--bg);}
+.ops-topline {display:flex; gap:20px; align-items:center; justify-content:space-between; min-height:65px;}
+.ops-topline nav {display:flex; flex-wrap:wrap; align-items:center; gap:18px; padding:0;}
+.ops-topline nav a {color:var(--muted); font-size:.86rem;}
+.ops-topline nav a[aria-current="page"], .ops-topline nav a:hover {color:var(--accent-soft);}
+.ops-main {padding-top:46px; padding-bottom:60px;}
+.ops-heading {max-width:890px; margin-bottom:32px;}
+.ops-heading .eyebrow, .ops-day {color:var(--accent-soft); font-size:.73rem; letter-spacing:.12em; font-weight:700;}
+.ops-heading h1 {color:#fff; font-size:clamp(2rem,4vw,3rem); margin:9px 0 14px;}
+.ops-heading p,.ops-section>p {color:var(--muted);}
+.ops-section {padding:38px 0; border-top:1px solid var(--border);}
+.ops-section-heading {display:flex; align-items:baseline; justify-content:space-between; gap:15px; flex-wrap:wrap; margin-bottom:18px;}
+.ops-section-heading h2 {color:#fff; font-size:1.7rem;}
+.ops-note {color:var(--muted); font-size:.79rem; line-height:1.6;}
+.ops-metrics {display:flex; flex-wrap:wrap; gap:13px; margin-bottom:14px;}
+.ops-metric {flex:1 1 185px; min-width:0; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px;}
+.ops-metric strong {display:block; color:var(--accent-soft); font-size:clamp(1.1rem,2.5vw,1.65rem); overflow-wrap:anywhere;}
+.ops-metric span {display:block; margin-top:7px; font-size:.79rem; color:var(--muted);}
+.ops-layout {display:grid; grid-template-columns: minmax(245px,1fr) minmax(0,1.85fr); align-items:start; gap:20px;}
+.ops-panel {border:1px solid var(--border); border-radius:14px; background:var(--card); padding:22px;}
+.ops-panel h3 {color:#fff; font-size:1.17rem; margin-bottom:10px;}
+.ops-panel p {color:var(--muted); font-size:.88rem; margin-bottom:13px;}
+.ops-panel a {color:var(--accent-soft); font-weight:600; text-decoration:underline;}
+.ops-form label,.ops-record label {display:block; color:var(--text); font-size:.82rem; margin-bottom:12px;}
+.ops-form input,.ops-form select,.ops-form textarea,
+.ops-record input,.ops-record select,.ops-record textarea {
+ display:block; width:100%; min-height:40px; padding:9px 11px; margin-top:5px;
+ color:var(--text); background:var(--bg); border:1px solid var(--border); border-radius:7px; font:inherit;
+}
+.ops-form textarea,.ops-record textarea {min-height:75px; resize:vertical;}
+.ops-form input:focus-visible,.ops-form select:focus-visible,.ops-form textarea:focus-visible,
+.ops-record input:focus-visible,.ops-record select:focus-visible,.ops-record textarea:focus-visible {outline:2px solid var(--accent);}
+.ops-records {display:flex; flex-direction:column; gap:15px;}
+.ops-record-heading {display:flex; justify-content:space-between; align-items:center; gap:12px;}
+.ops-record-heading h3 {overflow-wrap:anywhere;}
+.ops-badge {border:1px solid rgba(212,175,55,.4); border-radius:40px; font-size:.7rem; font-weight:700; color:var(--accent-soft); padding:4px 11px; text-transform:uppercase;}
+.ops-record .ops-money {color:var(--accent-soft); font-size:.85rem;}
+.ops-record strong {color:var(--text);}
+.ops-update {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 12px; border-top:1px solid var(--border); padding-top:15px;}
+.ops-update .ops-full {grid-column:1 / -1;}
+.ops-update button {align-self:end; justify-self:start;}
+.ops-empty {padding:30px; border:1px dashed var(--border); border-radius:12px; color:var(--muted);}
+.ops-samples {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; margin:21px 0 28px;}
+.ops-samples h3 {font-size:1.05rem; margin-top:9px;}
+.ops-layout-posts {margin-top:24px;}
+.ops-footer {text-align:center; border-top:1px solid var(--border); padding:22px;}
+@media(max-width:900px){.ops-layout{grid-template-columns:1fr;}.ops-samples{grid-template-columns:1fr 1fr;}}
+@media(max-width:580px){.ops-samples{grid-template-columns:1fr;}.ops-topline{align-items:flex-start;flex-direction:column;padding-top:12px;padding-bottom:12px;}.ops-topline nav{gap:12px;}.ops-update{grid-template-columns:1fr;}.ops-section{padding:30px 0;}}
