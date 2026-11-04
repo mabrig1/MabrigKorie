@@ -12,6 +12,9 @@ router.use(requireAdmin);
 router.use((req, res, next) => {
   res.set('Cache-Control', 'private, no-store');
   res.set('X-Robots-Tag', 'noindex, nofollow');
+  res.set('X-Frame-Options', 'DENY');
+  res.set('X-Content-Type-Options', 'nosniff');
+  res.set('Referrer-Policy', 'no-referrer');
   next();
 });
 
