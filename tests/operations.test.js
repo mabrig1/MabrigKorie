@@ -84,6 +84,7 @@ test('admin dashboard renders properly and HTML-escapes customer fields', async 
     formatAmount,today:'2026-11-04'
   });
   assert.match(html,/Customer pipeline/);
+  assert.match(html,/Three-day performance comparison/);
   assert.match(html,/Organic promotion studio/);
   assert.match(html,/website-demo-day1/);
   assert.ok(!html.includes('<script>alert(1)</script>'));
