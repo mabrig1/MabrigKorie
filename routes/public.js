@@ -308,6 +308,7 @@ router.get('/sitemap.xml', async (req, res) => {
     `${SITE_URL()}/academy`,
     `${SITE_URL()}/business`,
     `${SITE_URL()}/business/privacy`,
+    `${SITE_URL()}/business/check`,
     `${SITE_URL()}/contact`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];
