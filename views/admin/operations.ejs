@@ -75,6 +75,7 @@
             <p><strong>Source:</strong> <%= lead.source %></p>
             <% if (lead.summary) { %><p><strong>Brief:</strong> <%= lead.summary %></p><% } %>
             <p class="ops-money">Quoted: <%= formatAmount(lead.quotedMinor, lead.currency) %> · Recorded receipts: <%= formatAmount(lead.collectedMinor, lead.currency) %></p>
+            <p><a href="/admin/operations/quotes/<%= lead._id %>">Prepare printable project quotation →</a></p>
             <form class="ops-update" method="POST" action="/admin/operations/leads/<%= lead._id %>">
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <label>Stage<select name="stage"><% STAGES.forEach(function(item) { %><option value="<%= item %>" <%= lead.stage === item ? 'selected' : '' %>><%= item %></option><% }); %></select></label>
