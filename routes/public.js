@@ -4,7 +4,7 @@ const SocialLink = require('../models/SocialLink');
 const router = express.Router();
 
 const SITE_NAME = 'Mabrig Korie';
-const SITE_URL = () => process.env.SITE_URL || 'https://mabrigkorie.org';
+const SITE_URL = () => process.env.SITE_URL || 'https://www.mabrigkorie.org';
 
 const BIO_POINTS = [
   'Founder of MABRIG Technologies',
@@ -165,9 +165,9 @@ router.get('/', async (req, res) => {
     siteName: SITE_NAME,
     siteUrl: SITE_URL(),
     meta: {
-      title: 'Mabrig Korie — Full-Stack Developer, Agentic AI Builder & Product Architect',
+      title: 'MABRIG Technologies — Business Websites, Applications & AI Automation',
       description:
-        'Portfolio of Mabrig Korie, a full-stack developer and agentic AI builder creating production web applications across research, education, grants, developer security, agriculture and digital infrastructure.',
+        'MABRIG Technologies builds websites, online stores, custom business applications and practical AI automation in Nigeria and internationally. Explore our work and request a quotation.',
       url: SITE_URL(),
       keywords: 'Mabrig Korie, full-stack developer, agentic AI, AI developer, Next.js, Node.js, MongoDB, DevSecOps, AI applications, Nigeria technology',
     },
@@ -176,6 +176,19 @@ router.get('/', async (req, res) => {
     bioPoints: BIO_POINTS,
     socialLinks,
     stats,
+  });
+});
+
+router.get('/business', (req, res) => {
+  res.render('business', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    meta: {
+      title: 'Business Websites, Online Stores & AI Automation | MABRIG Technologies',
+      description: 'MABRIG Technologies designs websites, online stores, business systems and AI automation for businesses in Nsukka, Nigeria and internationally. Request a project quote.',
+      url: `${SITE_URL()}/business`,
+      keywords: 'MABRIG Technologies, Nsukka website developer, business websites Nigeria, online store development, custom apps, AI automation, small business software'
+    }
   });
 });
 
@@ -257,6 +270,8 @@ router.get('/sitemap.xml', async (req, res) => {
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
     `${SITE_URL()}/devshield`,
+    `${SITE_URL()}/academy`,
+    `${SITE_URL()}/business`,
     `${SITE_URL()}/contact`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];
