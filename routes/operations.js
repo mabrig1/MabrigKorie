@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
       PromoPost.countDocuments()
     ]);
     res.render('admin/operations', {
-      csrfToken: tokenFor(req), leads, posts, totals, totalLeadCount, totalPostCount,
+      csrfToken: tokenFor(req), leads, posts, totals, campaignTotals, totalLeadCount, totalPostCount,
       STAGES, MARKETS, CURRENCIES, PLATFORMS, PRODUCTS, POST_STATUSES, formatAmount,
       today: new Date().toISOString().slice(0, 10)
     });
