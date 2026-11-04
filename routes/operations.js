@@ -28,6 +28,15 @@ router.get('/', async (req, res) => {
           recorded: { $sum: '$collectedMinor' }
         }
       }]),
+      PromoPost.aggregate([
+        { $match: { status: 'published' } },
+        { $group: {
+          _id: '$product', posts: { $sum: 1 }, views: { $sum: '$views' },
+          followers: { $sum: '$followers' }, enquiries: { $sum: '$enquiries' },
+          sales: { $sum: '$sales' }
+        } },
+        { $sort: { views: -1 } }
+      ]),
       BusinessLead.countDocuments(),
       PromoPost.countDocuments()
     ]);
