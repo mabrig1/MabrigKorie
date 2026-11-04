@@ -54,6 +54,10 @@
 **Link:** https://www.mabrigkorie.org/business?utm_source=facebook&utm_campaign=automation-demo-day3  
 **Hashtags:** #BusinessAutomation #AIForBusiness #MABRIGTechnologies #Nsukka #DigitalTransformation
 
+## Alternative free-tool promotion
+
+Add this original optional CTA at the end of any business technology video: “I made a free, seven-question business readiness check. Try it at mabrigkorie.org/business/check and discover your next step.” Demonstrate the check in your own recording, rather than asserting that it guarantees more sales or high scores.
+
 ## What to measure
 
 After each post, log its actual date/platform and views, new followers, qualified enquiries and paid sales under /admin/operations. Keep each platform's analytics separate. From manually logged paid customers, record quotes and confirmed receipts, but never treat a WhatsApp click as a sale. Compare follows per 1,000 views and actual qualified enquiries, not views alone. Three days are exploratory, not a claim of guaranteed viral reach or recurring income.
