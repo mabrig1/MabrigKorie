@@ -17,7 +17,7 @@ router.use((req, res, next) => {
 
 router.get('/', async (req, res) => {
   try {
-    const [leads, posts, totals, totalLeadCount, totalPostCount] = await Promise.all([
+    const [leads, posts, totals, campaignTotals, totalLeadCount, totalPostCount] = await Promise.all([
       BusinessLead.find().sort({ createdAt: -1 }).limit(100).lean(),
       PromoPost.find().sort({ day: -1, createdAt: -1 }).limit(50).lean(),
       BusinessLead.aggregate([{
