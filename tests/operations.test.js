@@ -97,6 +97,6 @@ test('only admin-authenticated operations paths are registered; no public lead A
   const serverSrc=fs.readFileSync('server.js','utf8');
   assert.ok(routerSrc.includes('router.use(requireAdmin)'));
   assert.ok(routerSrc.includes('router.use(verifyOperationsCsrf)'));
-  assert.ok(serverSrc.includes("app.use('/admin/operations', operationsRoutes)"));
+  assert.ok(serverSrc.includes("app.use('/admin/operations', sameOriginMutation, operationsRoutes)"));
   assert.ok(!serverSrc.includes("app.use('/api/leads'"));
 });
