@@ -64,3 +64,32 @@ Read the public business-enquiry privacy notice at `/business/privacy` before co
 The operations route requires the site's existing JWT-backed admin session, uses a same-session CSRF protection for updates, and tells crawlers not to index it. No new public write APIs or secrets were added. Existing authentication remains single-admin environment credentials; review password strength, Cloudflare rate limiting, and general data-protection responsibilities before using the dashboard with real client records. Access to the business dashboard must be tested on the preview deployment using your existing admin credentials. Avoid including secret values in screenshots, bug reports, or GitHub issues. Back up MongoDB before significant data migrations; this change introduces two new collections but no destructive migration.
 
 This pull request is **preview-only until reviewed and merged**. It does not itself enable a paid campaign, scheduled posting, automatic subscriptions or changes to the production domain.
+
+## Second upgrade — free readiness checker, printable quotations and safer admin handling
+
+### Free customer-facing assessment
+
+- Visit `/business/check` from a video caption or the homepage.
+- Seven yes/no questions produce an instant local score, tailored recommendations and an optional, user-initiated WhatsApp enquiry.
+- All answers stay on the visitor's device. The tool has **no account, charge, analytics beacon, background submission or database capture**.
+- Use the free checker as an educational CTA, not a promise of revenue or certification.
+
+### Private quotation workflow
+
+- In `/admin/operations`, open a saved lead and choose **Prepare printable project quotation**.
+- Adjust the client's deliverables, price, currency, terms, estimated timeline and validity date.
+- Print or save as PDF using the browser, or copy the text for review and manual sharing.
+- This is a *draft proposal only*. It is not a tax invoice, contract, verified receipt or payment processor.
+- Draft edits in the browser are not automatically saved to MongoDB. Record any confirmed prices or receipts using the relevant lead record.
+
+### Administrator security improvements
+
+- `ADMIN_PASSWORD_HASH` now optionally supports bcrypt-hashed administrator passwords; when set, it **takes precedence over** `ADMIN_PASSWORD`, including failure cases. Existing plaintext environment variable remains supported for backward compatibility but should be retired after safe rotation.
+- Do not enter or print your password or hash in ChatGPT, GitHub issues, source files, or public screenshots. Configure new credentials in Vercel environment settings and verify a preview session before rotating production.
+- The app now sets conservative baseline security headers and no-cache/no-index headers on admin routes.
+- Browser cross-site mutation requests and mismatched origins are rejected for admin login, operations and existing content/social editing APIs; operations forms additionally require a session-bound CSRF token.
+- A site-wide WAF, distributed login rate limiting, content sanitisation and complete penetration testing are **not implemented** by this change. Configure edge protection and review existing rich-text content ingestion before permitting other administrators or untrusted contributors.
+
+### Runtime verification boundary
+
+GitHub unit/EJS tests and Vercel build success do **not** establish that the protected Vercel preview routes, database writes, existing admin session or WhatsApp links work end-to-end. The protected preview must be opened with an authorised Vercel account and tested using fabricated customer details. The current connection returned a project/team access denial when fetching preview routes. Leave production unchanged until that boundary is verified.
