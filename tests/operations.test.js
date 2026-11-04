@@ -79,6 +79,7 @@ test('admin dashboard renders properly and HTML-escapes customer fields', async 
       caption:'Show the demo and ask a question',status:'draft',views:0,followers:0,enquiries:0,sales:0
     }],
     totals:[{_id:'NGN',count:1,quoted:10000,recorded:0}],
+    campaignTotals:[{_id:'MABRIG Technologies',posts:1,views:200,followers:5,enquiries:2,sales:1}],
     totalLeadCount:1,totalPostCount:1,STAGES,MARKETS,CURRENCIES,PLATFORMS,PRODUCTS,POST_STATUSES,
     formatAmount,today:'2026-11-04'
   });
