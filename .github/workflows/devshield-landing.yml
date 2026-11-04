@@ -21,7 +21,7 @@ jobs:
       - run: npm ci
       - run: node --check routes/public.js
       - run: node --check public/js/business.js
-      - run: node --test tests/business-landing.test.js
+      - run: node --test tests/business-landing.test.js tests/operations.test.js
       - name: Render DevShield page using production EJS templates
         run: |
           node <<'NODE'
