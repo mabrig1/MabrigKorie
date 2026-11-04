@@ -1,6 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const { verifyAdminCredentials } = require('../lib/adminCredentials');
 const router = express.Router();
+router.use((req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
 
 router.get('/', (req, res) => {
   res.render('admin/login', { error: null });
@@ -9,7 +11,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { username, password } = req.body;
 
-  if (username !== process.env.ADMIN_USERNAME || password !== process.env.ADMIN_PASSWORD) {
+  if (!verifyAdminCredentials(username, password)) {
     return res.status(401).render('admin/login', { error: 'Invalid username or password' });
   }
 
@@ -20,7 +22,7 @@ router.post('/', (req, res) => {
     secure: process.env.NODE_ENV === 'production',
     maxAge: 12 * 60 * 60 * 1000,
   });
-  res.redirect('/admin');
+  res.redirect(303, '/admin');
 });
 
 router.post('/logout', (req, res) => {
