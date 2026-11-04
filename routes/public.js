@@ -192,6 +192,29 @@ router.get('/business', (req, res) => {
   });
 });
 
+router.get('/business/check', (req, res) => {
+  const questions = [
+    { id: 'discover', question: 'Can a new customer easily find your business online?' },
+    { id: 'contact', question: 'Is there a clear call, email or WhatsApp contact option?' },
+    { id: 'offer', question: 'Can customers see what you sell or the services you offer?' },
+    { id: 'mobile', question: 'Is your business information easy to read on a phone?' },
+    { id: 'followup', question: 'Do you keep track of enquiries so nobody is forgotten?' },
+    { id: 'trust', question: 'Can customers verify who you are and understand your service terms?' },
+    { id: 'workflow', question: 'Have you identified recurring work that a simple digital tool could improve?' }
+  ];
+  res.render('business-check', {
+    siteName: SITE_NAME,
+    siteUrl: SITE_URL(),
+    questions,
+    meta: {
+      title: 'Free Business Digital Readiness Check | MABRIG Technologies',
+      description: 'Check your business online readiness in seven simple questions. Get free, practical steps for improving online visibility, customer enquiries and workflow.',
+      url: `${SITE_URL()}/business/check`,
+      keywords: 'business readiness check, free business website audit, Nsukka business, online presence assessment, small business Nigeria'
+    }
+  });
+});
+
 router.get('/business/privacy', (req, res) => {
   res.render('business-privacy', {
     siteName: SITE_NAME,
