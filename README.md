@@ -79,3 +79,20 @@ This command is idempotent and never removes existing works or overwrites items
 already managed through the admin dashboard. The old `npm run seed` command
 **deletes and recreates** all works and social links; do not use it to synchronize
 these apps on a populated database. Run `npm test` for catalogue integration checks.
+
+## App Performance Agent
+
+A private, cross-site performance dashboard is now available at
+**`/admin/performance`**. It shows authenticated founder-only charts for
+recorded page views, anonymous visitor sessions, five-minute recent activity,
+app comparison and cached public-site reachability checks. The insight agent
+summarizes *actual recorded metrics* with deterministic explanations, and
+never invents visitor figures.
+
+The main MABRIG portfolio automatically includes a privacy-aware page-view
+tracker. Other apps require the public tracker snippet provided in each app
+card before their visitors can be counted; until then they are marked
+**Awaiting data**. The dashboard refreshes every 30 seconds, and metrics expire
+after approximately 60 days.
+
+See [installation, security, privacy and measurement details](docs/APP_PERFORMANCE_AGENT.md).
