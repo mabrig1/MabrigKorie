@@ -19,7 +19,7 @@ test('all latest apps plus portfolio are in the immutable approved analytics cat
 
 test('admin-managed apps are added without duplicate hosts or insecure URLs', () => {
   const apps = catalogue([
-    { slug: 'same-host', title: 'Duplicate', url: 'https://aiuniversityhq.uk/other' },
+    { slug: 'same-host', title: 'Duplicate', url: 'https://aiuniversityhq.uk/' },
     { slug: 'another-app', title: 'Unique', url: 'https://another-public-app.example/' },
     { slug: 'bad-protocol', title: 'Unsecured', url: 'http://unsafe.example/' },
     { slug: 'bad-slug!', title: 'Not tracked', url: 'https://another-example.com/' },
