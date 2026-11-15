@@ -5,6 +5,7 @@
   const app = script.dataset.app;
   const collector = script.dataset.collector || new URL(script.src).origin;
   if (!/^[a-z0-9-]{1,80}$/.test(app || '')) return;
+  if (navigator.globalPrivacyControl === true || navigator.doNotTrack === '1') return;
 
   // A random tab-scoped identifier avoids persistent cookies, fingerprints,
   // emails and cross-app identity matching.
