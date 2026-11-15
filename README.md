@@ -52,3 +52,30 @@ working **share-intent buttons** (X, Facebook, LinkedIn, WhatsApp, Telegram,
 Email) that need no setup. If you later obtain API credentials for a platform,
 the admin dashboard's "Post" actions can be extended to call that platform's
 API directly — ask and it can be wired in.
+
+## Latest applications (November 2026)
+
+The homepage has a dedicated **Latest Applications** section and `/projects` also
+shows these apps immediately, even if the MongoDB catalogue has not been updated.
+Descriptions are curated from each project's source repository; public URLs are
+user-supplied and need independent runtime checks after release.
+
+| Product | Website | Source repository |
+| --- | --- | --- |
+| AI University (non-accredited learning playground) | https://aiuniversityhq.uk/ | https://github.com/mabrig1/AI-University |
+| OpenForge Africa | https://openforge.mabrigkorie.org/ | https://github.com/mabrig1/openforge-africa |
+| CampusVerse | https://www.campusverse.store/ | https://github.com/mabrig1/campusverse |
+| SupplyHQ Online | https://supplyhq.online/ | https://github.com/mabrig1/SupplyHQonline |
+| MABRIG StatLab | https://statlab.mabrigkorie.org/ | https://github.com/mabrig1/StatLab |
+
+The display data is maintained in `data/latest-apps.js`. To **add missing entries**
+to the admin-managed MongoDB works catalogue, configure `MONGODB_URI` and run:
+
+```bash
+npm run sync:latest-apps
+```
+
+This command is idempotent and never removes existing works or overwrites items
+already managed through the admin dashboard. The old `npm run seed` command
+**deletes and recreates** all works and social links; do not use it to synchronize
+these apps on a populated database. Run `npm test` for catalogue integration checks.

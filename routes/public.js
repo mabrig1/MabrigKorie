@@ -1,6 +1,7 @@
 const express = require('express');
 const Work = require('../models/Work');
 const SocialLink = require('../models/SocialLink');
+const LATEST_APPS = require('../data/latest-apps');
 const router = express.Router();
 
 const SITE_NAME = 'Mabrig Korie';
@@ -136,6 +137,30 @@ const CATEGORY_PAGES = {
   },
 };
 
+// Show new releases on the public projects page even before an optional database sync.
+// Deduplicate against admin-managed records by stable slug and canonical external URL.
+function withLatestApps(works) {
+  const slugs = new Set(LATEST_APPS.map((app) => app.slug));
+  const urls = new Set(LATEST_APPS.map((app) => app.live.replace(/[/]+$/, '').toLowerCase()));
+  return [
+    ...LATEST_APPS.map((app, index) => ({
+      category: 'app',
+      slug: app.slug,
+      title: app.title,
+      description: app.description,
+      url: app.live,
+      platform: app.category,
+      tags: app.stack,
+      featured: true,
+      order: index - LATEST_APPS.length,
+    })),
+    ...works.filter((work) =>
+      !slugs.has(work.slug) &&
+      !urls.has((work.url || '').replace(/[/]+$/, '').toLowerCase())
+    ),
+  ];
+}
+
 async function getStats() {
   const [apps, research, books, music, services] = await Promise.all([
     Work.countDocuments({ category: 'app' }),
@@ -173,6 +198,7 @@ router.get('/', async (req, res) => {
     },
     byCategory,
     featuredProjects: FEATURED_PROJECTS,
+    latestApps: LATEST_APPS,
     bioPoints: BIO_POINTS,
     socialLinks,
     stats,
@@ -228,7 +254,7 @@ Object.keys(CATEGORY_PAGES).forEach((slug) => {
         url: `${SITE_URL()}/${slug}`,
       },
       page,
-      works,
+      works: slug === 'projects' ? withLatestApps(works) : works,
     });
   });
 });
