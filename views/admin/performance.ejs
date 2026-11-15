@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>App Performance Agent — MABRIG Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="/public/css/performance.css">
+</head>
+<body>
+  <div class="admin-shell performance-shell">
+    <aside class="admin-sidebar">
+      <a class="logo" href="/admin">Mabrig Korie</a>
+      <nav>
+        <a href="/admin">📋 Content Hub</a>
+        <a href="/admin/performance" class="active" aria-current="page">📈 App Performance Agent</a>
+        <a href="/" target="_blank" rel="noopener">🌐 View Site</a>
+        <form method="POST" action="/admin/login/logout" style="margin-top:20px">
+          <button class="btn btn-ghost btn-sm" type="submit" style="width:100%">Log Out</button>
+        </form>
+      </nav>
+    </aside>
+    <main class="admin-main performance-main">
+      <div class="performance-heading">
+        <div>
+          <div class="eyebrow">MABRIG Technologies / Founder Operations</div>
+          <h1>App Performance Agent</h1>
+          <p>Monitor visitor sessions, page views, trends and site reachability across your MABRIG apps.</p>
+        </div>
+        <div class="performance-actions">
+          <label for="period">Period</label>
+          <select id="period" aria-label="Reporting period">
+            <option value="24h">Last 24 hours</option>
+            <option value="7d" selected>Last 7 days</option>
+            <option value="30d">Last 30 days</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" id="refresh" type="button">Refresh now</button>
+        </div>
+      </div>
+      <div class="performance-message" id="syncStatus" role="status" aria-live="polite">Loading verified metrics…</div>
+      <div class="performance-metrics" id="metrics" aria-label="Performance totals">
+        <div class="performance-metric"><span>Registered Apps</span><strong>—</strong></div>
+        <div class="performance-metric"><span>Recorded Page Views</span><strong>—</strong></div>
+        <div class="performance-metric"><span>Visitor Sessions</span><strong>—</strong></div>
+        <div class="performance-metric"><span>Recently Active Sessions</span><strong>—</strong></div>
+      </div>
+
+      <div class="performance-charts">
+        <section class="performance-panel">
+          <div class="panel-title"><div><h2>Traffic trend</h2><p>Recorded page views over the selected period · UTC</p></div><span id="trendTotal">—</span></div>
+          <div id="trendChart" class="trend-chart" role="img" aria-label="Traffic trend chart">Waiting for data…</div>
+        </section>
+        <section class="performance-panel">
+          <div class="panel-title"><div><h2>Top apps</h2><p>Share of recorded page views</p></div></div>
+          <div id="topApps" class="top-apps">Waiting for data…</div>
+        </section>
+      </div>
+
+      <section class="performance-panel">
+        <div class="panel-title">
+          <div><h2>App-by-app performance</h2><p>Live tracker connection and independent public-site reachability checks</p></div>
+          <span class="small-note" id="appCount"></span>
+        </div>
+        <div id="appsGrid" class="performance-app-grid">Waiting for data…</div>
+      </section>
+
+      <section class="performance-panel">
+        <div class="panel-title"><div><h2>Agent insights</h2><p>Automatic observations derived from recorded data — no invented activity</p></div></div>
+        <div id="insights" class="performance-insights">Connecting to analytics…</div>
+      </section>
+
+      <section class="performance-panel">
+        <h2>Connect visitor tracking</h2>
+        <p class="setup-copy">Copy the tracker code from an app card into that app's public page or root layout. It starts measuring new visits after that app is deployed with the snippet. Existing traffic is not retroactively available. Only domains in your app catalogue can submit page views.</p>
+        <p class="small-note">Privacy: counts use tab-scoped anonymous sessions. No personal identifiers, IP addresses, raw referrers or query strings are stored in the analytics database. Data automatically expires after 60 days. Tracking can be blocked by browser settings, ad blockers or site Content Security Policies.</p>
+        <p class="small-note">A responding website is not proof that its database, payments or other features work. The 30-second refresh polls the admin dashboard; website reachability checks are cached for five minutes.</p>
+      </section>
+    </main>
+  </div>
+  <script src="/public/js/performance-dashboard.js" defer></script>
+</body>
+</html>
