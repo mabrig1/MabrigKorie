@@ -16,19 +16,24 @@ function originOf(input) {
   return canonical ? new URL(canonical).origin : null;
 }
 function catalogue(works = []) {
-  const known = new Set();
+  const knownUrls = new Set();
+  const knownIds = new Set();
   const result = [];
   for (const a of registry) {
     const origin = originOf(a.url);
-    if (!origin || known.has(origin)) continue;
-    known.add(origin);
+    const url = canonicalUrl(a.url);
+    if (!origin || knownUrls.has(url) || knownIds.has(a.id)) continue;
+    knownUrls.add(url);
+    knownIds.add(a.id);
     result.push({ ...a, origin });
   }
   for (const work of works) {
     const origin = originOf(work.url);
-    if (!origin || known.has(origin)) continue;
+    const url = canonicalUrl(work.url);
+    if (!origin || knownUrls.has(url) || knownIds.has(work.slug)) continue;
     if (!/^[a-z0-9-]{1,80}$/.test(work.slug || '')) continue;
-    known.add(origin);
+    knownUrls.add(url);
+    knownIds.add(work.slug);
     result.push({
       id: work.slug,
       title: work.title,
