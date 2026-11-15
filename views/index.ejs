@@ -27,7 +27,7 @@
 
     <div class="btn-row">
       <a class="btn btn-primary" href="/academy">Enter MABRIG Tech+ Academy</a>
-      <a class="btn btn-ghost" href="#flagship">Explore Flagship Builds</a>
+      <a class="btn btn-ghost" href="#latest-apps">Explore Latest Apps</a>
       <a class="btn btn-ghost" href="https://github.com/mabrig1" target="_blank" rel="noopener">GitHub Portfolio ↗</a>
       <a class="btn btn-ghost" href="mailto:mabrig@mabrigkorie.org">Work With Me</a>
     </div>
@@ -49,6 +49,43 @@
         <strong>Nigeria → Global</strong>
         <span>solutions designed for real-world constraints</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="latest-apps" aria-labelledby="latest-apps-heading">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Newest MABRIG Technologies Platforms</div>
+      <h2 id="latest-apps-heading">Explore My Latest Applications</h2>
+      <p>
+        Discover new learning, research, campus commerce and business platforms.
+        Each card opens its dedicated website or source repository.
+      </p>
+    </div>
+    <div class="grid grid-3">
+      <% latestApps.forEach(function(app) { %>
+        <article class="card project-card">
+          <div class="project-top">
+            <span class="project-badge"><%= app.category %></span>
+          </div>
+          <h3><%= app.title %></h3>
+          <p><%= app.description %></p>
+          <p class="project-outcome"><strong>Purpose:</strong> <%= app.outcome %></p>
+          <div class="project-stack">
+            <% app.stack.forEach(function(tech) { %>
+              <span class="chip"><%= tech %></span>
+            <% }); %>
+          </div>
+          <div class="project-actions">
+            <a class="link" href="<%= app.live %>" target="_blank" rel="noopener noreferrer">Explore Website ↗</a>
+            <a class="link" href="<%= app.repo %>" target="_blank" rel="noopener noreferrer">View Source ↗</a>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+    <div class="btn-row section-cta">
+      <a class="btn btn-ghost" href="/projects">Explore All Applications</a>
     </div>
   </div>
 </section>
