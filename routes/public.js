@@ -141,7 +141,7 @@ const CATEGORY_PAGES = {
 // Deduplicate against admin-managed records by stable slug and canonical external URL.
 function withLatestApps(works) {
   const slugs = new Set(LATEST_APPS.map((app) => app.slug));
-  const urls = new Set(LATEST_APPS.map((app) => app.live.replace(/\\/+$/, '').toLowerCase()));
+  const urls = new Set(LATEST_APPS.map((app) => app.live.replace(/[/]+$/, '').toLowerCase()));
   return [
     ...LATEST_APPS.map((app, index) => ({
       category: 'app',
@@ -156,7 +156,7 @@ function withLatestApps(works) {
     })),
     ...works.filter((work) =>
       !slugs.has(work.slug) &&
-      !urls.has((work.url || '').replace(/\\/+$/, '').toLowerCase())
+      !urls.has((work.url || '').replace(/[/]+$/, '').toLowerCase())
     ),
   ];
 }
