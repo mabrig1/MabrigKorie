@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Recovery Readiness — MABRIG Admin</title>
+<link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <main class="container" style="max-width:800px;padding:48px 24px">
+    <p><a class="link" href="/admin">← Back to dashboard</a></p>
+    <h1 style="margin:18px 0">Password recovery readiness</h1>
+    <p style="color:var(--muted);margin-bottom:24px">Private configuration checks for your MABRIG administrator. No API key, inbox address or password is shown here.</p>
+    <div class="card in-view" style="opacity:1;transform:none">
+      <h2 style="margin-bottom:12px"><%= report.readyForAttempt ? 'Basic settings are present' : 'Configuration needs attention' %></h2>
+      <% const labels = {
+        recoveryEmail: 'Recovery mailbox configured',
+        resendKey: 'Resend API key format present',
+        verifiedSenderConfigured: 'Sender address configured',
+        siteUrlIsHttps: 'Canonical site URL uses HTTPS',
+        databaseConfigured: 'MongoDB connection setting present',
+        jwtConfigured: 'JWT secret setting present'
+      }; %>
+      <table>
+        <thead><tr><th>Setting</th><th>Status</th></tr></thead>
+        <tbody>
+          <% Object.entries(labels).forEach(function(entry) { %>
+            <tr>
+              <td><%= entry[1] %></td>
+              <td><%= report.checks[entry[0]] ? 'Configured' : 'Missing or invalid' %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <p style="color:var(--muted);margin:20px 0"><%= report.disclaimer %></p>
+      <p style="color:var(--muted)">After correcting missing settings in your hosting provider, redeploy and send one test from the normal Forgot Password form. Then inspect Resend Emails for the delivery result. Do not replace an API key solely because a reset message is missing.</p>
+      <div class="btn-row" style="margin-top:24px">
+        <a class="btn btn-primary" href="/admin/login/forgot-password">Open password recovery form</a>
+        <a class="btn btn-ghost" href="https://resend.com/emails" target="_blank" rel="noopener noreferrer">Resend email events</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
