@@ -3,6 +3,8 @@ const assert = require('node:assert/strict');
 const AdminAuth = require('../models/AdminAuth');
 const {
   normalizeEmail,
+  recoveryReadiness,
+  deliveryErrorHint,
   isAuthorizedRecoveryEmail,
   validateNewPassword,
   requestAdminReset,
@@ -67,7 +69,7 @@ test('recovery emails contain a single-use link and use a hashed database token'
     AdminAuth.findOneAndUpdate = async (f, u) => { filter = f; update = u; return {}; };
     global.fetch = async (_url, options) => {
       message = JSON.parse(options.body);
-      return { ok: true, status: 200 };
+      return { ok: true, status: 200, json: async () => ({ id: 'test-resend-email-id' }) };
     };
 
     assert.equal(await requestAdminReset('OWNER@example.com'), true);
@@ -102,5 +104,70 @@ test('single-use password reset requires matching unexpired token and clears it'
     assert.equal(await consumeResetToken(token, 'a-safe-passphrase-2026'), false);
   } finally {
     AdminAuth.findOneAndUpdate = originalFind;
+  }
+});
+
+test('recovery readiness reports missing settings without returning secrets or addresses', () => {
+  const vars = ['ADMIN_RECOVERY_EMAIL', 'RESEND_API_KEY', 'RESEND_FROM_EMAIL', 'SITE_URL', 'MONGODB_URI', 'JWT_SECRET'];
+  const previous = Object.fromEntries(vars.map((key) => [key, process.env[key]]));
+  try {
+    for (const key of vars) delete process.env[key];
+    const missing = recoveryReadiness();
+    assert.equal(missing.readyForAttempt, false);
+    assert.equal(missing.checks.resendKey, false);
+    Object.assign(process.env, {
+      ADMIN_RECOVERY_EMAIL: 'owner@example.com',
+      RESEND_API_KEY: 're_abcdefghijklmnopqrstuvwxyz',
+      RESEND_FROM_EMAIL: 'MABRIG <no-reply@example.com>',
+      SITE_URL: 'https://www.mabrigkorie.org',
+      MONGODB_URI: 'mongodb://example.test/test',
+      JWT_SECRET: 'test-secret-not-for-production',
+    });
+    const ready = recoveryReadiness();
+    assert.equal(ready.readyForAttempt, true);
+    assert.doesNotMatch(JSON.stringify(ready), /owner@example.com|re_abcdefg/);
+    process.env.SITE_URL = 'http://www.mabrigkorie.org';
+    assert.equal(recoveryReadiness().checks.siteUrlIsHttps, false);
+  } finally {
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
+test('Resend API error hints distinguish invalid keys and unverified sender domains', () => {
+  assert.match(deliveryErrorHint(401), /RESEND_API_KEY/);
+  assert.match(deliveryErrorHint(403), /sender-domain verification/);
+  assert.match(deliveryErrorHint(429), /rate limit/);
+});
+
+test('a 2xx response without Resend receipt ID fails closed and clears pending reset token', async () => {
+  const vars = ['ADMIN_RECOVERY_EMAIL','RESEND_API_KEY','RESEND_FROM_EMAIL','SITE_URL'];
+  const previous = Object.fromEntries(vars.map((key) => [key, process.env[key]]));
+  const oldFind = AdminAuth.findOneAndUpdate;
+  const oldUpdate = AdminAuth.updateOne;
+  const oldFetch = global.fetch;
+  let cleaned = false;
+  try {
+    Object.assign(process.env, {
+      ADMIN_RECOVERY_EMAIL: 'owner@example.com',
+      RESEND_API_KEY: 're_some-valid-looking-test-key',
+      RESEND_FROM_EMAIL: 'MABRIG <no-reply@example.com>',
+      SITE_URL: 'https://www.mabrigkorie.org',
+    });
+    AdminAuth.findOneAndUpdate = async () => ({});
+    AdminAuth.updateOne = async () => { cleaned = true; };
+    global.fetch = async () => ({ ok: true, status: 200, json: async () => ({}) });
+    await assert.rejects(requestAdminReset('owner@example.com'), /acknowledgement was incomplete/);
+    assert.equal(cleaned, true);
+  } finally {
+    AdminAuth.findOneAndUpdate = oldFind;
+    AdminAuth.updateOne = oldUpdate;
+    global.fetch = oldFetch;
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
   }
 });
