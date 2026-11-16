@@ -12,18 +12,20 @@
   <div class="login-card">
     <h1>Admin Login</h1>
     <p class="sub">Mabrig Korie Portfolio — Content Hub</p>
-    <% if (error) { %><div class="error-msg"><%= error %></div><% } %>
+    <% if (error) { %><div class="error-msg" role="alert"><%= error %></div><% } %>
+    <% if (notice) { %><p role="status"><%= notice %></p><% } %>
     <form method="POST" action="/admin/login">
       <div class="field">
-        <label>Username</label>
-        <input type="text" name="username" required autofocus>
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" autocomplete="username" required autofocus>
       </div>
       <div class="field">
-        <label>Password</label>
-        <input type="password" name="password" required>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" autocomplete="current-password" required>
       </div>
       <button class="btn btn-primary" type="submit" style="width:100%;">Log In</button>
     </form>
+    <p style="margin-top:18px;text-align:center"><a href="/admin/login/forgot-password">Forgot your password?</a></p>
   </div>
 </div>
 </body>

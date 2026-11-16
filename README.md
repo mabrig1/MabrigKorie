@@ -96,3 +96,42 @@ card before their visitors can be counted; until then they are marked
 after approximately 60 days.
 
 See [installation, security, privacy and measurement details](docs/APP_PERFORMANCE_AGENT.md).
+
+## Administrator email password recovery
+
+The admin login at `/admin/login` now links to
+`/admin/login/forgot-password`. Recovery uses the existing MongoDB
+connection and Resend; **adding `RESEND_API_KEY` alone is not enough**.
+
+Configure these **Production** environment variables in Vercel:
+
+- `ADMIN_RECOVERY_EMAIL`: the exact, verified mailbox you personally control;
+  it is **not** automatically derived from the login username.
+- `RESEND_API_KEY`: secret Resend API key.
+- `RESEND_FROM_EMAIL`: a sender verified within your Resend account,
+  e.g. `MABRIG Support <no-reply@your-verified-domain>`.
+- `SITE_URL`: `https://www.mabrigkorie.org` (or the actual canonical HTTPS domain).
+- Keep `MONGODB_URI`, `ADMIN_USERNAME`, `ADMIN_PASSWORD` and `JWT_SECRET`
+  available to the deployment.
+
+Verify the sending domain/DNS in Resend first. Then **redeploy Production**
+so Vercel functions load the new environment variables. Do not commit secrets.
+Request recovery on the public form by entering the same configured address.
+The link expires after 15 minutes, is usable once, and is sent *only* to the
+configured recovery mailbox. Requests are globally throttled to one per five
+minutes. The public response is identical for invalid or unconfigured emails.
+
+After the first successful recovery, a bcrypt password hash is
+saved in MongoDB and becomes the **sole password source**. The former
+`ADMIN_PASSWORD` environment variable no longer grants access while the
+MongoDB record exists. Previously issued login tokens are revoked by comparing
+their password change version with MongoDB. Do not delete the `AdminAuth`
+document: this would restore the legacy environment password and undermine
+the recovery. If MongoDB becomes unavailable, login fails closed.
+
+**Deployment checks:** visit the login page and its recovery link; request
+a link for the configured inbox; use the link once; confirm the new password
+works, the old password fails, a second use of the same link fails, and
+existing admin sessions require a new login. Use Vercel runtime logs to
+investigate missing Resend domain verification or missing environment variables;
+never paste tokens or secrets into issues or support messages.

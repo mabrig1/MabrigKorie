@@ -1,0 +1,38 @@
+name: Admin Recovery Tests
+
+on:
+  push:
+    paths:
+      - 'routes/auth.js'
+      - 'middleware/auth.js'
+      - 'models/AdminAuth.js'
+      - 'services/adminReset.js'
+      - 'views/admin/**'
+      - 'tests/admin-reset.test.js'
+      - '.github/workflows/admin-recovery-tests.yml'
+  pull_request:
+    paths:
+      - 'routes/auth.js'
+      - 'middleware/auth.js'
+      - 'models/AdminAuth.js'
+      - 'services/adminReset.js'
+      - 'views/admin/**'
+      - 'tests/admin-reset.test.js'
+      - '.github/workflows/admin-recovery-tests.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+      - run: node --check routes/auth.js
+      - run: node --check middleware/auth.js
+      - run: node --check services/adminReset.js
