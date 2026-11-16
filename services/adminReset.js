@@ -30,14 +30,14 @@ function recoveryReadiness() {
   const email = normalizeEmail(process.env.ADMIN_RECOVERY_EMAIL);
   const apiKey = process.env.RESEND_API_KEY || '';
   const sender = process.env.RESEND_FROM_EMAIL || '';
-  const fromMatch = sender.trim().match(/^(?:[^<>\\r\\n]+\\s*<)?([^<>\\s@]+@[^<>\\s@]+\\.[^<>\\s@]+)>?$/);
+  const fromMatch = sender.trim().match(/^(?:[^<>\r\n]+\s*<)?([^<>\s@]+@[^<>\s@]+\.[^<>\s@]+)>?$/);
   let siteUrlIsHttps = false;
   try {
     const url = new URL(process.env.SITE_URL || '');
     siteUrlIsHttps = url.protocol === 'https:' && !url.username && !url.password && !url.search && !url.hash;
   } catch (_) { /* SITE_URL is absent or invalid. */ }
   const checks = {
-    recoveryEmail: /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email),
+    recoveryEmail: /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),
     resendKey: apiKey.startsWith('re_') && apiKey.length > 12,
     verifiedSenderConfigured: Boolean(fromMatch),
     siteUrlIsHttps,
