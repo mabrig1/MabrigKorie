@@ -121,7 +121,7 @@ The link expires after 15 minutes, is usable once, and is sent *only* to the
 configured recovery mailbox. Requests are globally throttled to one per five
 minutes. The public response is identical for invalid or unconfigured emails.
 
-After the first successful recovery, an Argon-free bcrypt password hash is
+After the first successful recovery, a bcrypt password hash is
 saved in MongoDB and becomes the **sole password source**. The former
 `ADMIN_PASSWORD` environment variable no longer grants access while the
 MongoDB record exists. Previously issued login tokens are revoked by comparing
