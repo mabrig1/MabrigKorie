@@ -26,6 +26,39 @@ function validateNewPassword(password) {
   return null;
 }
 
+function recoveryReadiness() {
+  const email = normalizeEmail(process.env.ADMIN_RECOVERY_EMAIL);
+  const apiKey = process.env.RESEND_API_KEY || '';
+  const sender = process.env.RESEND_FROM_EMAIL || '';
+  const fromMatch = sender.trim().match(/^(?:[^<>\\r\\n]+\\s*<)?([^<>\\s@]+@[^<>\\s@]+\\.[^<>\\s@]+)>?$/);
+  let siteUrlIsHttps = false;
+  try {
+    const url = new URL(process.env.SITE_URL || '');
+    siteUrlIsHttps = url.protocol === 'https:' && !url.username && !url.password && !url.search && !url.hash;
+  } catch (_) { /* SITE_URL is absent or invalid. */ }
+  const checks = {
+    recoveryEmail: /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email),
+    resendKey: apiKey.startsWith('re_') && apiKey.length > 12,
+    verifiedSenderConfigured: Boolean(fromMatch),
+    siteUrlIsHttps,
+    databaseConfigured: Boolean(process.env.MONGODB_URI),
+    jwtConfigured: Boolean(process.env.JWT_SECRET),
+  };
+  return {
+    checks,
+    readyForAttempt: Object.values(checks).every(Boolean),
+    disclaimer: 'Configuration checks do not verify the Resend key, sender domain, inbox delivery, or database connectivity.',
+  };
+}
+
+function deliveryErrorHint(status) {
+  if (status === 401) return 'Resend rejected authentication. Inspect the deployed RESEND_API_KEY.';
+  if (status === 403) return 'Resend denied sending. Check sender-domain verification and key permissions.';
+  if (status === 422 || status === 400) return 'Resend rejected message details. Check RESEND_FROM_EMAIL and recovery recipient.';
+  if (status === 429) return 'Resend rate limit reached; wait before retrying.';
+  return 'Resend could not accept the recovery email. Inspect the Resend dashboard Logs and Emails.';
+}
+
 function hashToken(token) {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
@@ -93,9 +126,17 @@ async function requestAdminReset(email) {
     });
 
     if (!response.ok) {
-      console.error(`Resend password recovery delivery failed (HTTP ${response.status})`);
+      console.error('Resend recovery send failed: HTTP ' + response.status + '. ' + deliveryErrorHint(response.status));
       throw new Error('Recovery email delivery failed');
     }
+    // A 2xx HTTP response is necessary but not enough: Resend normally
+    // returns an email ID upon accepting a message for delivery.
+    const receipt = await response.json();
+    if (!receipt || typeof receipt.id !== 'string' || !receipt.id.trim()) {
+      console.error('Resend recovery send returned no email receipt ID.');
+      throw new Error('Recovery email acknowledgement was incomplete');
+    }
+    console.info('Resend accepted admin recovery email for delivery; confirm the delivery event in Resend Emails.');
     return true;
   } catch (error) {
     // Let a legitimate admin retry if delivery failed.
@@ -135,6 +176,8 @@ async function consumeResetToken(token, password) {
 
 module.exports = {
   normalizeEmail,
+  recoveryReadiness,
+  deliveryErrorHint,
   isAuthorizedRecoveryEmail,
   validateNewPassword,
   requestAdminReset,
