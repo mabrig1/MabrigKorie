@@ -135,3 +135,31 @@ works, the old password fails, a second use of the same link fails, and
 existing admin sessions require a new login. Use Vercel runtime logs to
 investigate missing Resend domain verification or missing environment variables;
 never paste tokens or secrets into issues or support messages.
+
+
+### Password recovery self-check (November 2026)
+
+On the admin dashboard, open [Password Recovery Status](/admin/recovery-health)
+to check whether the **configuration** for password resets is present.
+It intentionally never displays the API key, recovery mailbox or password.
+The recovery service now checks Resend's returned email receipt ID before
+treating an API response as accepted, and logs limited diagnostics for HTTP
+401 (credential error), 403 (verification/permission error), 400/422
+(message validation), and 429 (rate limit). See the Vercel runtime logs.
+
+**Important:** Passing the checks does not prove that Resend's API key is
+active, that its sending domain is verified, or that Gmail received mail.
+Verify a real request by visiting
+`https://www.mabrigkorie.org/admin/login/forgot-password`, submitting
+the configured recovery email **once**, then checking Resend's **Emails**
+and **Logs** pages for acceptance, delivery, suppression, or bounce.
+A successful API response contains a Resend email ID; receiving mail is a
+separate downstream step. The public recovery page intentionally gives a
+generic response to avoid account enumeration.
+
+If the deployed app's recovery settings are absent, add
+`ADMIN_RECOVERY_EMAIL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL` and
+`SITE_URL` to the hosting environment and redeploy. Do not rotate
+`RESEND_API_KEY` unless an authentication error or compromised/revoked key
+is confirmed. On 403, first check that the sender uses a domain actually
+verified in Resend and that the API key allows sending.
