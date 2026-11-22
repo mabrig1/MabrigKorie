@@ -13,7 +13,7 @@ module.exports = [
       "PWA"
     ],
     "repo": "https://github.com/mabrig1/AI-University",
-    "live": "https://aiuniversityhq.uk/"
+    "live": "https://aiuniversity.mabrigkorie.org/"
   },
   {
     "slug": "openforge-africa",
