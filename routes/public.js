@@ -2,6 +2,7 @@ const express = require('express');
 const Work = require('../models/Work');
 const SocialLink = require('../models/SocialLink');
 const LATEST_APPS = require('../data/latest-apps');
+const { repairPublicWorkLink } = require('../services/publicLinkFixes');
 const router = express.Router();
 
 const SITE_NAME = 'Mabrig Korie';
@@ -179,11 +180,11 @@ router.get('/', async (req, res) => {
     getStats(),
   ]);
   const byCategory = {
-    app: works.filter((w) => w.category === 'app'),
-    research: works.filter((w) => w.category === 'research'),
-    book: works.filter((w) => w.category === 'book'),
-    music: works.filter((w) => w.category === 'music'),
-    service: works.filter((w) => w.category === 'service'),
+    app: works.filter((w) => w.category === 'app').map(repairPublicWorkLink),
+    research: works.filter((w) => w.category === 'research').map(repairPublicWorkLink),
+    book: works.filter((w) => w.category === 'book').map(repairPublicWorkLink),
+    music: works.filter((w) => w.category === 'music').map(repairPublicWorkLink),
+    service: works.filter((w) => w.category === 'service').map(repairPublicWorkLink),
   };
 
   res.render('index', {
@@ -243,7 +244,7 @@ router.get('/contact', (req, res) => {
 Object.keys(CATEGORY_PAGES).forEach((slug) => {
   router.get(`/${slug}`, async (req, res) => {
     const page = CATEGORY_PAGES[slug];
-    const works = await Work.find({ category: page.category }).sort({ order: 1, createdAt: -1 });
+    const works = (await Work.find({ category: page.category }).sort({ order: 1, createdAt: -1 })).map(repairPublicWorkLink);
 
     res.render('category', {
       siteName: SITE_NAME,
@@ -260,8 +261,9 @@ Object.keys(CATEGORY_PAGES).forEach((slug) => {
 });
 
 router.get('/work/:slug', async (req, res) => {
-  const work = await Work.findOne({ slug: req.params.slug });
-  if (!work) return res.status(404).send('Not found');
+  const storedWork = await Work.findOne({ slug: req.params.slug });
+  if (!storedWork) return res.status(404).send('Not found');
+  const work = repairPublicWorkLink(storedWork);
 
   res.render('work', {
     siteName: SITE_NAME,
@@ -283,6 +285,7 @@ router.get('/sitemap.xml', async (req, res) => {
     `${SITE_URL()}/`,
     ...Object.keys(CATEGORY_PAGES).map((slug) => `${SITE_URL()}/${slug}`),
     `${SITE_URL()}/devshield`,
+    `${SITE_URL()}/academy`,
     `${SITE_URL()}/contact`,
     ...works.map((w) => `${SITE_URL()}/work/${w.slug}`),
   ];

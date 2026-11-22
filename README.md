@@ -62,7 +62,7 @@ user-supplied and need independent runtime checks after release.
 
 | Product | Website | Source repository |
 | --- | --- | --- |
-| AI University (non-accredited learning playground) | https://aiuniversityhq.uk/ | https://github.com/mabrig1/AI-University |
+| AI University (non-accredited learning playground) | https://aiuniversity.mabrigkorie.org/ | https://github.com/mabrig1/AI-University |
 | OpenForge Africa | https://openforge.mabrigkorie.org/ | https://github.com/mabrig1/openforge-africa |
 | CampusVerse | https://www.campusverse.store/ | https://github.com/mabrig1/campusverse |
 | SupplyHQ Online | https://supplyhq.online/ | https://github.com/mabrig1/SupplyHQonline |

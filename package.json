@@ -8,6 +8,8 @@
     "dev": "node server.js",
     "seed": "node seed.js",
     "sync:latest-apps": "node scripts/sync-latest-apps.js",
+    "audit:links": "node scripts/audit-links.js",
+    "audit:links:online": "node scripts/audit-links.js --online",
     "test": "node --test"
   },
   "dependencies": {
