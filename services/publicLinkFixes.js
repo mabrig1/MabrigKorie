@@ -2,7 +2,7 @@
 // This also fixes previously seeded records that remain in the live database after a code deployment.
 const AI_UNIVERSITY_URL = 'https://aiuniversity.mabrigkorie.org/';
 const DESTINY_SKILLS_URL = 'https://ddei.online/';
-const APPLE_MUSIC_ARTIST_URL = 'https://music.apple.com/us/artist/mabrig-korie/1739098452';
+const APPLE_MUSIC_ARTIST_URL = 'https://music.apple.com/us/album/justice-before-unity/1876145438';
 const IGBO_TRUTH_URL = 'https://music.apple.com/us/album/igbo-truth-glory-hallelujah-single/1866634330';
 
 function repairPublicWorkLink(work) {
@@ -19,7 +19,7 @@ function repairPublicWorkLink(work) {
   ) {
     correctedUrl = DESTINY_SKILLS_URL;
   } else if (previousUrl === 'https://music.apple.com/album/justice-before-unity') {
-    // Stable, verified artist landing page rather than an incomplete album slug with no catalogue ID.
+    // Verified album page with a stable catalogue ID.
     correctedUrl = APPLE_MUSIC_ARTIST_URL;
   } else if (previousUrl === 'https://music.apple.com/album/igbo-truth-glory-hallelujah') {
     correctedUrl = IGBO_TRUTH_URL;
