@@ -19,12 +19,12 @@ test('all latest apps plus portfolio are in the immutable approved analytics cat
 
 test('admin-managed apps are added without duplicate hosts or insecure URLs', () => {
   const apps = catalogue([
-    { slug: 'same-host', title: 'Duplicate', url: 'https://aiuniversityhq.uk/' },
+    { slug: 'same-host', title: 'Duplicate', url: 'https://aiuniversity.mabrigkorie.org/' },
     { slug: 'another-app', title: 'Unique', url: 'https://another-public-app.example/' },
     { slug: 'bad-protocol', title: 'Unsecured', url: 'http://unsafe.example/' },
     { slug: 'bad-slug!', title: 'Not tracked', url: 'https://another-example.com/' },
   ]);
-  assert.equal(apps.filter((app) => app.origin === 'https://aiuniversityhq.uk').length, 1);
+  assert.equal(apps.filter((app) => app.origin === 'https://aiuniversity.mabrigkorie.org').length, 1);
   assert.ok(apps.some((app) => app.id === 'another-app'));
   assert.ok(!apps.some((app) => app.id === 'bad-protocol' || app.id === 'bad-slug!'));
 });
@@ -32,13 +32,14 @@ test('admin-managed apps are added without duplicate hosts or insecure URLs', ()
 test('only public registered origins and valid anonymous tab sessions can ingest events', () => {
   const apps = catalogue();
   const valid = { app: 'ai-university', session: 'a'.repeat(32), path: '/courses' };
-  const clean = validateHit(apps, 'https://aiuniversityhq.uk', valid);
+  const clean = validateHit(apps, 'https://aiuniversity.mabrigkorie.org', valid);
   assert.deepEqual(clean, { appId: 'ai-university', sessionId: valid.session, pathname: '/courses' });
+  assert.equal(validateHit(apps, 'https://aiuniversityhq.uk', valid), null, 'old AI University origin must not be trusted');
   assert.equal(validateHit(apps, 'https://attacker.example', valid), null);
   assert.equal(validateHit(apps, 'https://www.campusverse.store', valid), null);
-  assert.equal(validateHit(apps, 'https://aiuniversityhq.uk', { ...valid, path: '//evil' }), null);
-  assert.equal(validateHit(apps, 'https://aiuniversityhq.uk', { ...valid, path: '/?email=private' }), null);
-  assert.equal(validateHit(apps, 'https://aiuniversityhq.uk', { ...valid, session: 'abc' }), null);
+  assert.equal(validateHit(apps, 'https://aiuniversity.mabrigkorie.org', { ...valid, path: '//evil' }), null);
+  assert.equal(validateHit(apps, 'https://aiuniversity.mabrigkorie.org', { ...valid, path: '/?email=private' }), null);
+  assert.equal(validateHit(apps, 'https://aiuniversity.mabrigkorie.org', { ...valid, session: 'abc' }), null);
 });
 
 test('trend buckets have the correct time range', () => {
